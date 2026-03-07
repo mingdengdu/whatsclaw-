@@ -1,13 +1,73 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>WhatsClaw — WhatsApp AI for Shopify</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:#0a0a0a;color:#fff}nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}.logo{font-size:24px;font-weight:900}.logo span{color:#25D366}.hero{text-align:center;padding:80px 20px}h1{font-size:clamp(32px,6vw,64px);font-weight:900;margin-bottom:20px}h1 em{font-style:normal;color:#25D366}.sub{font-size:18px;color:#888;max-width:560px;margin:0 auto 40px;line-height:1.6}.btn{display:inline-block;background:#25D366;color:#000;font-weight:700;padding:16px 36px;border-radius:8px;font-size:16px;margin:8px;cursor:pointer;border:none;text-decoration:none}.btn2{display:inline-block;background:transparent;color:#fff;font-weight:600;padding:16px 36px;border-radius:8px;font-size:16px;border:1px solid #333;margin:8px;text-decoration:none}.stats{display:flex;justify-content:center;gap:40px;padding:40px;flex-wrap:wrap}.stat{text-align:center}.stat .n{font-size:36px;font-weight:900;color:#25D366}.stat .l{color:#666;font-size:14px;margin-top:4px}.pricing{max-width:900px;margin:0 auto;padding:60px 20px}.pricing h2{text-align:center;font-size:32px;margin-bottom:8px}.sub2{text-align:center;color:#555;font-size:14px;margin-bottom:36px}.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.plan{background:#111;border:1px solid #222;border-radius:14px;padding:28px}.plan.hot{border-color:#25D366}.plan h3{font-size:18px;margin-bottom:12px}.price{font-size:38px;font-weight:900;color:#25D366;margin-bottom:4px}.price small{font-size:14px;color:#666;font-weight:400}.plan ul{list-style:none;margin:16px 0 20px}.plan ul li{padding:7px 0;font-size:14px;color:#aaa;border-bottom:1px solid #1a1a1a}.plan ul li::before{content:"✓ ";color:#25D366;font-weight:700}.pay-row{display:flex;gap:8px;margin-top:4px}.pb{flex:1;padding:11px 6px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;border:none;text-decoration:none;display:block;text-align:center}.pb.g{background:#25D366;color:#000}.pb.s{background:transparent;color:#fff;border:1px solid #333}.pb.w{background:#07C160;color:#fff}.trial{text-align:center;font-size:11px;color:#555;margin-top:8px}footer{text-align:center;padding:40px;color:#444;font-size:13px;border-top:1px solid #1a1a1a}#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center}#ov.on{display:flex}#box{background:#fff;border-radius:20px;padding:28px 24px;text-align:center;max-width:300px;width:90%;position:relative}#xbtn{position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#999}#hdr{background:#07C160;border-radius:12px;padding:14px 0 10px;margin-bottom:16px;color:#fff}#hdr .wl{font-size:12px;opacity:0.85;margin-bottom:6px}#amt{font-size:30px;font-weight:900;margin-bottom:2px}#lbl{font-size:11px;opacity:0.8}#qr{width:190px;height:190px;border-radius:8px;border:1px solid #eee}#nm{margin-top:10px;font-size:14px;font-weight:600;color:#333}#nt{margin-top:6px;font-size:11px;color:#999;line-height:1.5}</style></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>WhatsClaw — WhatsApp AI for Shopify</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,sans-serif;background:#0a0a0a;color:#fff}nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}.logo{font-size:24px;font-weight:900}.logo span{color:#25D366}.hero{text-align:center;padding:80px 20px}h1{font-size:clamp(32px,6vw,64px);font-weight:900;margin-bottom:20px}h1 em{font-style:normal;color:#25D366}.sub{font-size:18px;color:#888;max-width:560px;margin:0 auto 40px;line-height:1.6}.btn{display:inline-block;background:#25D366;color:#000;font-weight:700;padding:16px 36px;border-radius:8px;font-size:16px;margin:8px;cursor:pointer;border:none;text-decoration:none}.btn2{display:inline-block;background:transparent;color:#fff;font-weight:600;padding:16px 36px;border-radius:8px;font-size:16px;border:1px solid #333;margin:8px;text-decoration:none}.stats{display:flex;justify-content:center;gap:40px;padding:40px;flex-wrap:wrap}.stat{text-align:center}.stat .n{font-size:36px;font-weight:900;color:#25D366}.stat .l{color:#666;font-size:14px;margin-top:4px}.pricing{max-width:900px;margin:0 auto;padding:60px 20px}.pricing h2{text-align:center;font-size:32px;margin-bottom:8px}.sub2{text-align:center;color:#555;font-size:14px;margin-bottom:36px}.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}.plan{background:#111;border:1px solid #222;border-radius:14px;padding:28px}.plan.hot{border-color:#25D366}.plan h3{font-size:18px;margin-bottom:12px}.price{font-size:38px;font-weight:900;color:#25D366;margin-bottom:4px}.price small{font-size:14px;color:#666;font-weight:400}.plan ul{list-style:none;margin:16px 0 20px}.plan ul li{padding:7px 0;font-size:14px;color:#aaa;border-bottom:1px solid #1a1a1a}.plan ul li::before{content:"✓ ";color:#25D366;font-weight:700}.pay-row{display:flex;gap:8px;margin-top:4px}.pb{flex:1;padding:11px 6px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;border:none;text-decoration:none;display:block;text-align:center}.pb.g{background:#25D366;color:#000}.pb.s{background:transparent;color:#fff;border:1px solid #333}.pb.w{background:#07C160;color:#fff}.trial{text-align:center;font-size:11px;color:#555;margin-top:8px}footer{text-align:center;padding:40px;color:#444;font-size:13px;border-top:1px solid #1a1a1a}
+/* WeChat Pay Modal */
+#ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1000;align-items:center;justify-content:center}#ov.on{display:flex}#box{background:#fff;border-radius:20px;padding:28px 24px;text-align:center;max-width:320px;width:90%;position:relative}#xbtn{position:absolute;top:10px;right:14px;background:none;border:none;font-size:22px;cursor:pointer;color:#999}#hdr{background:#07C160;border-radius:12px;padding:14px 0 10px;margin-bottom:16px;color:#fff}#hdr .wl{font-size:12px;opacity:0.85;margin-bottom:6px}#amt{font-size:30px;font-weight:900;margin-bottom:2px}#lbl{font-size:11px;opacity:0.8}
+/* Currency tabs */
+.cur-tabs{display:flex;gap:0;margin-bottom:14px;border-radius:8px;overflow:hidden;border:1px solid #ddd}.cur-tab{flex:1;padding:8px 0;font-size:13px;font-weight:700;cursor:pointer;border:none;background:#f5f5f5;color:#666;transition:all .2s}.cur-tab.active{background:#07C160;color:#fff}
+#qr{width:190px;height:190px;border-radius:8px;border:1px solid #eee}#nm{margin-top:10px;font-size:14px;font-weight:600;color:#333}#nt{margin-top:6px;font-size:11px;color:#999;line-height:1.5}
+</style></head><body>
 <nav><div class="logo">Whats<span>Claw</span></div><div><a href="mailto:hello@whatsclaw.xyz" style="color:#25D366">Contact</a></div></nav>
 <div class="hero"><h1>WhatsApp AI for<br><em>Shopify Stores</em></h1><p class="sub">Recover abandoned carts, answer questions, track orders — automatically. 98% open rate. No per-message fees.</p><a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01" class="btn">Start Free Trial →</a><a href="mailto:hello@whatsclaw.xyz" class="btn2">Book a Demo</a><p style="margin-top:16px;font-size:13px;color:#555">14-day free trial · Cancel anytime</p></div>
 <div class="stats"><div class="stat"><div class="n">98%</div><div class="l">WhatsApp open rate</div></div><div class="stat"><div class="n">3x</div><div class="l">cart recovery vs email</div></div><div class="stat"><div class="n">$0</div><div class="l">per message fee</div></div><div class="stat"><div class="n">5min</div><div class="l">to go live</div></div></div>
-<div class="pricing" id="pricing"><h2>Simple Pricing</h2><p class="sub2">Card via Stripe · WeChat Pay available</p><div class="plans">
+<div class="pricing" id="pricing"><h2>Simple Pricing</h2><p class="sub2">Card via Stripe · WeChat Pay (CNY &amp; HKD)</p><div class="plans">
 <div class="plan"><h3>Starter</h3><div class="price">$29<small>/mo</small></div><ul><li>1 WhatsApp number</li><li>Unlimited AI chats</li><li>Order tracking</li><li>Cart recovery</li></ul><div class="pay-row"><a href="https://buy.stripe.com/cNiaEQf6g9Jx2kc37M3oA00" class="pb s">💳 Card</a><button class="pb w" onclick="openWC('starter')">WeChat Pay</button></div><div class="trial">14 days free · then $29/mo</div></div>
 <div class="plan hot"><h3>⭐ Growth</h3><div class="price">$79<small>/mo</small></div><ul><li>3 WhatsApp numbers</li><li>Auto discount codes</li><li>CRM integration</li><li>Analytics dashboard</li></ul><div class="pay-row"><a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01" class="pb g">💳 Card</a><button class="pb w" onclick="openWC('growth')">WeChat Pay</button></div><div class="trial">14 days free · then $79/mo</div></div>
 <div class="plan"><h3>Enterprise</h3><div class="price">$199<small>/mo</small></div><ul><li>Private deployment</li><li>Unlimited numbers</li><li>Custom AI training</li><li>Dedicated support</li></ul><div class="pay-row"><a href="mailto:hello@whatsclaw.xyz?subject=Enterprise" class="pb s">✉️ Contact</a><button class="pb w" onclick="openWC('enterprise')">WeChat Pay</button></div><div class="trial">Custom pricing available</div></div>
 </div></div>
 <footer>2026 WhatsClaw &middot; <a href="mailto:hello@whatsclaw.xyz" style="color:#444">hello@whatsclaw.xyz</a></footer>
-<div id="ov" onclick="if(event.target===this)closeWC()"><div id="box"><button id="xbtn" onclick="closeWC()">✕</button><div id="hdr"><div class="wl">Welcome to WeChat Pay HK</div><div id="amt">HK$615</div><div id="lbl">Growth · Monthly</div></div><img id="qr" src="/images/wechatpay.png" alt="WeChat Pay QR"><div id="nm">Marty Du</div><div id="nt">Please note plan name + email after payment<br>Account activated within 24h</div></div></div>
-<script>var P={starter:{a:'HK$225',l:'Starter · Monthly ($29/mo)'},growth:{a:'HK$615',l:'Growth · Monthly ($79/mo)'},enterprise:{a:'HK$1,550',l:'Enterprise · Monthly ($199/mo)'}};function openWC(p){var x=P[p]||P.growth;document.getElementById('amt').textContent=x.a;document.getElementById('lbl').textContent=x.l;document.getElementById('ov').classList.add('on')}function closeWC(){document.getElementById('ov').classList.remove('on')}</script>
+
+<!-- WeChat Pay Modal -->
+<div id="ov" onclick="if(event.target===this)closeWC()">
+  <div id="box">
+    <button id="xbtn" onclick="closeWC()">✕</button>
+    <div id="hdr">
+      <div class="wl">WeChat Pay</div>
+      <div id="amt">¥575</div>
+      <div id="lbl">Growth · Monthly ($79/mo)</div>
+    </div>
+    <div class="cur-tabs">
+      <button class="cur-tab active" onclick="setCur('cny',this)">CNY 人民币</button>
+      <button class="cur-tab" onclick="setCur('hkd',this)">HKD 港币</button>
+    </div>
+    <img id="qr" src="/images/wechat.png" alt="WeChat Pay QR">
+    <div id="nm">Marty Du</div>
+    <div id="nt">Please note plan name + email in payment remarks<br>Account activated within 24h</div>
+  </div>
+</div>
+
+<script>
+var P = {
+  starter:    { cny: '¥211',    hkd: 'HK$225',   l: 'Starter · Monthly ($29/mo)' },
+  growth:     { cny: '¥575',    hkd: 'HK$615',   l: 'Growth · Monthly ($79/mo)' },
+  enterprise: { cny: '¥1,449',  hkd: 'HK$1,545', l: 'Enterprise · Monthly ($199/mo)' }
+};
+var curPlan = 'growth';
+var curCur = 'cny';
+
+function openWC(p) {
+  curPlan = p || 'growth';
+  curCur = 'cny';
+  // reset tabs
+  document.querySelectorAll('.cur-tab').forEach(function(t,i){ t.classList.toggle('active', i===0); });
+  renderModal();
+  document.getElementById('ov').classList.add('on');
+}
+
+function setCur(c, el) {
+  curCur = c;
+  document.querySelectorAll('.cur-tab').forEach(function(t){ t.classList.remove('active'); });
+  el.classList.add('active');
+  renderModal();
+}
+
+function renderModal() {
+  var x = P[curPlan] || P.growth;
+  document.getElementById('amt').textContent = x[curCur];
+  document.getElementById('lbl').textContent = x.l;
+  document.getElementById('qr').src = curCur === 'cny' ? '/images/wechat.png' : '/images/wechatpay.png';
+}
+
+function closeWC() {
+  document.getElementById('ov').classList.remove('on');
+}
+</script>
 </body></html>
