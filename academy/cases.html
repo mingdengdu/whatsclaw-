@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10种用 OpenClaw 赚钱的方式 — 真实案例全解析</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB',sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0d1117 0%,#0d2318 50%,#0d1117 100%);padding:72px 20px 56px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(37,211,102,.1) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;padding:7px 18px;border-radius:100px;font-size:13px;font-weight:700;margin-bottom:24px}
+.hero h1{font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:#25d366}
+.hero p{font-size:17px;color:#8b949e;max-width:580px;margin:0 auto 36px;line-height:1.75}
+.shock-box{background:rgba(37,211,102,.06);border:1px solid rgba(37,211,102,.2);border-radius:16px;padding:24px 32px;display:inline-block;margin-bottom:40px;max-width:680px}
+.shock-box .s-title{font-size:13px;font-weight:700;color:#25d366;letter-spacing:1px;margin-bottom:12px}
+.compare-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center}
+.compare-col{flex:1;min-width:200px;background:#161b22;border-radius:12px;padding:16px;text-align:left}
+.compare-col.bad{border:1px solid #6e7681}
+.compare-col.good{border:1px solid #25d366}
+.col-label{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:10px}
+.bad .col-label{color:#6e7681}
+.good .col-label{color:#25d366}
+.compare-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:#8b949e;margin-bottom:8px}
+.x{color:#f85149}.v{color:#25d366}
+.vs{font-size:22px;font-weight:900;color:#30363d;flex-shrink:0}
+
+/* LEVEL BADGE */
+.level-nav{display:flex;justify-content:center;gap:12px;padding:32px 20px 0;flex-wrap:wrap}
+.lnav{padding:10px 24px;border-radius:100px;font-size:14px;font-weight:700;cursor:pointer;border:1px solid #30363d;color:#8b949e;background:transparent;transition:all .2s}
+.lnav.l1{border-color:#25d366;color:#25d366}
+.lnav.l2{border-color:#58a6ff;color:#58a6ff}
+.lnav.l3{border-color:#f0883e;color:#f0883e}
+
+/* CASES */
+.cases-section{max-width:1100px;margin:0 auto;padding:40px 20px}
+.level-header{display:flex;align-items:center;gap:16px;margin:48px 0 28px}
+.level-pill{padding:6px 18px;border-radius:100px;font-size:12px;font-weight:800;letter-spacing:1px}
+.lp1{background:rgba(37,211,102,.15);color:#25d366;border:1px solid rgba(37,211,102,.3)}
+.lp2{background:rgba(88,166,255,.15);color:#58a6ff;border:1px solid rgba(88,166,255,.3)}
+.lp3{background:rgba(240,136,62,.15);color:#f0883e;border:1px solid rgba(240,136,62,.3)}
+.level-title{font-size:24px;font-weight:800}
+.level-sub{font-size:14px;color:#6e7681;margin-left:auto}
+
+.case-card{background:#161b22;border:1px solid #21262d;border-radius:20px;margin-bottom:24px;overflow:hidden;transition:border-color .2s}
+.case-card:hover{border-color:#30363d}
+.case-header{padding:24px 28px 0;display:flex;align-items:flex-start;gap:20px}
+.case-num{font-size:11px;font-weight:800;letter-spacing:2px;color:#6e7681;margin-bottom:6px}
+.case-icon{font-size:40px;flex-shrink:0}
+.case-info{flex:1}
+.case-title{font-size:20px;font-weight:800;margin-bottom:6px}
+.case-tagline{font-size:14px;color:#8b949e}
+.income-badge{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;padding:4px 12px;border-radius:6px;font-size:13px;font-weight:700;margin-left:auto;white-space:nowrap}
+
+.case-body{padding:20px 28px 28px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.case-body{grid-template-columns:1fr}}
+
+.story-box{background:#0d1117;border-radius:12px;padding:18px}
+.box-label{font-size:11px;font-weight:700;letter-spacing:1px;color:#6e7681;margin-bottom:10px}
+.story-text{font-size:14px;color:#8b949e;line-height:1.75}
+.story-text strong{color:#e6edf3;font-weight:600}
+
+/* Chat mockup */
+.chat-box{background:#1a1a2e;border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:10px 14px;border-radius:14px;font-size:13px;line-height:1.5}
+.msg.recv{background:#262d3d;color:#e6edf3;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.sent{background:#25d366;color:#000;align-self:flex-end;border-bottom-right-radius:4px;font-weight:500}
+.msg.ai{background:#1e3a2f;color:#7dde9b;align-self:flex-start;border-bottom-left-radius:4px;border:1px solid rgba(37,211,102,.2)}
+.msg-label{font-size:10px;color:#6e7681;margin-bottom:2px}
+
+.steps-list{display:flex;flex-direction:column;gap:10px}
+.step{display:flex;gap:12px;align-items:flex-start}
+.step-dot{width:24px;height:24px;border-radius:50%;background:rgba(37,211,102,.15);border:1px solid rgba(37,211,102,.3);color:#25d366;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.step-text{font-size:13px;color:#8b949e;line-height:1.6}
+.step-text strong{color:#e6edf3}
+
+.result-bar{display:flex;gap:12px;flex-wrap:wrap;padding:16px 28px;background:rgba(37,211,102,.04);border-top:1px solid #21262d}
+.r-item{display:flex;align-items:center;gap:8px;font-size:13px;color:#8b949e}
+.r-item .ri{color:#25d366;font-size:16px}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,#0d2318,#0d1117);border:1px solid rgba(37,211,102,.2);border-radius:24px;padding:56px 40px;text-align:center;margin:48px 0}
+.cta-section h2{font-size:36px;font-weight:900;margin-bottom:12px}
+.cta-section h2 em{font-style:normal;color:#25d366}
+.cta-section p{font-size:16px;color:#8b949e;max-width:520px;margin:0 auto 32px}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-g{background:#25d366;color:#000;font-weight:800;padding:16px 36px;border-radius:12px;font-size:15px;display:inline-block}
+.btn-o{border:1px solid #30363d;color:#e6edf3;font-weight:600;padding:16px 32px;border-radius:12px;font-size:15px;display:inline-block}
+.formula{display:flex;align-items:center;justify-content:center;gap:16px;font-size:28px;font-weight:900;margin:32px 0;flex-wrap:wrap}
+.f-box{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:14px 24px;font-size:18px}
+.f-plus{color:#6e7681}
+.f-eq{color:#25d366}
+.f-result{background:rgba(37,211,102,.1);border-color:rgba(37,211,102,.3);color:#25d366}
+
+footer{text-align:center;padding:32px;color:#6e7681;font-size:13px;border-top:1px solid #21262d}
+footer a{color:#25d366}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">🦞 10种 OpenClaw 赚钱案例</div>
+  <h1>用了 vs 没用<br><em>差距有多大？</em></h1>
+  <p>10个真实场景，从个人副业到全球电商。看完你会明白，为什么2026年不用 AI 工具就是在裸奔。</p>
+
+  <div class="shock-box">
+    <div class="s-title">⚡ 没有 AI 工具 vs 有了 WhatsClaw</div>
+    <div class="compare-row">
+      <div class="compare-col bad">
+        <div class="col-label">❌ 没用 OpenClaw 的你</div>
+        <div class="compare-item"><span class="x">✗</span>每天手动回复 50+ 条消息</div>
+        <div class="compare-item"><span class="x">✗</span>晚上睡觉，客户问了没人答</div>
+        <div class="compare-item"><span class="x">✗</span>弃购了不知道，钱白白流失</div>
+        <div class="compare-item"><span class="x">✗</span>服务器 $100/月起，技术门槛高</div>
+        <div class="compare-item"><span class="x">✗</span>做了3个月还没赚到第一笔钱</div>
+      </div>
+      <div class="vs">VS</div>
+      <div class="compare-col good">
+        <div class="col-label">✅ 用了 WhatsClaw 的你</div>
+        <div class="compare-item"><span class="v">✓</span>AI 3秒自动回复，你在睡觉</div>
+        <div class="compare-item"><span class="v">✓</span>24小时在线，0漏单</div>
+        <div class="compare-item"><span class="v">✓</span>弃购30分钟自动发挽回消息</div>
+        <div class="compare-item"><span class="v">✓</span>$1/月服务器，今天就能上线</div>
+        <div class="compare-item"><span class="v">✓</span>3天内完成第一笔收款</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="formula">
+    <div class="f-box">📱 WhatsApp</div>
+    <div class="f-plus">+</div>
+    <div class="f-box">🦞 OpenClaw</div>
+    <div class="f-eq">=</div>
+    <div class="f-box f-result">💰 WhatsClaw</div>
+  </div>
+</div>
+
+<!-- LEVEL NAV -->
+<div class="level-nav">
+  <div class="lnav l1">🌱 Level 1 — 入门（0基础）</div>
+  <div class="lnav l2">🚀 Level 2 — 进阶（有产品）</div>
+  <div class="lnav l3">💎 Level 3 — 高手（规模化）</div>
+</div>
+
+<div class="cases-section">
+
+  <!-- LEVEL 1 -->
+  <div class="level-header">
+    <span class="level-pill lp1">🌱 LEVEL 1 — 入门</span>
+    <div class="level-title">0基础，1美金起步</div>
+    <div class="level-sub">适合：上班族副业 / 学生 / 刚想做自媒体的人</div>
+  </div>
+
+  <!-- Case 1 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">📖</div>
+      <div class="case-info">
+        <div class="case-num">CASE 01</div>
+        <div class="case-title">OpenClaw 教程售卖机器</div>
+        <div class="case-tagline">把你学会的东西，自动卖给后来的人</div>
+      </div>
+      <div class="income-badge">¥3,000-15,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>小李，26岁，深圳，普通上班族。</strong><br><br>
+          他花3天学会了 OpenClaw，然后花1天录了一个30分钟的视频教程，发到小红书。<br><br>
+          视频自动被推给10万人。每天有20-30个人加他微信问"能不能帮我装"。<br><br>
+          <strong>他设置了 WhatsClaw 自动回复</strong>：发链接、报价、收款码。他睡觉时，钱自动进账。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">陌生人 → 小李的 WhatsApp</div>
+          <div class="msg recv">你好，看到你的视频，OpenClaw怎么安装？</div>
+          <div class="msg ai">👋 你好！OpenClaw安装教程套餐¥20，包含完整视频+命令包。扫码付款后自动发送，全程10分钟搞定 👇</div>
+          <div class="msg recv">好的，扫码付了</div>
+          <div class="msg ai">✅ 收到！教程已发送到你的邮箱。有任何问题直接回复这里，AI会帮你解答 🎉</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>今天</strong>：照着教程装好 OpenClaw（1小时）</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>明天</strong>：录30分钟屏幕教学视频，发小红书/B站</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>后天</strong>：配置 WhatsApp 自动回复+付款链接</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>持续</strong>：流量来了，AI自动转化，钱自动收</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：3天</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1（服务器）</div>
+      <div class="r-item"><span class="ri">📈</span>月收入上限：¥15,000+</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐（入门）</div>
+    </div>
+  </div>
+
+  <!-- Case 2 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">🍜</div>
+      <div class="case-info">
+        <div class="case-num">CASE 02</div>
+        <div class="case-title">本地餐厅 AI 订位/外卖助手</div>
+        <div class="case-tagline">帮隔壁餐厅装一个，收月服务费</div>
+      </div>
+      <div class="income-badge">¥2,000-8,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>阿梅，广州，自由职业。</strong><br><br>
+          她找了5家附近的餐厅，告诉老板："我帮你的 WhatsApp 装个AI，帮你自动接受预订、回答菜单问题、发优惠券。一个月¥800，不满意退款。"<br><br>
+          5家全部同意了。<strong>每家配置只需2小时。5家 = ¥4,000/月，纯被动</strong>。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">顾客 → 某餐厅 WhatsApp</div>
+          <div class="msg recv">今晚7点能预订4位吗</div>
+          <div class="msg ai">🍽️ 没问题！今晚7点4位已帮您预留。请问有什么忌口或特殊需求吗？到店前1小时会自动发提醒给您 ✨</div>
+          <div class="msg recv">太方便了，谢谢</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>周末</strong>：走访5-10家周边商家，聊痛点</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>签约</strong>：¥800/月起，先免费试用1周</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>配置</strong>：2小时/家，写 SOUL.md 菜单+FAQ</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>收钱</strong>：每月初自动扣费，不需要管</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：1周</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1（服务器）</div>
+      <div class="r-item"><span class="ri">📈</span>10家客户 = ¥8,000/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐（入门+）</div>
+    </div>
+  </div>
+
+  <!-- Case 3 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">✍️</div>
+      <div class="case-info">
+        <div class="case-num">CASE 03</div>
+        <div class="case-title">AI 内容代写服务</div>
+        <div class="case-tagline">用AI批量生产，用人工价格收费</div>
+      </div>
+      <div class="income-badge">¥2,000-8,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>小张，厦门，在校大学生。</strong><br><br>
+          他在闲鱼发了一条："AI小红书代写，10篇¥299，24小时交付。"<br><br>
+          OpenClaw 帮他写，他只需审核5分钟。<strong>一天接5单，月入¥4,500</strong>。<br><br>
+          后来他把接单、沟通、发稿全流程都给了 WhatsApp AI，变成了完全被动收入。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">客户 → 小张的 WhatsApp</div>
+          <div class="msg recv">我要10篇美妆小红书，风格清新，有货号</div>
+          <div class="msg ai">收到！10篇小红书，美妆清新风，含货号。报价¥299，24小时内交付。请先付款，我们即刻开始创作 ✨</div>
+          <div class="msg recv">付了，开始吧</div>
+          <div class="msg ai">✅ 已确认！预计明天上午10点前发送到您的邮箱。如有特殊要求请现在告诉我 📝</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>发布</strong>：闲鱼/小红书/朋友圈发服务帖</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>接单</strong>：WhatsApp AI 自动回复+收款</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>生产</strong>：OpenClaw 批量生成，人工5分钟审核</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>交付</strong>：自动发邮件，客户好评，持续复购</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：1天</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：¥0</div>
+      <div class="r-item"><span class="ri">📈</span>规模化后 ¥8,000+/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐（最容易）</div>
+    </div>
+  </div>
+
+  <!-- LEVEL 2 -->
+  <div class="level-header">
+    <span class="level-pill lp2">🚀 LEVEL 2 — 进阶</span>
+    <div class="level-title">有产品/服务，扩大变现</div>
+    <div class="level-sub">适合：微商 / 有店铺 / 跨境电商 / 自由职业者</div>
+  </div>
+
+  <!-- Case 4 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">🛍️</div>
+      <div class="case-info">
+        <div class="case-num">CASE 04</div>
+        <div class="case-title">Shopify 弃购挽回机器</div>
+        <div class="case-tagline">沉睡的弃购订单，AI自动变现金</div>
+      </div>
+      <div class="income-badge">$500-3,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>Sarah，香港，Shopify 珠宝店。</strong><br><br>
+          她的店每天有 47 条 WhatsApp 消息，她只能回复其中 12 条。弃购率 71%。<br><br>
+          装上 WhatsClaw 后：弃购自动发挽回消息，30分钟内响应率 34%。<br><br>
+          <strong>第一个月额外回收了 $2,840。</strong>她什么都没做，只是开了一个开关。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">WhatsClaw → 弃购客户（自动，30分钟后）</div>
+          <div class="msg ai">Hi Emma! 🛍️ 你刚刚看了我们的 Silver Necklace Set，是不是有什么顾虑？现在下单可以享受专属 10% 折扣，今天最后一天哦 💎</div>
+          <div class="msg recv">哇真的假的，好吧我买了😂</div>
+          <div class="msg ai">🎉 太好了！订单已确认，预计3-5天送达。感谢支持！</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>安装</strong>：WhatsClaw 连接 Shopify，5分钟</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>配置</strong>：弃购触发规则（30分钟/1小时/24小时）</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>运行</strong>：完全自动，你不需要做任何事</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>看钱</strong>：Dashboard 看每天多回收了多少</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：5分钟</div>
+      <div class="r-item"><span class="ri">💰</span>月费：$29起</div>
+      <div class="r-item"><span class="ri">📈</span>ROI：平均回收 10-30x 月费</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐（进阶）</div>
+    </div>
+  </div>
+
+  <!-- Case 5 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">📢</div>
+      <div class="case-info">
+        <div class="case-num">CASE 05</div>
+        <div class="case-title">WhatsApp 会员群运营变现</div>
+        <div class="case-tagline">用 AI 管理500人群，收订阅费</div>
+      </div>
+      <div class="income-badge">¥5,000-20,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>Kelvin，深圳，跨境电商选品顾问。</strong><br><br>
+          他建了一个"跨境选品情报群"，每天 OpenClaw 自动扒取 TikTok/Amazon 爆品，整理成报告发到群里。<br><br>
+          群里500人，每人¥99/月。<strong>月收入 ¥49,500，他每天只需10分钟审核</strong>。<br><br>
+          WhatsClaw 负责自动续费提醒、新人欢迎、问题解答。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">会员到期提醒（全自动）</div>
+          <div class="msg ai">📅 Hi！你的选品情报会员将在3天后到期。本月爆品命中率 87%，续费仅¥99 👇</div>
+          <div class="msg recv">续！直接扣吧</div>
+          <div class="msg ai">✅ 已续费成功！继续为你推送最新爆品情报，感谢信任 🚀</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>建群</strong>：WhatsApp群/企微群，定一个垂直主题</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>内容</strong>：OpenClaw 每日自动生成+推送</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>收费</strong>：¥99-299/月，WhatsClaw 自动续费提醒</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>裂变</strong>：老会员邀请新会员，送1个月</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：1周</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1</div>
+      <div class="r-item"><span class="ri">📈</span>100人群 = ¥9,900/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐⭐（进阶+）</div>
+    </div>
+  </div>
+
+  <!-- Case 6 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">🌏</div>
+      <div class="case-info">
+        <div class="case-num">CASE 06</div>
+        <div class="case-title">海外华人生活服务 Bot</div>
+        <div class="case-tagline">帮海外华人解决日常问题，收订阅费</div>
+      </div>
+      <div class="income-badge">$500-2,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>阿强，马来西亚槟城，华人社区。</strong><br><br>
+          他做了一个"槟城华人生活助手"WhatsApp Bot：找工作、推荐餐厅、翻译文件、签证问答。<br><br>
+          在华人社群转发，3天 800 人订阅，每人 RM19.9/月（约¥32）。<br><br>
+          <strong>月收入超过 RM15,920，折合人民币约 ¥25,000。</strong>
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">华人用户 → 槟城助手</div>
+          <div class="msg recv">我想申请马来西亚工作签，需要什么文件？</div>
+          <div class="msg ai">📋 马来西亚工作签（Employment Pass）所需文件清单：<br>1. 有效护照（剩余6个月以上）<br>2. 雇主出具的工作合同<br>3. 学历证明...<br><br>需要帮你找当地认证机构吗？</div>
+          <div class="msg recv">太好了！帮我找一下</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>选城市</strong>：选一个海外华人聚集地（新加坡/马来西亚/澳大利亚）</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>建Bot</strong>：配置本地生活知识库（餐厅/交通/签证/工作）</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>推广</strong>：在华人微信群/Facebook群分享</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>订阅</strong>：低月费大量用户，稳定被动收入</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：3天</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1</div>
+      <div class="r-item"><span class="ri">📈</span>1000订阅 = $2,000/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐（进阶）</div>
+    </div>
+  </div>
+
+  <!-- LEVEL 3 -->
+  <div class="level-header">
+    <span class="level-pill lp3">💎 LEVEL 3 — 高手</span>
+    <div class="level-title">规模化，建立 AI 商业护城河</div>
+    <div class="level-sub">适合：创业者 / 有团队 / 想做 SaaS / 代理商</div>
+  </div>
+
+  <!-- Case 7 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">💼</div>
+      <div class="case-info">
+        <div class="case-num">CASE 07</div>
+        <div class="case-title">企业微信 AI 客服 SaaS</div>
+        <div class="case-tagline">用 OpenClaw 做一个卖给企业的产品</div>
+      </div>
+      <div class="income-badge">¥10,000+/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>老王，杭州，传统外贸公司IT负责人。</strong><br><br>
+          他用 OpenClaw 给公司搭了一个企业微信智能客服，每天自动处理200+询盘，转化率提升40%。<br><br>
+          老板说"这个东西能不能卖给我们的供应商？"<br><br>
+          他整理成了一个标准化产品，<strong>¥2,800/年/家，现在有12家企业客户，年收入¥33,600</strong>，全部是兼职做的。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">外贸询盘 → 企业微信 AI</div>
+          <div class="msg recv">Hi, we need 5000 pcs of phone cases, can you quote?</div>
+          <div class="msg ai">Hello! Thank you for your inquiry. For 5,000 pcs phone cases, our price is $0.85/pc (MOQ 1000). Lead time: 15 days. Shall I send you our full catalogue? 📦</div>
+          <div class="msg recv">Yes please, also your payment terms?</div>
+          <div class="msg ai">Sure! T/T 30% deposit, 70% before shipment. Catalogue sent to your email. Our sales manager will follow up within 2 hours ✅</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>内测</strong>：先给自己公司用，打磨产品</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>标准化</strong>：整理成可复制的配置包</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>销售</strong>：找同行/上下游企业，年付¥2,800起</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>扩张</strong>：加代理商，躺着收渠道费</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：2周</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：¥300（服务器3个月）</div>
+      <div class="r-item"><span class="ri">📈</span>50家客户 = ¥140,000/年</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐⭐⭐（高手）</div>
+    </div>
+  </div>
+
+  <!-- Case 8 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">⭐</div>
+      <div class="case-info">
+        <div class="case-num">CASE 08</div>
+        <div class="case-title">AI 网红私信管理工具</div>
+        <div class="case-tagline">帮 KOL 管理粉丝私信，按月收服务费</div>
+      </div>
+      <div class="income-badge">¥5,000-20,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>一个有 50 万粉丝的美妆博主。</strong><br><br>
+          每天收到 500+ 条私信，根本回不过来。很多品牌合作机会就这样流失了。<br><br>
+          OpenClaw + WhatsApp 接管了她的私信：<strong>自动分类（合作/粉丝/广告）、自动回复粉丝、重要的转给真人</strong>。<br><br>
+          品牌合作询问从周转5天变成了2小时响应，合作量增加了3倍。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">品牌方 → 博主 WhatsApp</div>
+          <div class="msg recv">你好，我们是XX美妆，想邀请你做一次推广合作</div>
+          <div class="msg ai">👋 你好！感谢您对我们的关注。合作相关请发送以下信息，我们会在2小时内安排专人跟进：<br>1. 品牌名称+产品<br>2. 合作形式（短视频/直播/图文）<br>3. 预算范围 💄</div>
+          <div class="msg recv">好的，已发送~</div>
+          <div class="msg ai">✅ 收到！已转给商务负责人，2小时内联系您 ⚡</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>找客户</strong>：找粉丝10万+的博主，聊私信管理痛点</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>免费试用</strong>：先帮他们用1周，展示效果数据</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>收费</strong>：¥2,000-5,000/月，按粉丝量定价</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>口碑</strong>：一个博主推荐，三个新客户</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：1周</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1</div>
+      <div class="r-item"><span class="ri">📈</span>5个博主客户 = ¥15,000/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐⭐（进阶+）</div>
+    </div>
+  </div>
+
+  <!-- Case 9 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">🌐</div>
+      <div class="case-info">
+        <div class="case-num">CASE 09</div>
+        <div class="case-title">跨境电商 AI 选品 + 客服一体化</div>
+        <div class="case-tagline">从选品到售后，全链路 AI 化</div>
+      </div>
+      <div class="income-badge">$2,000-10,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>Tom，义乌，独立站卖家。</strong><br><br>
+          他的 Shopify 独立站月销 $30,000，但客服每天要花4小时，还经常漏单。<br><br>
+          OpenClaw 接管：<strong>自动分析 TikTok 热门视频选品、回复客户咨询、处理退换货申请、每周发送 WhatsApp 会员优惠</strong>。<br><br>
+          客服成本从每月 $800 降到 $29（WhatsClaw 月费），转化率提升 22%。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">客户 → Tom 的 WhatsApp Bot</div>
+          <div class="msg recv">My order hasn't arrived after 2 weeks, what happened?</div>
+          <div class="msg ai">Hi! I'm sorry to hear that 😔 Let me check your order status right away. Could you please share your order number?</div>
+          <div class="msg recv">#SC-4821</div>
+          <div class="msg ai">Found it! Order #SC-4821 is currently in customs clearance. Expected delivery: 3-5 more days. I'll send you a tracking update daily 📦✨</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>接入</strong>：WhatsClaw 连 Shopify，导入订单数据</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>训练</strong>：上传产品知识库、退换货政策</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>营销</strong>：每周会员 WhatsApp 群发优惠</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>选品</strong>：OpenClaw 每日爬取 TikTok 热门，生成选品报告</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：3天</div>
+      <div class="r-item"><span class="ri">💰</span>月费：$79（Growth）</div>
+      <div class="r-item"><span class="ri">📈</span>节省客服成本 $800/月+提升转化</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐⭐（进阶）</div>
+    </div>
+  </div>
+
+  <!-- Case 10 -->
+  <div class="case-card">
+    <div class="case-header">
+      <div class="case-icon">🏗️</div>
+      <div class="case-info">
+        <div class="case-num">CASE 10</div>
+        <div class="case-title">OpenClaw 代理商体系</div>
+        <div class="case-tagline">不用自己服务客户，建渠道躺着收钱</div>
+      </div>
+      <div class="income-badge">¥20,000-100,000/月</div>
+    </div>
+    <div class="case-body">
+      <div class="story-box">
+        <div class="box-label">📖 真实故事</div>
+        <div class="story-text">
+          <strong>Marty，香港，WhatsClaw 创始人。</strong><br><br>
+          他自己跑通了从 $1 服务器到全球收款的完整链路之后，开始招募代理商。<br><br>
+          代理商模式：<strong>交¥599入会员，获得完整教程+工具+客户资源包，每带来一个付费客户抽成30%</strong>。<br><br>
+          第一批30个代理商，每人平均带来5个客户。月流水 ¥150,000+。
+        </div>
+      </div>
+      <div>
+        <div class="chat-box" style="margin-bottom:14px">
+          <div class="msg-label">准代理商 → WhatsClaw</div>
+          <div class="msg recv">你好，想了解代理商政策</div>
+          <div class="msg ai">👋 欢迎！WhatsClaw 代理商计划：<br>• 入门门槛：¥599年费会员<br>• 获得：完整教程+客户SOP+营销素材<br>• 收益：每单抽成30%，无上限<br>• 支持：每周直播答疑+专属群<br><br>感兴趣的话，先加入会员体验一下产品本身，体验好了自然就愿意推荐 😊</div>
+        </div>
+        <div class="steps-list">
+          <div class="step"><div class="step-dot">1</div><div class="step-text"><strong>自己跑通</strong>：先把自己的 WhatsClaw 赚钱案例做出来</div></div>
+          <div class="step"><div class="step-dot">2</div><div class="step-text"><strong>整理素材</strong>：截图、数据、故事，做成可分享内容</div></div>
+          <div class="step"><div class="step-dot">3</div><div class="step-text"><strong>招募代理</strong>：在社群/自媒体招募，给工具给资源</div></div>
+          <div class="step"><div class="step-dot">4</div><div class="step-text"><strong>系统化</strong>：WhatsClaw 自动管理代理商，你只看数据</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="result-bar">
+      <div class="r-item"><span class="ri">⏱</span>起步时间：1个月（先自己跑通）</div>
+      <div class="r-item"><span class="ri">💰</span>起步成本：$1</div>
+      <div class="r-item"><span class="ri">📈</span>100代理 × 5单 = ¥100,000+/月</div>
+      <div class="r-item"><span class="ri">🎯</span>难度：⭐⭐⭐⭐⭐（终极）</div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="cta-section">
+    <h2>现在就是你的<em>起点</em></h2>
+    <p>10个案例，最低起步成本 $1，最快 3 天见收益。唯一的问题是：你还要等多久？</p>
+    <div class="formula">
+      <div class="f-box">📱 你的 WhatsApp</div>
+      <div class="f-plus">+</div>
+      <div class="f-box">🦞 OpenClaw $1/月</div>
+      <div class="f-eq">=</div>
+      <div class="f-box f-result">💰 你的第一笔 AI 收入</div>
+    </div>
+    <div class="cta-row">
+      <a href="/academy" class="btn-g">🚀 立即开始 — 看课程套餐</a>
+      <a href="https://wa.me/85251300733?text=我看了10个案例，想开始做，帮我规划一下" class="btn-o">💬 直接问我怎么开始</a>
+    </div>
+    <p style="margin-top:20px;font-size:13px;color:#6e7681">¥20 基础套餐 · ¥299 商业化闭环 · ¥599/年 全部解锁</p>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 ClawAcademy · <a href="/academy">课程中心</a> · <a href="https://whatsclaw.xyz">WhatsClaw</a> · <a href="https://wa.me/85251300733">WhatsApp 咨询</a>
+</footer>
+</body>
+</html>
