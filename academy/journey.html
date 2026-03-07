@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3天实录：从$1服务器到全球收款产品上线 — OpenClaw真实历程</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB',sans-serif;line-height:1.6}
+a{color:#25d366;text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(160deg,#0d1117 0%,#0d2318 60%,#0d1117 100%);padding:80px 20px 60px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 400px at 50% 30%,rgba(37,211,102,.08),transparent);pointer-events:none}
+.tag{display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;padding:7px 18px;border-radius:100px;font-size:13px;font-weight:700;margin-bottom:24px}
+.hero h1{font-size:clamp(26px,4.5vw,52px);font-weight:900;line-height:1.2;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:#25d366}
+.hero p{font-size:17px;color:#8b949e;max-width:600px;margin:0 auto 40px;line-height:1.8}
+
+/* STATS ROW */
+.stats{display:flex;justify-content:center;gap:0;flex-wrap:wrap;max-width:700px;margin:0 auto 40px;border:1px solid #21262d;border-radius:16px;overflow:hidden;background:#161b22}
+.stat{flex:1;min-width:130px;padding:20px 16px;text-align:center;border-right:1px solid #21262d}
+.stat:last-child{border-right:none}
+.s-num{font-size:28px;font-weight:900;color:#25d366;display:block}
+.s-label{font-size:12px;color:#6e7681;margin-top:4px}
+
+/* TIMELINE */
+.timeline-wrap{max-width:860px;margin:0 auto;padding:0 20px 80px}
+
+.day-header{display:flex;align-items:center;gap:16px;margin:56px 0 28px}
+.day-badge{background:linear-gradient(135deg,#1a3a2a,#0d2318);border:1px solid rgba(37,211,102,.3);color:#25d366;padding:10px 22px;border-radius:100px;font-size:14px;font-weight:800;white-space:nowrap}
+.day-title{font-size:22px;font-weight:800}
+.day-subtitle{font-size:13px;color:#6e7681;margin-left:auto;white-space:nowrap}
+
+.tl{position:relative;padding-left:32px}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#25d366,rgba(37,211,102,.1))}
+
+.tl-item{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;left:-32px;top:18px;width:16px;height:16px;border-radius:50%;background:#0d1117;border:2px solid #25d366;display:flex;align-items:center;justify-content:center}
+.tl-dot.done{background:#25d366}
+.tl-dot.done::after{content:'✓';font-size:9px;color:#000;font-weight:900}
+.tl-dot.key{border-color:#f0883e;background:#f0883e}
+.tl-dot.key::after{content:'★';font-size:9px;color:#000;font-weight:900}
+
+.tl-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px 22px;transition:border-color .2s}
+.tl-card:hover{border-color:#30363d}
+.tl-card.highlight{border-color:rgba(37,211,102,.3);background:rgba(37,211,102,.04)}
+.tl-card.milestone{border-color:rgba(240,136,62,.3);background:rgba(240,136,62,.04)}
+
+.tl-time{font-size:11px;color:#6e7681;font-weight:600;letter-spacing:.5px;margin-bottom:6px}
+.tl-head{font-size:16px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.tl-head .icon{font-size:20px}
+.tl-body{font-size:14px;color:#8b949e;line-height:1.75}
+.tl-body strong{color:#e6edf3;font-weight:600}
+.tl-body code{background:#0d1117;border:1px solid #30363d;padding:2px 8px;border-radius:5px;font-family:monospace;font-size:13px;color:#7ee787}
+
+.badge-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.badge{padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700}
+.bg{background:rgba(37,211,102,.1);color:#25d366;border:1px solid rgba(37,211,102,.2)}
+.bb{background:rgba(88,166,255,.1);color:#58a6ff;border:1px solid rgba(88,166,255,.2)}
+.bo{background:rgba(240,136,62,.1);color:#f0883e;border:1px solid rgba(240,136,62,.2)}
+.bp{background:rgba(188,140,255,.1);color:#bc8cff;border:1px solid rgba(188,140,255,.2)}
+
+/* LEARNING BOX */
+.learn-box{background:#161b22;border:1px solid rgba(37,211,102,.2);border-radius:20px;padding:36px;margin:48px 0}
+.learn-title{font-size:20px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+.learn-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.learn-grid{grid-template-columns:1fr}}
+.l-item{background:#0d1117;border-radius:10px;padding:16px;border:1px solid #21262d}
+.l-num{font-size:11px;color:#25d366;font-weight:700;letter-spacing:1px;margin-bottom:6px}
+.l-text{font-size:14px;color:#8b949e;line-height:1.6}
+.l-text strong{color:#e6edf3}
+
+/* CURRICULUM PREVIEW */
+.curriculum{max-width:860px;margin:0 auto;padding:0 20px 80px}
+.section-title{font-size:26px;font-weight:900;margin-bottom:8px}
+.section-sub{font-size:14px;color:#6e7681;margin-bottom:32px}
+
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-bottom:40px}
+.price-card{background:#161b22;border:1px solid #21262d;border-radius:16px;padding:24px;position:relative;overflow:hidden}
+.price-card.featured{border-color:rgba(37,211,102,.4);background:rgba(37,211,102,.04)}
+.price-card.featured::before{content:'推荐';position:absolute;top:12px;right:12px;background:#25d366;color:#000;font-size:10px;font-weight:800;padding:3px 10px;border-radius:4px}
+.price-tag{font-size:32px;font-weight:900;color:#25d366;margin-bottom:4px}
+.price-name{font-size:14px;font-weight:700;margin-bottom:12px}
+.price-items{list-style:none;display:flex;flex-direction:column;gap:6px}
+.price-items li{font-size:13px;color:#8b949e;display:flex;align-items:flex-start;gap:8px}
+.price-items li::before{content:'✓';color:#25d366;flex-shrink:0}
+
+/* VIDEO PLAN */
+.video-grid{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
+.video-card{background:#161b22;border:1px solid #21262d;border-radius:14px;padding:20px 24px;display:flex;gap:20px;align-items:flex-start}
+.v-num{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.2);color:#25d366;width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.v-info{flex:1}
+.v-title{font-size:16px;font-weight:700;margin-bottom:4px}
+.v-meta{font-size:12px;color:#6e7681;margin-bottom:8px}
+.v-covers{display:flex;flex-wrap:wrap;gap:6px}
+.v-tag{background:#0d1117;border:1px solid #30363d;color:#8b949e;padding:3px 10px;border-radius:5px;font-size:12px}
+
+/* CTA */
+.cta-section{background:linear-gradient(135deg,#0d2318,#0d1117);border:1px solid rgba(37,211,102,.2);border-radius:24px;padding:56px 40px;text-align:center;margin:48px 0}
+.cta-section h2{font-size:36px;font-weight:900;margin-bottom:12px}
+.cta-section h2 em{font-style:normal;color:#25d366}
+.cta-section p{font-size:16px;color:#8b949e;max-width:520px;margin:0 auto 32px}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-g{background:#25d366;color:#000;font-weight:800;padding:16px 36px;border-radius:12px;font-size:15px;display:inline-block}
+.btn-o{border:1px solid #30363d;color:#e6edf3;font-weight:600;padding:16px 32px;border-radius:12px;font-size:15px;display:inline-block}
+
+footer{text-align:center;padding:32px;color:#6e7681;font-size:13px;border-top:1px solid #21262d}
+
+/* animate */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.tl-item{animation:fadeUp .4s ease both}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">📓 真实创业实录</div>
+  <h1>3天，从 <em>$1 服务器</em><br>到全球收款产品上线</h1>
+  <p>这不是教程，是一份亲历记录。<br>每一步都截图存档，每一个坑都踩过了——<br>现在把它做成你可以直接复制的路线图。</p>
+  <div class="stats">
+    <div class="stat"><span class="s-num">$1</span><div class="s-label">起步成本/月</div></div>
+    <div class="stat"><span class="s-num">3天</span><div class="s-label">从零到上线</div></div>
+    <div class="stat"><span class="s-num">¥1</span><div class="s-label">MVP收款验证</div></div>
+    <div class="stat"><span class="s-num">30+</span><div class="s-label">个工具/国家覆盖</div></div>
+    <div class="stat"><span class="s-num">∞</span><div class="s-label">可复制次数</div></div>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<div class="timeline-wrap">
+
+  <!-- DAY 0 -->
+  <div class="day-header">
+    <div class="day-badge">Day 0 · 2026-03-06 晚</div>
+    <div class="day-title">决定：花 $1，测一个想法</div>
+    <div class="day-subtitle">星期四</div>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">22:00</div>
+        <div class="tl-head"><span class="icon">💡</span>起点：看到 Xiaomi 发布 MiClaw GUI Agent</div>
+        <div class="tl-body">MiClaw 是小米当天发布的手机AI代理产品，和 OpenClaw 同属 AI Agent 赛道。看到这条新闻，意识到 <strong>AI Agent 工具化</strong> 时代已到，普通人该行动了。<br><br>没有大团队，没有资本——但有一台 MacBook，有 OpenClaw，有想法。</div>
+        <div class="badge-row"><span class="badge bb">Xiaomi MiClaw</span><span class="badge bg">OpenClaw</span><span class="badge bo">AI Agent 赛道</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">22:30</div>
+        <div class="tl-head"><span class="icon">☁️</span>腾讯云 Lighthouse 下单 — $1/月，香港节点</div>
+        <div class="tl-body">
+          打开 <strong>cloud.tencent.com</strong>，选 Lighthouse → 香港 → 1核2G → Ubuntu 22.04。<br>月费：<strong>约¥7（$1）</strong>。信用卡付款，2分钟完成。<br><br>
+          SSH 连接：<code>ssh root@43.156.245.94</code><br>
+          服务器在线了，空空的一台机器，等待被激活。
+        </div>
+        <div class="badge-row"><span class="badge bg">腾讯云 Lighthouse ✓</span><span class="badge bb">香港节点</span><span class="badge bg">$1/月</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot key"></div>
+      <div class="tl-card milestone">
+        <div class="tl-time">23:00</div>
+        <div class="tl-head"><span class="icon">🦞</span>OpenClaw 安装完成 — 第一条消息</div>
+        <div class="tl-body">
+          一行命令安装：<br>
+          <code>curl -fsSL https://get.openclaw.ai | bash</code><br><br>
+          安装完成后，AI 自动问：<strong>"Hey. I just came online. Who am I? Who are you?"</strong><br><br>
+          这一刻有点奇妙。一个 $1 的服务器上，有了一个在跟你说话的 AI。
+        </div>
+        <div class="badge-row"><span class="badge bg">OpenClaw 安装 ✓</span><span class="badge bp">首次对话</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 1 -->
+  <div class="day-header">
+    <div class="day-badge">Day 1 · 2026-03-07</div>
+    <div class="day-title">商业化：选赛道，建产品，接收款</div>
+    <div class="day-subtitle">星期五</div>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">上午</div>
+        <div class="tl-head"><span class="icon">🗺️</span>市场分析：找到 5 条赛道</div>
+        <div class="tl-body">
+          用 OpenClaw 做竞品研究、市场分析。筛选出5条方向：<br><br>
+          1. <strong>WhatsClaw</strong>（WhatsApp × Shopify AI客服）← 选了这个<br>
+          2. ClawAcademy（AI训练变现）<br>
+          3. PostClaw（社媒代运营）<br>
+          4. OpenClaw代理商体系<br>
+          5. 本地商家AI助手外包<br><br>
+          <strong>选择标准</strong>：全球市场 + 0审批门槛 + 收款链路清晰 + 可立即上线
+        </div>
+        <div class="badge-row"><span class="badge bg">WhatsClaw 赛道确定</span><span class="badge bb">竞品：Wati $59-$279/月</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">下午</div>
+        <div class="tl-head"><span class="icon">🌐</span>域名 + 落地页 + Nginx 上线</div>
+        <div class="tl-body">
+          注册 <strong>whatsclaw.xyz</strong>（年费约¥60）<br>
+          DNSPod 添加 A 记录 → 指向 43.156.245.94<br>
+          Nginx 部署静态落地页，端口80<br><br>
+          <code>curl http://whatsclaw.xyz/</code> → <code>&lt;title&gt;WhatsClaw...&lt;/title&gt;</code> ✅<br><br>
+          落地页：英文，三档定价（Starter $29 / Growth $79 / Enterprise $199），无中文。
+        </div>
+        <div class="badge-row"><span class="badge bg">whatsclaw.xyz 上线 ✓</span><span class="badge bb">Nginx 配置 ✓</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot key"></div>
+      <div class="tl-card highlight">
+        <div class="tl-time">傍晚</div>
+        <div class="tl-head"><span class="icon">💳</span>Stripe 接入 — 第一笔收款链路跑通</div>
+        <div class="tl-body">
+          注册 Stripe，创建 3 个 Price：<br>
+          Starter <code>price_1T8Iun...</code> · Growth <code>price_1T8Iup...</code> · Enterprise <code>price_1T8Iuq...</code><br><br>
+          生成 Checkout URL，内嵌到落地页。测试支付流程：<br>
+          <strong>✅ MVP 收款闭环验证完成</strong>
+        </div>
+        <div class="badge-row"><span class="badge bg">Stripe Live 模式 ✓</span><span class="badge bp">¥1 收款测试 ✓</span><span class="badge bo">14天免费试用</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">晚上</div>
+        <div class="tl-head"><span class="icon">💬</span>微信双货币支付 + 客户故事页</div>
+        <div class="tl-body">
+          加入 WeChat Pay 弹窗（CNY + HKD 双档切换）<br>
+          制作 <strong>Sarah / Lune & Craft</strong> 客户故事页 <code>story.html</code>：4章节，聊天气泡，转化CTA<br><br>
+          GitHub → <code>git push</code> → 服务器 git pull → 页面更新
+        </div>
+        <div class="badge-row"><span class="badge bg">WeChat Pay ✓</span><span class="badge bb">story.html ✓</span><span class="badge bg">GitHub 自动部署</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAY 2 -->
+  <div class="day-header">
+    <div class="day-badge">Day 2 · 2026-03-08</div>
+    <div class="day-title">Shopify App + ClawAcademy + HTTPS</div>
+    <div class="day-subtitle">星期六</div>
+  </div>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">00:00–02:00</div>
+        <div class="tl-head"><span class="icon">🏪</span>Shopify Dev Dashboard — App 创建</div>
+        <div class="tl-body">
+          在 partners.shopify.com 创建 <strong>WhatsClaw App</strong><br>
+          Client ID + Secret 获取，App URL / Redirect URL 配置完成<br>
+          在 whatclaw.myshopify.com 安装，创建 Custom App "WhatsClaw API"<br>
+          获取 Admin API Token：<code>shpat_36e0d0...</code><br><br>
+          删除默认 demo 产品，上架3个正式产品（Starter/Growth/Enterprise）
+        </div>
+        <div class="badge-row"><span class="badge bg">Shopify App ✓</span><span class="badge bb">Admin API ✓</span><span class="badge bo">3 Products Live</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">02:00–03:00</div>
+        <div class="tl-head"><span class="icon">🖼️</span>产品图 + App Store 截图（用 Puppeteer 生成）</div>
+        <div class="tl-body">
+          没有图片素材，没有设计工具——用代码生成：<br>
+          <strong>HTML + CSS → Puppeteer 无头浏览器 → PNG</strong><br><br>
+          生成3张产品图（1200×800px，2x分辨率）上传 Shopify CDN<br>
+          生成5张 App Store 截图（Hero/弃购挽回/订单跟踪/安装/定价）
+        </div>
+        <div class="badge-row"><span class="badge bg">产品图 × 3 ✓</span><span class="badge bb">App Store 截图 × 5 ✓</span><span class="badge bp">Shopify CDN 上传 ✓</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot done"></div>
+      <div class="tl-card">
+        <div class="tl-time">03:00–04:30</div>
+        <div class="tl-head"><span class="icon">🎓</span>ClawAcademy 课程体系搭建</div>
+        <div class="tl-body">
+          CURRICULUM.md：L1-L4 四级课程体系<br>
+          video-scripts.md：5集视频完整脚本（30/45/60/90/120分钟）<br>
+          academy/index.html：课程首页，定价展示<br>
+          academy/cases.html：10个赚钱案例，图文+聊天气泡+收益数据<br><br>
+          <strong>价格体系</strong>：¥20 / ¥100 / ¥299 / ¥399 / ¥599年费
+        </div>
+        <div class="badge-row"><span class="badge bg">课程体系 ✓</span><span class="badge bb">视频脚本 ✓</span><span class="badge bo">10案例页 ✓</span></div>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot key"></div>
+      <div class="tl-card milestone">
+        <div class="tl-time">04:30</div>
+        <div class="tl-head"><span class="icon">🔒</span>HTTPS 上线 — whatsclaw.xyz 绿锁</div>
+        <div class="tl-body">
+          certbot + Let's Encrypt 免费证书，nginx 自动配置<br>
+          HTTP → HTTPS 301 跳转已生效<br><br>
+          <code>certbot --nginx -d whatsclaw.xyz -d www.whatsclaw.xyz</code><br><br>
+          <strong>现在：https://whatsclaw.xyz 已支持 HTTPS，可提交 Shopify App Store</strong>
+        </div>
+        <div class="badge-row"><span class="badge bg">HTTPS ✓</span><span class="badge bg">Let's Encrypt ✓</span><span class="badge bp">App Store 可提交</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LESSONS -->
+  <div class="learn-box">
+    <div class="learn-title">🧠 这3天真正学到的</div>
+    <div class="learn-grid">
+      <div class="l-item">
+        <div class="l-num">LESSON 01</div>
+        <div class="l-text"><strong>$1 真的够了</strong>。腾讯云 Lighthouse 香港节点，每月不到¥10，可以跑完整 Node.js + Nginx + AI Bot 全链路。</div>
+      </div>
+      <div class="l-item">
+        <div class="l-num">LESSON 02</div>
+        <div class="l-text"><strong>不需要"准备好了再开始"</strong>。产品图用代码生成，课程内容边做边写，先上线再完善。</div>
+      </div>
+      <div class="l-item">
+        <div class="l-num">LESSON 03</div>
+        <div class="l-text"><strong>收款链路是第一优先级</strong>。Domain → Landing Page → Stripe → 微信支付，这条链路跑通后，一切才有意义。</div>
+      </div>
+      <div class="l-item">
+        <div class="l-num">LESSON 04</div>
+        <div class="l-text"><strong>AI 工具是放大器，不是替代品</strong>。你提供方向和判断，AI 提供执行力。3天完成的事，原来需要3周。</div>
+      </div>
+      <div class="l-item">
+        <div class="l-num">LESSON 05</div>
+        <div class="l-text"><strong>安全 > 速度</strong>。.env 文件被 git 追踪是最大的坑，差点把 Stripe Live Key 推到 GitHub 公开仓库。</div>
+      </div>
+      <div class="l-item">
+        <div class="l-num">LESSON 06</div>
+        <div class="l-text"><strong>内容即产品</strong>。10个案例页、客户故事页——这些内容本身就是最好的销售工具，比任何广告都有效。</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CURRICULUM PREVIEW -->
+<div class="curriculum">
+  <div class="section-title">📚 把这条路，变成你的课程</div>
+  <div class="section-sub">ClawAcademy — 把3天踩过的坑，变成你的起点</div>
+
+  <div class="price-grid">
+    <div class="price-card">
+      <div class="price-tag">¥20</div>
+      <div class="price-name">基础教程包</div>
+      <ul class="price-items">
+        <li>完整安装视频（30min）</li>
+        <li>命令包PDF</li>
+        <li>SOUL.md 模板</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tag">¥100</div>
+      <div class="price-name">安装服务</div>
+      <ul class="price-items">
+        <li>帮你装好 OpenClaw</li>
+        <li>赠1个月腾讯云</li>
+        <li>跑通第一条消息</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="price-tag">¥299</div>
+      <div class="price-name">商业化闭环套餐</div>
+      <ul class="price-items">
+        <li>全部基础内容</li>
+        <li>WhatsApp 接入教程</li>
+        <li>Stripe 收款配置</li>
+        <li>第一笔收款闭环</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tag">¥399</div>
+      <div class="price-name">电商实战套餐</div>
+      <ul class="price-items">
+        <li>香港电话卡指引</li>
+        <li>香港银行开户</li>
+        <li>Shopify 全流程</li>
+        <li>全球收款配置</li>
+      </ul>
+    </div>
+    <div class="price-card" style="border-color:rgba(188,140,255,.3);background:rgba(188,140,255,.04)">
+      <div class="price-tag" style="color:#bc8cff">¥599<span style="font-size:14px;color:#6e7681">/年</span></div>
+      <div class="price-name">年度会员专区</div>
+      <ul class="price-items">
+        <li>全部内容解锁</li>
+        <li>10种赚钱SOP</li>
+        <li>专属社群</li>
+        <li>持续更新</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-bottom:8px">🎬 视频教程计划</div>
+  <div class="section-sub">5集全覆盖 · 从装机到全球收款</div>
+
+  <div class="video-grid">
+    <div class="video-card">
+      <div class="v-num">▶1</div>
+      <div class="v-info">
+        <div class="v-title">《1美金服务器，今天就能用上AI助手》</div>
+        <div class="v-meta">⏱ 30分钟 · 免费引流视频 · 发小红书/B站/视频号</div>
+        <div class="v-covers">
+          <span class="v-tag">腾讯云注册</span><span class="v-tag">SSH连接</span><span class="v-tag">OpenClaw安装</span><span class="v-tag">第一条消息</span>
+        </div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="v-num">▶2</div>
+      <div class="v-info">
+        <div class="v-title">《接入WhatsApp，0成本开启AI客服》</div>
+        <div class="v-meta">⏱ 45分钟 · ¥20/¥299套餐引流 · 核心变现视频</div>
+        <div class="v-covers">
+          <span class="v-tag">LinkedDevices绑定</span><span class="v-tag">扫码演示</span><span class="v-tag">自动回复配置</span>
+        </div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="v-num">▶3</div>
+      <div class="v-info">
+        <div class="v-title">《建站+收款，第一笔AI副业收入》</div>
+        <div class="v-meta">⏱ 60分钟 · ¥299套餐核心内容</div>
+        <div class="v-covers">
+          <span class="v-tag">域名注册</span><span class="v-tag">Nginx建站</span><span class="v-tag">Stripe接入</span><span class="v-tag">¥1收款验证</span>
+        </div>
+      </div>
+    </div>
+    <div class="video-card">
+      <div class="v-num">▶4</div>
+      <div class="v-info">
+        <div class="v-title">《香港电话卡+银行+Shopify全球收款》</div>
+        <div class="v-meta">⏱ 90分钟 · ¥399实战套餐专属</div>
+        <div class="v-covers">
+          <span class="v-tag">香港实体卡</span><span class="v-tag">ZA Bank开户</span><span class="v-tag">Shopify HK</span><span class="v-tag">多币种</span>
+        </div>
+      </div>
+    </div>
+    <div class="video-card" style="border-color:rgba(188,140,255,.2);background:rgba(188,140,255,.03)">
+      <div class="v-num" style="background:rgba(188,140,255,.1);border-color:rgba(188,140,255,.3);color:#bc8cff">▶5</div>
+      <div class="v-info">
+        <div class="v-title">《10种赚钱方式直播解析 — 会员专属》</div>
+        <div class="v-meta">⏱ 120分钟 · ¥599会员专属直播</div>
+        <div class="v-covers">
+          <span class="v-tag">10种SOP全解</span><span class="v-tag">真实案例</span><span class="v-tag">Q&A互动</span><span class="v-tag">代理商模式</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-section">
+    <h2>你的 <em>Day 0</em><br>就从今天开始</h2>
+    <p>花3天时间，踩一遍这条路。这比等待"准备好了"，早3年。</p>
+    <div class="cta-row">
+      <a href="/academy" class="btn-g">🎓 查看课程套餐</a>
+      <a href="/academy/cases.html" class="btn-o">📖 先看10个赚钱案例</a>
+    </div>
+    <p style="margin-top:20px;font-size:13px;color:#6e7681">有问题？直接 WhatsApp 问我 👉 <a href="https://wa.me/85251300733">+852 5130 0733</a></p>
+  </div>
+</div>
+
+<footer>
+  © 2026 ClawAcademy · <a href="/academy">课程中心</a> · <a href="/academy/cases.html">10种案例</a> · <a href="https://whatsclaw.xyz">WhatsClaw</a>
+</footer>
+</body>
+</html>
