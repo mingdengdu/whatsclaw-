@@ -94,15 +94,15 @@ nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:cen
       <h3>What happens after you submit</h3>
       <div class="step">
         <div class="step-num">1</div>
-        <div class="step-text"><strong>Within 5 minutes</strong>You get a WhatsApp message from us confirming your slot — this is WhatsClaw responding automatically</div>
+        <div class="step-text"><strong>Fill the form + click submit</strong>WhatsApp opens automatically with your info pre-filled — just hit Send</div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
-        <div class="step-text"><strong>On the call</strong>Screen share — we pull up your Shopify store live and show the AI answering real questions</div>
+        <div class="step-text"><strong>WhatsClaw bot replies instantly</strong>You'll see exactly how the AI handles your first message — this IS the demo starting</div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
-        <div class="step-text"><strong>If you want to start</strong>We set it up together on the call. You'll be live in 7 minutes</div>
+        <div class="step-text"><strong>We do a live screen share</strong>We pull up your real Shopify store and show the AI answering your customers' questions</div>
       </div>
     </div>
 
@@ -180,10 +180,10 @@ nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:cen
       <!-- SUCCESS -->
       <div id="success">
         <div class="check">✅</div>
-        <h2>You're booked!</h2>
-        <p>We'll WhatsApp you within 5 minutes to confirm your slot.<br>Check your WhatsApp now — this is WhatsClaw in action.</p>
-        <a id="wa-confirm" href="#" class="wa-btn">💬 Open WhatsApp to confirm</a>
-        <div class="note">Or email us: hello@whatsclaw.xyz</div>
+        <h2>One more step!</h2>
+        <p>Your info is ready. Click below to send it to our WhatsClaw bot on WhatsApp — we'll confirm your demo slot within minutes.</p>
+        <a id="wa-confirm" href="#" class="wa-btn">💬 Send to WhatsClaw on WhatsApp →</a>
+        <div class="note">WhatsApp didn't open? <a href="https://wa.me/85251300733" style="color:#555">Click here</a> · Or email: hello@whatsclaw.xyz</div>
       </div>
     </div>
   </div>
@@ -206,39 +206,30 @@ document.getElementById('demo-form').addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.textContent = 'Sending...';
 
-  // 1. Send notification email to owner
-  var subject = encodeURIComponent('New Demo Request: ' + name + ' — ' + (store || 'no store'));
-  var body = encodeURIComponent(
-    'Name: ' + name + '\n' +
-    'WhatsApp: ' + wa + '\n' +
-    'Email: ' + email + '\n' +
-    'Store: ' + (store || 'not provided') + '\n' +
-    'Volume: ' + (volume || 'not specified') + '\n' +
-    'Time: ' + (time || 'not specified') + '\n' +
-    'Pain: ' + (pain || 'not provided')
+  // Build message to WhatsClaw bot (your number: +852 51300733)
+  var botMsg = encodeURIComponent(
+    'Hi! 👋 I want to book a WhatsClaw demo.\n\n' +
+    '📛 Name: ' + name + '\n' +
+    '📧 Email: ' + email + '\n' +
+    '🛍️ Store: ' + (store || 'will share on call') + '\n' +
+    '📨 Daily messages: ' + (volume || 'not sure') + '\n' +
+    '🕐 Best time: ' + (time || 'anytime') + '\n' +
+    (pain ? '💬 Pain: ' + pain : '') + '\n\n' +
+    'Please confirm my demo slot!'
   );
 
-  // 2. Build WhatsApp deep link for owner to quickly respond
-  var ownerWaMsg = encodeURIComponent(
-    'Hi ' + name + '! 👋 This is WhatsClaw — confirming your demo request.\n\n' +
-    'We\'ll send you a calendar link shortly. Meanwhile, want to tell us:\n' +
-    'What\'s your #1 WhatsApp pain right now?\n\n' +
-    'Reply here and we\'ll customize the demo for your store 🚀'
-  );
-  // Clean WA number — remove spaces, dashes, +
-  var waClean = wa.replace(/[\s\-\+\(\)]/g, '');
-  var waLink = 'https://wa.me/' + waClean + '?text=' + ownerWaMsg;
+  // Direct link to your WhatsClaw WhatsApp bot
+  var waLink = 'https://wa.me/85251300733?text=' + botMsg;
 
-  // Update WhatsApp confirm link
+  // Update confirm button
   document.getElementById('wa-confirm').href = waLink;
 
-  // Show success
+  // Show success + auto-open WhatsApp
   setTimeout(function() {
     document.getElementById('form-wrap').style.display = 'none';
     document.getElementById('success').style.display = 'block';
-
-    // Also open mailto to notify owner
-    window.location.href = 'mailto:hello@whatsclaw.xyz?subject=' + subject + '&body=' + body;
+    // Auto-open WhatsApp
+    window.open(waLink, '_blank');
   }, 800);
 });
 </script>
