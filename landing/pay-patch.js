@@ -1,9 +1,0 @@
-// 替换 pay() 函数
-function pay(plan){
-  var urls = {
-    starter: 'https://checkout.stripe.com/c/pay/cs_live_a1uA5CiPfOGuFB4lRy0bxK6g8VTL8G3F3yvIdb1aytnLlUCsHKAZF8vTPk#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blppbHNgWjA0UT08XXc3SzRJbDFXXEFTcEZ%2FX1V8UTBdVW5wQUYwNnBxPHFvcH1BdGgzVVM9MGJEcklnR1VNUG0yPHNfSGI2S1dCbFBKa2FmM2o0XDZCXWtxbTVRcE5GNTVfVHNoTzJMYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdna2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl',
-    growth: 'https://checkout.stripe.com/c/pay/cs_live_a1QpkZsADoQ7gixQZWIuyJYjTVGgrrnTyAREsgwu1URvsNTTExM6lSDNM1#fidnandhYHdWcXxpYCc%2FJ2FgY2RwaXEnKSdkdWxOYHwnPyd1blppbHNgWjA0UT08XXc3SzRJbDFXXEFTcEZ%2FX1V8UTBdVW5wQUYwNnBxPHFvcH1BdGgzVVM9MGJEcklnR1VNUG0yPHNfSGI2S1dCbFBKa2FmM2o0XDZCXWtxbTVRcE5GNTVfVHNoTzJMYCcpJ2N3amhWYHdzYHcnP3F3cGApJ2dkZm5id2pwa2FGamlqdyc%2FJyZjY2NjY2MnKSdpZHxqcHFRfHVgJz8ndmxrYmlgWmxxYGgnKSdna2RnaWBVaWRmYG1qaWFgd3YnP3F3cGB4JSUl'
-  };
-  if(urls[plan]) window.location.href = urls[plan];
-  else window.location='mailto:hello@whatsclaw.xyz?subject=Enterprise';
-}
