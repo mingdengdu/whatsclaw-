@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Connect Your Shopify Store — WhatsClaw</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,'Segoe UI',sans-serif;background:#0a0a0a;color:#fff;line-height:1.7}
+nav{padding:20px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #1a1a1a}
+.logo{font-size:22px;font-weight:900}.logo span{color:#25D366}
+.nav-back{color:#888;font-size:14px;text-decoration:none}
+
+.page{max-width:640px;margin:0 auto;padding:60px 20px}
+
+/* STEPS */
+.step-header{text-align:center;margin-bottom:48px}
+.step-header .tag{display:inline-block;background:#1a2e1a;color:#25D366;font-size:12px;font-weight:700;padding:6px 14px;border-radius:20px;margin-bottom:16px;letter-spacing:1px}
+.step-header h1{font-size:clamp(24px,4vw,38px);font-weight:900;line-height:1.2;margin-bottom:12px}
+.step-header h1 em{font-style:normal;color:#25D366}
+.step-header p{color:#888;font-size:16px}
+
+/* PROGRESS */
+.progress{display:flex;align-items:center;justify-content:center;gap:0;margin-bottom:48px}
+.prog-step{display:flex;flex-direction:column;align-items:center;gap:6px}
+.prog-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;border:2px solid #2a2a2a;color:#444;background:#111}
+.prog-circle.active{background:#25D366;color:#000;border-color:#25D366}
+.prog-circle.done{background:#1e3a2e;color:#25D366;border-color:#25D366}
+.prog-label{font-size:11px;color:#444;white-space:nowrap}
+.prog-label.active{color:#25D366}
+.prog-line{width:60px;height:2px;background:#1a1a1a;margin-bottom:20px}
+.prog-line.done{background:#25D366}
+@media(max-width:480px){.prog-line{width:30px}}
+
+/* CARD */
+.card{background:#111;border-radius:16px;padding:32px;border:1px solid #1e1e1e;margin-bottom:24px}
+.card h2{font-size:18px;font-weight:800;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.card .step-num{width:28px;height:28px;border-radius:50%;background:#25D366;color:#000;font-size:13px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.card p{color:#888;font-size:14px;margin-bottom:20px;margin-top:8px}
+
+/* INPUT */
+.input-wrap{display:flex;gap:10px;align-items:stretch}
+@media(max-width:480px){.input-wrap{flex-direction:column}}
+.store-input{flex:1;background:#0a0a0a;border:1px solid #2a2a2a;border-radius:8px;padding:14px 16px;color:#fff;font-size:15px;outline:none;transition:border .2s}
+.store-input:focus{border-color:#25D366}
+.store-input::placeholder{color:#333}
+.connect-btn{background:#25D366;color:#000;font-weight:800;font-size:14px;padding:14px 24px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.connect-btn:hover{opacity:.9}
+.connect-btn:disabled{opacity:.4;cursor:not-allowed}
+.input-hint{font-size:12px;color:#333;margin-top:8px}
+
+/* WHAT YOU GET */
+.perks{list-style:none;margin-top:4px}
+.perks li{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #1a1a1a;font-size:14px;color:#999}
+.perks li:last-child{border:none}
+.perks li .icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.perks li strong{color:#ddd;display:block}
+
+/* HOW IT WORKS */
+.how{display:flex;flex-direction:column;gap:16px;margin-top:4px}
+.how-step{display:flex;gap:14px;align-items:flex-start}
+.how-num{width:24px;height:24px;border-radius:50%;background:#1e3a2e;color:#25D366;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.how-text{font-size:14px;color:#999}
+.how-text strong{color:#ddd;display:block;margin-bottom:2px}
+
+/* TRUST */
+.trust{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.trust-item{background:#111;border-radius:8px;padding:12px 16px;font-size:12px;color:#555;border:1px solid #1e1e1e;display:flex;align-items:center;gap:6px}
+.trust-item .dot{color:#25D366}
+
+/* SUCCESS STATE */
+#success-state{display:none}
+.success-icon{font-size:64px;text-align:center;margin-bottom:16px}
+.success-card{background:#0f1f0f;border:1px solid #1e3a2e;border-radius:16px;padding:32px;text-align:center}
+.success-card h2{font-size:24px;font-weight:900;margin-bottom:10px}
+.success-card p{color:#888;font-size:15px;margin-bottom:24px}
+.wa-btn{display:inline-block;background:#25D366;color:#000;font-weight:800;padding:14px 32px;border-radius:10px;text-decoration:none;font-size:15px}
+.store-display{background:#111;border-radius:8px;padding:12px 16px;font-size:14px;color:#25D366;margin:16px 0;font-family:monospace}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Whats<span>Claw</span></div>
+  <a href="/" class="nav-back">← Back</a>
+</nav>
+
+<div class="page">
+
+  <div class="step-header">
+    <div class="tag">🛍️ SHOPIFY SETUP</div>
+    <h1>Connect your store in <em>7 minutes</em></h1>
+    <p>WhatsClaw reads your products, orders, and customers — then answers WhatsApp on autopilot.</p>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="progress">
+    <div class="prog-step">
+      <div class="prog-circle active" id="p1">1</div>
+      <div class="prog-label active">Connect Store</div>
+    </div>
+    <div class="prog-line" id="pl1"></div>
+    <div class="prog-step">
+      <div class="prog-circle" id="p2">2</div>
+      <div class="prog-label">Link WhatsApp</div>
+    </div>
+    <div class="prog-line" id="pl2"></div>
+    <div class="prog-step">
+      <div class="prog-circle" id="p3">3</div>
+      <div class="prog-label">Go Live</div>
+    </div>
+  </div>
+
+  <div id="setup-state">
+
+    <!-- STEP 1: ENTER STORE -->
+    <div class="card">
+      <h2><span class="step-num">1</span> Enter your Shopify store URL</h2>
+      <p>We'll connect to your store and read your products + orders so WhatsClaw can answer customer questions accurately.</p>
+      <div class="input-wrap">
+        <input class="store-input" id="store-url" type="text" placeholder="yourstore.myshopify.com" autocomplete="off" autocapitalize="none">
+        <button class="connect-btn" id="connect-btn" onclick="connectStore()">Connect Store →</button>
+      </div>
+      <div class="input-hint">Enter just the subdomain (e.g. <strong>luxefinds</strong>.myshopify.com) or full URL</div>
+    </div>
+
+    <!-- WHAT GETS CONNECTED -->
+    <div class="card">
+      <h2>What WhatsClaw reads from your store</h2>
+      <ul class="perks">
+        <li><span class="icon">📦</span><span><strong>Orders & tracking</strong>Auto-replies to "where's my order?" — instant, accurate, 24/7</span></li>
+        <li><span class="icon">🛍️</span><span><strong>Products & inventory</strong>Answers "do you have this in size M?" without you lifting a finger</span></li>
+        <li><span class="icon">🛒</span><span><strong>Abandoned carts</strong>Detects and sends recovery messages automatically</span></li>
+        <li><span class="icon">👤</span><span><strong>Customer history</strong>Remembers who's a repeat buyer, personalizes every message</span></li>
+      </ul>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <div class="card">
+      <h2>What happens next</h2>
+      <div class="how">
+        <div class="how-step">
+          <div class="how-num">1</div>
+          <div class="how-text"><strong>You authorize WhatsClaw (30 seconds)</strong>Standard Shopify OAuth — same as any app you've installed before</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">2</div>
+          <div class="how-text"><strong>We sync your store data (2 minutes)</strong>Products, orders, FAQs — WhatsClaw learns your store automatically</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">3</div>
+          <div class="how-text"><strong>You scan a QR code with WhatsApp (1 minute)</strong>No Meta Business API approval needed — just scan and go</div>
+        </div>
+        <div class="how-step">
+          <div class="how-num">4</div>
+          <div class="how-text"><strong>WhatsClaw goes live (instant)</strong>Send yourself a WhatsApp message — AI answers in 2 seconds</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="trust-item"><span class="dot">🔒</span> Read-only access</div>
+      <div class="trust-item"><span class="dot">✅</span> No Meta API needed</div>
+      <div class="trust-item"><span class="dot">🚫</span> No credit card for trial</div>
+      <div class="trust-item"><span class="dot">⚡</span> 14-day free trial</div>
+    </div>
+
+  </div><!-- /setup-state -->
+
+  <!-- SUCCESS STATE -->
+  <div id="success-state">
+    <div class="success-icon">🎉</div>
+    <div class="success-card">
+      <h2>Store connected!</h2>
+      <div class="store-display" id="store-display">yourstore.myshopify.com</div>
+      <p>Now let's connect your WhatsApp number — this takes 2 minutes and you don't need any Meta approval.</p>
+      <a id="wa-setup-link" href="#" class="wa-btn">💬 Continue on WhatsApp →</a>
+      <div style="margin-top:16px;font-size:12px;color:#333">
+        We'll send a WhatsApp message to guide you through the final step
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+function connectStore() {
+  var raw = document.getElementById('store-url').value.trim();
+  if (!raw) {
+    document.getElementById('store-url').style.borderColor = '#c0392b';
+    document.getElementById('store-url').placeholder = 'Please enter your store URL';
+    return;
+  }
+
+  // Normalize store URL
+  var store = raw
+    .replace(/https?:\/\//i, '')
+    .replace(/\/$/, '')
+    .replace(/\.myshopify\.com.*/i, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\-]/g, '');
+
+  if (!store) {
+    document.getElementById('store-url').style.borderColor = '#c0392b';
+    return;
+  }
+
+  var fullStore = store + '.myshopify.com';
+
+  var btn = document.getElementById('connect-btn');
+  btn.disabled = true;
+  btn.textContent = 'Connecting...';
+
+  // Simulate connecting (replace with real Shopify OAuth in production)
+  setTimeout(function() {
+    // Show success
+    document.getElementById('setup-state').style.display = 'none';
+    document.getElementById('store-display').textContent = fullStore;
+
+    // Build WhatsApp message to bot
+    var msg = encodeURIComponent(
+      '[SHOPIFY] Hi! I just connected my Shopify store: ' + fullStore + '\n\n' +
+      'Please help me set up WhatsClaw for WhatsApp. Ready to scan QR! 🚀'
+    );
+    document.getElementById('wa-setup-link').href = 'https://wa.me/85251300733?text=' + msg;
+
+    document.getElementById('success-state').style.display = 'block';
+
+    // Update progress
+    document.getElementById('p1').className = 'prog-circle done';
+    document.getElementById('p1').textContent = '✓';
+    document.getElementById('pl1').className = 'prog-line done';
+    document.getElementById('p2').className = 'prog-circle active';
+
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }, 1500);
+}
+
+// Enter key submits
+document.getElementById('store-url').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') connectStore();
+});
+</script>
+
+</body>
+</html>
