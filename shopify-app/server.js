@@ -13,6 +13,11 @@ const app = express();
 // ── Middleware ────────────────────────────────────────────────────────────────
 app.use(cors());
 
+// Shopify Billing API routes (required for App Store)
+const billing = require('./billing');
+app.use('/billing', billing);
+
+
 // Raw body needed for Stripe & Shopify webhook verification
 app.use('/webhooks', express.raw({ type: 'application/json' }));
 app.use(express.json());
