@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>ClawApp Demo — WhatsApp AI 客服演示</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#0a0a0a; color:#fff; min-height:100vh; }
+
+/* HEADER */
+.header { background:#111; border-bottom:1px solid #1e1e1e; padding:16px 20px; display:flex; align-items:center; gap:12px; }
+.logo { font-size:20px; font-weight:800; }
+.logo span { color:#25D366; }
+.badge { background:#1a2a1a; color:#25D366; font-size:11px; padding:3px 10px; border-radius:12px; border:1px solid #25D36650; }
+
+/* TABS */
+.tabs { display:flex; background:#111; border-bottom:1px solid #1e1e1e; overflow-x:auto; }
+.tab { flex:1; min-width:80px; padding:12px 8px; text-align:center; font-size:13px; color:#555; cursor:pointer; border-bottom:2px solid transparent; white-space:nowrap; }
+.tab.active { color:#25D366; border-bottom-color:#25D366; }
+
+/* DEMO SECTION */
+.section { display:none; padding:20px; }
+.section.active { display:block; }
+
+/* CHAT UI */
+.chat-window { background:#0d1117; border-radius:16px; overflow:hidden; max-width:420px; margin:0 auto; box-shadow:0 0 40px rgba(37,211,102,0.1); }
+.chat-header { background:#075E54; padding:14px 16px; display:flex; align-items:center; gap:10px; }
+.chat-avatar { width:36px; height:36px; background:#25D366; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; }
+.chat-name { font-size:15px; font-weight:600; }
+.chat-status { font-size:11px; color:#a8d5a2; }
+.chat-body { padding:16px; min-height:320px; display:flex; flex-direction:column; gap:10px; }
+.msg-row { display:flex; flex-direction:column; }
+.msg-row.user { align-items:flex-end; }
+.bubble { max-width:82%; padding:10px 13px; border-radius:12px; font-size:14px; line-height:1.5; }
+.bubble.bot { background:#1e2a1e; border-radius:4px 12px 12px 12px; color:#ddd; }
+.bubble.user { background:#005c4b; border-radius:12px 12px 4px 12px; color:#fff; }
+.time { font-size:10px; color:#555; margin-top:3px; padding:0 4px; }
+.typing { display:flex; gap:4px; padding:12px 14px; background:#1e2a1e; border-radius:4px 12px 12px 12px; width:60px; }
+.typing span { width:7px; height:7px; background:#25D366; border-radius:50%; animation:bounce 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay:0.2s; }
+.typing span:nth-child(3) { animation-delay:0.4s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-6px)} }
+
+/* PLAY BUTTON */
+.play-btn { display:block; background:#25D366; color:#000; font-weight:700; font-size:15px; padding:14px; border-radius:10px; text-align:center; cursor:pointer; margin:16px auto 0; max-width:420px; border:none; width:100%; }
+.play-btn:disabled { background:#1a4a28; color:#555; cursor:default; }
+.scenario-label { text-align:center; color:#555; font-size:12px; margin-bottom:12px; }
+
+/* STATS */
+.stats { display:grid; grid-template-columns:1fr 1fr; gap:12px; max-width:420px; margin:0 auto 20px; }
+.stat { background:#111; border:1px solid #1e1e1e; border-radius:12px; padding:16px; text-align:center; }
+.stat .num { font-size:28px; font-weight:900; color:#25D366; }
+.stat .label { font-size:12px; color:#666; margin-top:4px; }
+
+/* PRICING */
+.plan-card { background:#111; border:1px solid #1e1e1e; border-radius:14px; padding:20px; max-width:420px; margin:0 auto 12px; }
+.plan-card.hot { border-color:#25D366; }
+.hot-tag { display:inline-block; background:#25D366; color:#000; font-size:11px; font-weight:700; padding:2px 10px; border-radius:10px; margin-bottom:10px; }
+.plan-name { font-size:17px; font-weight:700; }
+.plan-price { font-size:32px; font-weight:900; color:#25D366; margin:8px 0 4px; }
+.plan-price small { font-size:14px; color:#666; font-weight:400; }
+.plan-features { list-style:none; margin:12px 0 16px; }
+.plan-features li { font-size:13px; color:#aaa; padding:5px 0; border-bottom:1px solid #1a1a1a; }
+.plan-features li::before { content:'✓ '; color:#25D366; font-weight:700; }
+.pay-btn { width:100%; background:#25D366; color:#000; border:none; padding:13px; border-radius:9px; font-weight:700; font-size:15px; cursor:pointer; }
+.pay-btn.outline { background:transparent; border:1px solid #333; color:#fff; }
+
+/* CONTACT */
+.contact-card { background:#111; border:1px solid #1e1e1e; border-radius:14px; padding:24px; max-width:420px; margin:0 auto; text-align:center; }
+.contact-card h3 { font-size:18px; margin-bottom:8px; }
+.contact-card p { color:#666; font-size:13px; margin-bottom:20px; line-height:1.6; }
+.wa-btn { display:inline-flex; align-items:center; gap:8px; background:#25D366; color:#000; font-weight:700; padding:13px 24px; border-radius:10px; text-decoration:none; font-size:15px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Claw<span>App</span></div>
+  <div class="badge">Live Demo</div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('demo')">💬 Demo</div>
+  <div class="tab" onclick="switchTab('stats')">📊 数据</div>
+  <div class="tab" onclick="switchTab('pricing')">💰 定价</div>
+  <div class="tab" onclick="switchTab('contact')">🤝 合作</div>
+</div>
+
+<!-- TAB 1: DEMO -->
+<div class="section active" id="tab-demo">
+  <p class="scenario-label">场景：Shopify 独立站客户咨询</p>
+  
+  <div class="chat-window">
+    <div class="chat-header">
+      <div class="chat-avatar">🛍️</div>
+      <div>
+        <div class="chat-name">LuxeFinds 客服</div>
+        <div class="chat-status">由 ClawApp AI 驱动</div>
+      </div>
+    </div>
+    <div class="chat-body" id="chat-body">
+      <div class="msg-row">
+        <div class="bubble bot">👋 Hi! 我是 LuxeFinds 的智能助手。订单查询、产品咨询随时告诉我！</div>
+        <div class="time">刚刚</div>
+      </div>
+    </div>
+  </div>
+
+  <button class="play-btn" id="play-btn" onclick="startDemo()">▶ 开始演示对话</button>
+  
+  <div style="text-align:center;margin-top:12px;color:#555;font-size:12px">
+    点击播放，观看 AI 如何自动处理真实客户场景
+  </div>
+</div>
+
+<!-- TAB 2: STATS -->
+<div class="section" id="tab-stats">
+  <div class="stats">
+    <div class="stat"><div class="num">98%</div><div class="label">WhatsApp 开信率</div></div>
+    <div class="stat"><div class="num">3x</div><div class="label">弃购挽回率</div></div>
+    <div class="stat"><div class="num">24/7</div><div class="label">全天候自动响应</div></div>
+    <div class="stat"><div class="num">&lt;2s</div><div class="label">平均响应时间</div></div>
+  </div>
+
+  <div style="background:#111;border:1px solid #1e1e1e;border-radius:14px;padding:20px;max-width:420px;margin:0 auto">
+    <h3 style="font-size:16px;margin-bottom:16px;color:#25D366">客户实际收益对比</h3>
+    
+    <div style="margin-bottom:16px">
+      <div style="font-size:13px;color:#888;margin-bottom:6px">人工客服（每月）</div>
+      <div style="background:#1a1a1a;border-radius:6px;height:28px;position:relative">
+        <div style="background:#ff4444;height:100%;border-radius:6px;width:100%;display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:700">¥3,000-8,000/月</div>
+      </div>
+    </div>
+    
+    <div>
+      <div style="font-size:13px;color:#888;margin-bottom:6px">ClawApp（每月）</div>
+      <div style="background:#1a1a1a;border-radius:6px;height:28px;position:relative">
+        <div style="background:#25D366;height:100%;border-radius:6px;width:30%;display:flex;align-items:center;padding:0 10px;font-size:12px;font-weight:700;color:#000">¥210/月</div>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:12px;background:#0d1f0d;border-radius:8px;border:1px solid #25D36630;text-align:center">
+      <div style="font-size:22px;font-weight:900;color:#25D366">节省 93%</div>
+      <div style="font-size:12px;color:#666;margin-top:4px">同等甚至更好的客服效果</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 3: PRICING -->
+<div class="section" id="tab-pricing">
+  
+  <div class="plan-card">
+    <div class="plan-name">基础版</div>
+    <div class="plan-price">$29 <small>/月</small></div>
+    <ul class="plan-features">
+      <li>1 个 WhatsApp 号</li>
+      <li>无限 AI 对话</li>
+      <li>订单查询自动回复</li>
+      <li>弃购挽回消息</li>
+    </ul>
+    <button class="pay-btn outline" onclick="openPayment('starter')">免费试用 14 天</button>
+  </div>
+
+  <div class="plan-card hot">
+    <div class="hot-tag">⭐ 最受欢迎</div>
+    <div class="plan-name">成长版</div>
+    <div class="plan-price">$79 <small>/月</small></div>
+    <ul class="plan-features">
+      <li>3 个 WhatsApp 号</li>
+      <li>自动折扣码（弃购挽回）</li>
+      <li>CRM 对接</li>
+      <li>数据分析面板</li>
+      <li>优先支持</li>
+    </ul>
+    <button class="pay-btn" onclick="openPayment('growth')">免费试用 14 天</button>
+  </div>
+
+  <div class="plan-card">
+    <div class="plan-name">私有部署版</div>
+    <div class="plan-price">$199 <small>/月</small></div>
+    <ul class="plan-features">
+      <li>数据完全在你的服务器</li>
+      <li>无限 WhatsApp 号</li>
+      <li>自定义 AI 训练</li>
+      <li>一对一上线支持</li>
+    </ul>
+    <button class="pay-btn outline" onclick="contactSales()">联系我们</button>
+  </div>
+
+</div>
+
+<!-- TAB 4: CONTACT -->
+<div class="section" id="tab-contact">
+  <div class="contact-card">
+    <h3>想让 AI 帮你做 WhatsApp 客服？</h3>
+    <p>免费试用 14 天，5 分钟接入你的 Shopify 店铺。我们帮你完成所有配置。</p>
+    <a class="wa-btn" href="https://wa.me/YOUR_WHATSAPP_NUMBER?text=Hi%2C%20I%27m%20interested%20in%20ClawApp%20for%20my%20Shopify%20store" id="wa-contact-btn">
+      <span>💬</span> WhatsApp 联系我们
+    </a>
+    <p style="margin-top:16px;font-size:12px;color:#444">或发邮件：hello@clawapp.io</p>
+  </div>
+</div>
+
+<script>
+// ── TAB SWITCHING ───────────────────────────────────────
+function switchTab(name) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.remove('active'));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + name).classList.add('active');
+}
+
+// ── DEMO CONVERSATION ────────────────────────────────────
+const DEMO_SCRIPT = [
+  { role:'user',  text:'我的订单 #LF-2847 发货了吗？',                delay:0 },
+  { role:'bot',   text:'稍等，帮您查一下... 📦 找到了！您的蓝色丝巾 (#LF-2847) 正在派送中，预计<strong>今天下午 6 点前</strong>送达。<br>快递单号：UPS 1Z284...', delay:1800 },
+  { role:'user',  text:'这款有红色吗？',                               delay:3200 },
+  { role:'bot',   text:'有的！红色丝巾现货充足 🎉<br>直达链接：luxefinds.com/red-silk<br><br>作为老顾客，用 <strong>SAVE10</strong> 可享 9 折优惠，今天有效哦～', delay:5000 },
+  { role:'user',  text:'好的，我买红色的',                             delay:7200 },
+  { role:'bot',   text:'太棒了！点这里直接结账 👉 luxefinds.com/red-silk?code=SAVE10<br><br>有其他问题随时找我，祝购物愉快！😊', delay:9000 },
+];
+
+let demoRunning = false;
+
+function startDemo() {
+  if (demoRunning) return;
+  demoRunning = true;
+  
+  const btn = document.getElementById('play-btn');
+  btn.disabled = true;
+  btn.textContent = '演示进行中...';
+  
+  // Reset chat
+  const body = document.getElementById('chat-body');
+  body.innerHTML = `
+    <div class="msg-row">
+      <div class="bubble bot">👋 Hi! 我是 LuxeFinds 的智能助手。订单查询、产品咨询随时告诉我！</div>
+      <div class="time">刚刚</div>
+    </div>
+  `;
+
+  DEMO_SCRIPT.forEach(({ role, text, delay }) => {
+    setTimeout(() => {
+      if (role === 'bot') {
+        // Show typing indicator first
+        const typing = document.createElement('div');
+        typing.className = 'msg-row';
+        typing.id = 'typing-indicator';
+        typing.innerHTML = '<div class="typing"><span></span><span></span><span></span></div>';
+        body.appendChild(typing);
+        body.scrollTop = body.scrollHeight;
+        
+        setTimeout(() => {
+          const t = document.getElementById('typing-indicator');
+          if (t) t.remove();
+          
+          const row = document.createElement('div');
+          row.className = 'msg-row';
+          row.innerHTML = `<div class="bubble bot">${text}</div><div class="time">刚刚</div>`;
+          body.appendChild(row);
+          body.scrollTop = body.scrollHeight;
+        }, 1200);
+      } else {
+        const row = document.createElement('div');
+        row.className = 'msg-row user';
+        row.innerHTML = `<div class="bubble user">${text}</div><div class="time">刚刚</div>`;
+        body.appendChild(row);
+        body.scrollTop = body.scrollHeight;
+      }
+    }, delay);
+  });
+
+  // Re-enable after demo
+  setTimeout(() => {
+    demoRunning = false;
+    btn.disabled = false;
+    btn.textContent = '▶ 再次演示';
+  }, 12000);
+}
+
+// ── PAYMENT ──────────────────────────────────────────────
+function openPayment(plan) {
+  // 替换成真实的 Stripe 支付链接或落地页 URL
+  const urls = {
+    starter: 'https://whatsclaw.xyz?plan=starter',
+    growth:  'https://whatsclaw.xyz?plan=growth',
+  };
+  
+  // 临时：直接跳转落地页（填入真实 URL 后生效）
+  const url = urls[plan] || 'https://whatsclaw.xyz';
+  if (url.startsWith('YOUR_')) {
+    alert('演示模式：支付页面部署后即可使用。\n\n请通过 WhatsApp 联系我们开通试用！');
+    switchTab('contact');
+  } else {
+    window.open(url, '_blank');
+  }
+}
+
+function contactSales() {
+  switchTab('contact');
+}
+</script>
+</body>
+</html>
