@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 800px; background: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; }
+.card {
+  width: 1100px; height: 700px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(34,197,94,0.15) 0%, transparent 70%);
+  border-radius: 50%;
+}
+.left { flex: 1; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: #22c55e; color: white;
+  padding: 8px 20px; border-radius: 100px;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+  margin-bottom: 24px;
+}
+.badge-dot { width: 8px; height: 8px; background: white; border-radius: 50%; }
+h1 { font-size: 56px; font-weight: 800; color: #14532d; line-height: 1.1; margin-bottom: 16px; }
+h1 span { color: #22c55e; }
+.subtitle { font-size: 20px; color: #166534; margin-bottom: 40px; line-height: 1.5; }
+.price-block { display: flex; align-items: baseline; gap: 8px; margin-bottom: 36px; }
+.price { font-size: 72px; font-weight: 900; color: #14532d; }
+.price-period { font-size: 20px; color: #166534; }
+.features { display: flex; flex-direction: column; gap: 14px; }
+.feature { display: flex; align-items: center; gap: 12px; font-size: 17px; color: #15803d; font-weight: 500; }
+.check { width: 24px; height: 24px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; flex-shrink: 0; }
+.right { flex-shrink: 0; margin-left: 60px; }
+.phone {
+  width: 260px; height: 500px;
+  background: #1a1a2e;
+  border-radius: 40px;
+  padding: 16px;
+  box-shadow: 0 40px 80px rgba(0,0,0,0.25), 0 0 0 2px rgba(255,255,255,0.1);
+  position: relative;
+}
+.phone-screen { background: #fff; border-radius: 28px; height: 100%; overflow: hidden; display: flex; flex-direction: column; }
+.chat-header { background: #075e54; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+.avatar { width: 36px; height: 36px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.chat-name { color: white; font-size: 14px; font-weight: 600; }
+.chat-status { color: #9de6c5; font-size: 11px; }
+.chat-body { flex: 1; background: #e5ddd5; padding: 12px; display: flex; flex-direction: column; gap: 8px; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3C/svg%3E"); }
+.msg { max-width: 85%; padding: 8px 12px; border-radius: 12px; font-size: 11px; line-height: 1.4; }
+.msg-in { background: white; align-self: flex-start; border-radius: 2px 12px 12px 12px; }
+.msg-out { background: #dcf8c6; align-self: flex-end; border-radius: 12px 2px 12px 12px; }
+.msg-time { font-size: 9px; color: #999; text-align: right; margin-top: 2px; }
+.brand { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 13px; font-weight: 700; color: #6b7280; letter-spacing: 1px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="left">
+    <div class="badge"><div class="badge-dot"></div>STARTER PLAN</div>
+    <h1>WhatsClaw<br><span>Starter</span></h1>
+    <div class="subtitle">Perfect for solo merchants &<br>small Shopify stores</div>
+    <div class="price-block">
+      <div class="price">$29</div>
+      <div class="price-period">/ month</div>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="check">✓</div>500 AI conversations / mo</div>
+      <div class="feature"><div class="check">✓</div>Order tracking via WhatsApp</div>
+      <div class="feature"><div class="check">✓</div>Abandoned cart recovery</div>
+      <div class="feature"><div class="check">✓</div>14-day free trial</div>
+      <div class="feature"><div class="check">✓</div>No credit card required</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="chat-header">
+          <div class="avatar">🛍️</div>
+          <div>
+            <div class="chat-name">Lune & Craft</div>
+            <div class="chat-status">● online</div>
+          </div>
+        </div>
+        <div class="chat-body">
+          <div class="msg msg-in">Hi! Where's my order #1042? 📦<div class="msg-time">10:21</div></div>
+          <div class="msg msg-out">Hey Sarah! 👋 Your order #1042 shipped via FedEx. ETA: Tomorrow 3pm ✨<div class="msg-time">10:21 ✓✓</div></div>
+          <div class="msg msg-in">Amazing, thank you! 🙏<div class="msg-time">10:22</div></div>
+          <div class="msg msg-out">You're welcome! Need anything else? 😊<div class="msg-time">10:22 ✓✓</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="brand">whatsclaw.xyz</div>
+</div>
+</body>
+</html>

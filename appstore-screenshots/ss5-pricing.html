@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1280px; height: 800px; background: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 100%, rgba(37,211,102,0.06) 0%, transparent 60%); }
+.container { width: 1180px; position: relative; z-index: 1; text-align: center; }
+.top-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 20px; }
+h2 { font-size: 44px; font-weight: 900; color: white; margin-bottom: 8px; }
+.subtitle { font-size: 17px; color: #8b949e; margin-bottom: 40px; }
+.plans { display: flex; gap: 20px; justify-content: center; }
+.plan { background: #161b22; border: 1px solid #30363d; border-radius: 20px; padding: 28px; flex: 1; max-width: 320px; position: relative; }
+.plan.featured { border-color: #25d366; background: linear-gradient(180deg, rgba(37,211,102,0.06) 0%, #161b22 40%); box-shadow: 0 0 0 1px rgba(37,211,102,0.15), 0 20px 60px rgba(0,0,0,0.4); }
+.popular-badge { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); background: #25d366; color: white; padding: 4px 16px; border-radius: 100px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+.plan-name { font-size: 18px; font-weight: 800; color: white; margin-bottom: 8px; }
+.plan-desc { font-size: 13px; color: #6e7681; margin-bottom: 20px; }
+.plan-price { margin-bottom: 24px; }
+.price-val { font-size: 52px; font-weight: 900; color: white; }
+.price-val.green { color: #25d366; }
+.price-mo { font-size: 16px; color: #6e7681; }
+.plan-features { display: flex; flex-direction: column; gap: 10px; text-align: left; margin-bottom: 24px; }
+.feat { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #8b949e; }
+.feat-check { color: #25d366; font-weight: 700; flex-shrink: 0; }
+.plan-cta { display: block; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 700; text-align: center; }
+.cta-outline { background: transparent; border: 1px solid #30363d; color: white; }
+.cta-solid { background: #25d366; color: white; }
+.trial-note { margin-top: 28px; font-size: 14px; color: #6e7681; }
+.trial-note strong { color: #25d366; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <div class="top-tag">💰 SIMPLE PRICING</div>
+  <h2>Start free. Scale as you grow.</h2>
+  <div class="subtitle">All plans include a 14-day free trial. No credit card required.</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">🌱 Starter</div>
+      <div class="plan-desc">For solo merchants</div>
+      <div class="plan-price"><span class="price-val">$29</span><span class="price-mo">/mo</span></div>
+      <div class="plan-features">
+        <div class="feat"><span class="feat-check">✓</span>500 AI conversations/mo</div>
+        <div class="feat"><span class="feat-check">✓</span>Order tracking</div>
+        <div class="feat"><span class="feat-check">✓</span>Abandoned cart recovery</div>
+        <div class="feat"><span class="feat-check">✓</span>Basic analytics</div>
+      </div>
+      <div class="plan-cta cta-outline">Start Free Trial</div>
+    </div>
+    <div class="plan featured">
+      <div class="popular-badge">🔥 MOST POPULAR</div>
+      <div class="plan-name">🚀 Growth</div>
+      <div class="plan-desc">For scaling stores</div>
+      <div class="plan-price"><span class="price-val green">$79</span><span class="price-mo">/mo</span></div>
+      <div class="plan-features">
+        <div class="feat"><span class="feat-check">✓</span>Unlimited AI conversations</div>
+        <div class="feat"><span class="feat-check">✓</span>Broadcast 1,000 msgs/day</div>
+        <div class="feat"><span class="feat-check">✓</span>Advanced analytics</div>
+        <div class="feat"><span class="feat-check">✓</span>Priority support</div>
+      </div>
+      <div class="plan-cta cta-solid">Start Free Trial</div>
+    </div>
+    <div class="plan">
+      <div class="plan-name">💎 Enterprise</div>
+      <div class="plan-desc">Private deployment</div>
+      <div class="plan-price"><span class="price-val">$199</span><span class="price-mo">/mo</span></div>
+      <div class="plan-features">
+        <div class="feat"><span class="feat-check">✓</span>Unlimited everything</div>
+        <div class="feat"><span class="feat-check">✓</span>Custom AI training</div>
+        <div class="feat"><span class="feat-check">✓</span>White-label option</div>
+        <div class="feat"><span class="feat-check">✓</span>Dedicated account manager</div>
+      </div>
+      <div class="plan-cta cta-outline">Contact Us</div>
+    </div>
+  </div>
+  <div class="trial-note">🎉 <strong>14-day free trial</strong> on all plans · Cancel anytime · No setup fees</div>
+</div>
+</body>
+</html>

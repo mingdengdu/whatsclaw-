@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 800px; background: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; }
+.card {
+  width: 1100px; height: 700px;
+  background: linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #1a0533 100%);
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px 80px;
+  position: relative;
+  overflow: hidden;
+}
+.stars { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 100%), radial-gradient(1px 1px at 80% 10%, rgba(255,255,255,0.3) 0%, transparent 100%), radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.2) 0%, transparent 100%), radial-gradient(1px 1px at 10% 80%, rgba(255,255,255,0.3) 0%, transparent 100%); }
+.glow { position: absolute; top: -200px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(168,85,247,0.25) 0%, transparent 60%); }
+.left { flex: 1; z-index: 1; }
+.badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: linear-gradient(90deg, #a855f7, #7c3aed);
+  color: white; padding: 8px 20px; border-radius: 100px;
+  font-size: 14px; font-weight: 700; letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+h1 { font-size: 56px; font-weight: 800; color: #ffffff; line-height: 1.1; margin-bottom: 16px; }
+h1 span { background: linear-gradient(90deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { font-size: 20px; color: #94a3b8; margin-bottom: 40px; }
+.price-block { display: flex; align-items: baseline; gap: 8px; margin-bottom: 36px; }
+.price { font-size: 72px; font-weight: 900; background: linear-gradient(90deg, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.price-period { font-size: 20px; color: #64748b; }
+.features { display: flex; flex-direction: column; gap: 14px; }
+.feature { display: flex; align-items: center; gap: 12px; font-size: 17px; color: #e2e8f0; font-weight: 500; }
+.check { width: 24px; height: 24px; background: linear-gradient(135deg, #a855f7, #7c3aed); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; flex-shrink: 0; }
+.right { flex-shrink: 0; margin-left: 60px; z-index: 1; }
+.tier-box {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 24px;
+  padding: 32px;
+  width: 280px;
+}
+.tier-title { color: #a855f7; font-size: 13px; font-weight: 700; letter-spacing: 1px; margin-bottom: 20px; text-transform: uppercase; }
+.tier-items { display: flex; flex-direction: column; gap: 16px; }
+.tier-item { display: flex; align-items: flex-start; gap: 12px; }
+.tier-icon { font-size: 20px; flex-shrink: 0; }
+.tier-text strong { display: block; color: #e2e8f0; font-size: 14px; font-weight: 600; }
+.tier-text span { color: #64748b; font-size: 12px; }
+.brand { position: absolute; bottom: 20px; right: 40px; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.2); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="stars"></div>
+  <div class="glow"></div>
+  <div class="left">
+    <div class="badge">💎 ENTERPRISE PLAN</div>
+    <h1>WhatsClaw<br><span>Enterprise</span></h1>
+    <div class="subtitle">Private deployment for<br>high-volume merchants</div>
+    <div class="price-block">
+      <div class="price">$199</div>
+      <div class="price-period">/ month</div>
+    </div>
+    <div class="features">
+      <div class="feature"><div class="check">✓</div>Dedicated private deployment</div>
+      <div class="feature"><div class="check">✓</div>Unlimited everything</div>
+      <div class="feature"><div class="check">✓</div>Custom AI persona & training</div>
+      <div class="feature"><div class="check">✓</div>SLA + dedicated account manager</div>
+      <div class="feature"><div class="check">✓</div>White-label available</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="tier-box">
+      <div class="tier-title">⚡ Enterprise Perks</div>
+      <div class="tier-items">
+        <div class="tier-item">
+          <div class="tier-icon">🔒</div>
+          <div class="tier-text">
+            <strong>Private Cloud</strong>
+            <span>Your data stays on your infrastructure</span>
+          </div>
+        </div>
+        <div class="tier-item">
+          <div class="tier-icon">🤖</div>
+          <div class="tier-text">
+            <strong>Custom AI Training</strong>
+            <span>Fine-tuned on your product catalog</span>
+          </div>
+        </div>
+        <div class="tier-item">
+          <div class="tier-icon">📞</div>
+          <div class="tier-text">
+            <strong>Dedicated Support</strong>
+            <span>Direct line to engineering team</span>
+          </div>
+        </div>
+        <div class="tier-item">
+          <div class="tier-icon">🏷️</div>
+          <div class="tier-text">
+            <strong>White Label</strong>
+            <span>Your brand, our technology</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="brand">whatsclaw.xyz</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ClawAcademy — OpenClaw × WhatsApp 赚钱攻略</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif; }
+.hero { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); padding: 80px 24px; text-align: center; border-bottom: 1px solid #21262d; position: relative; overflow: hidden; }
+.hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,211,102,0.08) 0%, transparent 70%); }
+.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 8px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; margin-bottom: 24px; }
+.hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
+.hero h1 span { color: #25d366; }
+.hero p { font-size: 18px; color: #8b949e; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
+.hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-val { font-size: 36px; font-weight: 800; color: #25d366; }
+.stat-label { font-size: 13px; color: #6e7681; margin-top: 4px; }
+
+.section { padding: 64px 24px; max-width: 1100px; margin: 0 auto; }
+.section-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; text-align: center; }
+.section-sub { color: #8b949e; text-align: center; margin-bottom: 48px; font-size: 16px; }
+
+/* Pricing */
+.pricing { background: #161b22; padding: 64px 24px; border-top: 1px solid #21262d; border-bottom: 1px solid #21262d; }
+.plans { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
+.plan { background: #0d1117; border: 1px solid #30363d; border-radius: 20px; padding: 32px 28px; width: 200px; flex-shrink: 0; position: relative; transition: transform 0.2s; }
+.plan:hover { transform: translateY(-4px); }
+.plan.featured { border-color: #25d366; background: linear-gradient(180deg, rgba(37,211,102,0.05) 0%, #0d1117 30%); }
+.plan-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #25d366; color: white; padding: 3px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.plan-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.plan-price { font-size: 40px; font-weight: 900; color: #25d366; line-height: 1; }
+.plan-price sub { font-size: 16px; color: #6e7681; font-weight: 400; }
+.plan-desc { font-size: 12px; color: #6e7681; margin: 10px 0 20px; line-height: 1.6; }
+.plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.plan-features li { font-size: 12px; color: #8b949e; display: flex; gap: 6px; }
+.plan-features li::before { content: '✓'; color: #25d366; font-weight: 700; flex-shrink: 0; }
+.plan-btn { display: block; text-align: center; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; }
+.btn-outline { border: 1px solid #30363d; color: #e6edf3; }
+.btn-green { background: #25d366; color: white; }
+
+/* Methods */
+.methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.method-card { background: #161b22; border: 1px solid #21262d; border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
+.method-card:hover { border-color: #25d366; }
+.method-num { font-size: 11px; font-weight: 700; color: #25d366; letter-spacing: 1px; margin-bottom: 8px; }
+.method-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+.method-desc { font-size: 13px; color: #8b949e; line-height: 1.6; margin-bottom: 16px; }
+.method-meta { display: flex; gap: 12px; }
+.meta-badge { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); color: #25d366; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+.meta-badge.gray { background: rgba(139,148,158,0.1); border-color: rgba(139,148,158,0.2); color: #8b949e; }
+
+/* Journey */
+.journey { display: flex; flex-direction: column; gap: 0; position: relative; }
+.journey::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #25d366, #0d7a3e); }
+.journey-item { display: flex; gap: 24px; padding: 24px 0; position: relative; }
+.j-circle { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #25d366, #128c7e); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; z-index: 1; box-shadow: 0 0 0 4px #0d1117; }
+.j-content { flex: 1; padding-top: 12px; }
+.j-day { font-size: 11px; font-weight: 700; color: #25d366; letter-spacing: 1px; margin-bottom: 4px; }
+.j-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.j-desc { font-size: 14px; color: #8b949e; line-height: 1.7; }
+.j-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+.j-tag { background: #21262d; color: #8b949e; padding: 3px 10px; border-radius: 6px; font-size: 11px; }
+.j-tag.done { background: rgba(37,211,102,0.1); color: #25d366; }
+
+footer { text-align: center; padding: 40px 24px; color: #6e7681; font-size: 13px; border-top: 1px solid #21262d; }
+footer a { color: #25d366; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="badge">🦞 ClawAcademy × OpenClaw 赚钱攻略</div>
+  <h1>1美金服务器<br><span>跑通商业化闭环</span></h1>
+  <p>从零搭建 OpenClaw AI 助手，接入 WhatsApp，3天内完成第一笔收款。真实亲测，手把手教。</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-val">$1</div><div class="stat-label">起步成本（服务器/月）</div></div>
+    <div class="stat"><div class="stat-val">3天</div><div class="stat-label">到第一笔收款</div></div>
+    <div class="stat"><div class="stat-val">10+</div><div class="stat-label">种赚钱方法</div></div>
+    <div class="stat"><div class="stat-val">0代码</div><div class="stat-label">小白可上手</div></div>
+  </div>
+</div>
+
+<!-- JOURNEY -->
+<div class="section">
+  <div class="section-title">🗓️ 真实3天历程</div>
+  <div class="section-sub">从1美金服务器到完整商业化产品，全程亲测记录</div>
+  <div class="journey">
+    <div class="journey-item">
+      <div class="j-circle">🚀</div>
+      <div class="j-content">
+        <div class="j-day">DAY 1 — 3月6日</div>
+        <div class="j-title">1美金服务器 + OpenClaw 上线</div>
+        <div class="j-desc">腾讯云 Lighthouse 注册，香港节点1核1G，$1/月。SSH连接，一键安装 OpenClaw，绑定企业微信机器人，当天跑通 AI 对话。</div>
+        <div class="j-tags">
+          <span class="j-tag done">✓ 服务器上线</span>
+          <span class="j-tag done">✓ OpenClaw 安装</span>
+          <span class="j-tag done">✓ AI对话测试</span>
+        </div>
+      </div>
+    </div>
+    <div class="journey-item">
+      <div class="j-circle">💡</div>
+      <div class="j-content">
+        <div class="j-day">DAY 2 — 3月7日</div>
+        <div class="j-title">商业化方向确定 + 域名落地页</div>
+        <div class="j-desc">分析5大变现赛道，选定 WhatsApp × Shopify AI Bot（WhatsClaw）。注册域名 whatsclaw.xyz，部署英文落地页，接入 Stripe 国际收款 + 微信支付双通道。绑定 WhatsApp 实现 AI 自动回复。</div>
+        <div class="j-tags">
+          <span class="j-tag done">✓ 域名 whatsclaw.xyz</span>
+          <span class="j-tag done">✓ Stripe live 接入</span>
+          <span class="j-tag done">✓ WhatsApp 绑定</span>
+          <span class="j-tag done">✓ 微信双币支付</span>
+        </div>
+      </div>
+    </div>
+    <div class="journey-item">
+      <div class="j-circle">🛍️</div>
+      <div class="j-content">
+        <div class="j-day">DAY 3 — 3月8日</div>
+        <div class="j-title">Shopify 店铺 + App Store 准备</div>
+        <div class="j-desc">搭建 Shopify 开发店铺，上架3款产品（含年付），AI生成产品图并上传，制作5张 App Store 截图，完成 Shopify Billing API 合规接入，App Store 上架准备完成。</div>
+        <div class="j-tags">
+          <span class="j-tag done">✓ Shopify 店铺</span>
+          <span class="j-tag done">✓ 产品图 AI生成</span>
+          <span class="j-tag done">✓ App Store 截图</span>
+          <span class="j-tag done">✓ 全球30国市场</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing">
+  <div class="section-title">💰 课程套餐</div>
+  <div class="section-sub">从入门到精通，按需选择</div>
+  <div class="plans">
+    <div class="plan">
+      <div class="plan-name">🌱 基础教程</div>
+      <div class="plan-price">¥20<sub>/套</sub></div>
+      <div class="plan-desc">PDF+视频，OpenClaw 安装到跑通全流程</div>
+      <ul class="plan-features">
+        <li>服务器注册+安装教程</li>
+        <li>OpenClaw 初始化配置</li>
+        <li>AI 对话跑通验证</li>
+      </ul>
+      <a href="#" class="plan-btn btn-outline">立即购买</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">⚡ 安装服务</div>
+      <div class="plan-price">¥100</div>
+      <div class="plan-desc">帮你安装配置，赠1个月腾讯云</div>
+      <ul class="plan-features">
+        <li>远程帮装 OpenClaw</li>
+        <li>赠1个月腾讯云Lighthouse</li>
+        <li>基础教程包含</li>
+      </ul>
+      <a href="#" class="plan-btn btn-outline">预约服务</a>
+    </div>
+    <div class="plan featured">
+      <div class="plan-tag">🔥 最受欢迎</div>
+      <div class="plan-name">🚀 商业化闭环</div>
+      <div class="plan-price">¥299</div>
+      <div class="plan-desc">从安装到第一笔收款，全流程跑通</div>
+      <ul class="plan-features">
+        <li>含基础教程+安装服务</li>
+        <li>WhatsApp AI接入</li>
+        <li>Stripe收款配置</li>
+        <li>落地页搭建</li>
+        <li>第一笔收款闭环</li>
+      </ul>
+      <a href="#" class="plan-btn btn-green">立即开始</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">🌏 电商实战</div>
+      <div class="plan-price">¥399</div>
+      <div class="plan-desc">含香港电话卡/银行/Shopify全链路</div>
+      <ul class="plan-features">
+        <li>含299套餐全部内容</li>
+        <li>香港电话卡获取攻略</li>
+        <li>ZA Bank/Airwallex开户</li>
+        <li>Shopify全球店铺</li>
+        <li>App Store上架实战</li>
+      </ul>
+      <a href="#" class="plan-btn btn-outline">了解详情</a>
+    </div>
+    <div class="plan">
+      <div class="plan-name">👑 年度会员</div>
+      <div class="plan-price">¥599<sub>/年</sub></div>
+      <div class="plan-desc">全部教程+10种赚钱方法+社群</div>
+      <ul class="plan-features">
+        <li>全部套餐内容</li>
+        <li>10种赚钱方法实战</li>
+        <li>专属会员社群</li>
+        <li>每月新方法更新</li>
+        <li>1对1答疑（2次/月）</li>
+      </ul>
+      <a href="#" class="plan-btn btn-outline">加入会员</a>
+    </div>
+  </div>
+</div>
+
+<!-- 10 METHODS -->
+<div class="section">
+  <div class="section-title">💎 10种 WhatsApp+OpenClaw 赚钱方法</div>
+  <div class="section-sub">每种方法含完整SOP、客户脚本、定价策略，会员专区逐一解锁</div>
+  <div class="methods-grid">
+    <div class="method-card">
+      <div class="method-num">METHOD 01</div>
+      <div class="method-name">🛍️ WhatsClaw Shopify Bot</div>
+      <div class="method-desc">给Shopify商家提供WhatsApp AI客服，自动回复、订单追踪、弃购挽回。</div>
+      <div class="method-meta">
+        <span class="meta-badge">$500-3000/mo</span>
+        <span class="meta-badge gray">起步$1</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 02</div>
+      <div class="method-name">📱 AI社媒代运营</div>
+      <div class="method-desc">用OpenClaw帮中小商家运营WhatsApp/Instagram，AI生成内容+自动发布。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥3000-10000/mo</span>
+        <span class="meta-badge gray">起步¥0</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 03</div>
+      <div class="method-name">📢 WhatsApp群发营销</div>
+      <div class="method-desc">帮本地餐厅/零售商做WhatsApp会员营销，AI个性化群发，按效果收费。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥2000-8000/mo</span>
+        <span class="meta-badge gray">起步¥0</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 04</div>
+      <div class="method-name">🏪 本地商家AI助手外包</div>
+      <div class="method-desc">给餐厅/美容院/健身房部署OpenClaw，提供预约、查询、营销全套服务。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥5000-20000/mo</span>
+        <span class="meta-badge gray">起步¥100</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 05</div>
+      <div class="method-name">🎓 OpenClaw教程售卖</div>
+      <div class="method-desc">把你的实战经验打包成课程，通过小红书/视频号/B站持续售卖。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥3000-15000/mo</span>
+        <span class="meta-badge gray">起步¥0</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 06</div>
+      <div class="method-name">✍️ AI写作/SEO内容服务</div>
+      <div class="method-desc">用OpenClaw帮企业批量生成SEO文章、产品描述、社媒内容，按篇/月收费。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥2000-8000/mo</span>
+        <span class="meta-badge gray">起步¥0</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 07</div>
+      <div class="method-name">🌐 跨境电商选品助手</div>
+      <div class="method-desc">用OpenClaw分析TikTok/Amazon趋势，为跨境卖家提供AI选品报告服务。</div>
+      <div class="method-meta">
+        <span class="meta-badge">$1000-5000/mo</span>
+        <span class="meta-badge gray">起步¥50</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 08</div>
+      <div class="method-name">💼 企业微信AI客服SaaS</div>
+      <div class="method-desc">基于OpenClaw搭建企业微信智能客服，面向中小企业SaaS订阅，月付制。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥10000+/mo</span>
+        <span class="meta-badge gray">起步¥500</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 09</div>
+      <div class="method-name">⭐ AI网红孵化工具</div>
+      <div class="method-desc">帮KOL/网红用OpenClaw管理粉丝私信、自动互动、内容日历，按月收服务费。</div>
+      <div class="method-meta">
+        <span class="meta-badge">¥5000-20000/mo</span>
+        <span class="meta-badge gray">起步¥0</span>
+      </div>
+    </div>
+    <div class="method-card">
+      <div class="method-num">METHOD 10</div>
+      <div class="method-name">🌏 海外华人生活服务Bot</div>
+      <div class="method-desc">面向海外华人提供WhatsApp订阅服务：找工作、租房、美食、签证问答AI助手。</div>
+      <div class="method-meta">
+        <span class="meta-badge">$500-2000/mo</span>
+        <span class="meta-badge gray">起步$1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2026 ClawAcademy · Powered by <a href="https://whatsclaw.xyz">WhatsClaw</a> × OpenClaw</p>
+  <p style="margin-top:8px">咨询微信: 扫码添加 · 加入会员群</p>
+</footer>
+
+</body>
+</html>

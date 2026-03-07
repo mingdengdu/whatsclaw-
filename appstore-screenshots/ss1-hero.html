@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1280px; height: 800px; background: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(37,211,102,0.12) 0%, transparent 60%), radial-gradient(ellipse at 20% 80%, rgba(0,128,255,0.08) 0%, transparent 50%); }
+.container { display: flex; align-items: center; justify-content: space-between; width: 1180px; position: relative; z-index: 1; }
+.left { max-width: 560px; }
+.logo { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+.logo-icon { width: 52px; height: 52px; background: linear-gradient(135deg, #25d366, #128c7e); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; }
+.logo-text { font-size: 22px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+.logo-sub { font-size: 13px; color: #25d366; font-weight: 600; }
+h1 { font-size: 54px; font-weight: 900; color: white; line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+h1 em { font-style: normal; color: #25d366; }
+.desc { font-size: 19px; color: #8b949e; line-height: 1.6; margin-bottom: 36px; }
+.tags { display: flex; gap: 10px; flex-wrap: wrap; }
+.tag { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 8px 16px; border-radius: 100px; font-size: 14px; font-weight: 600; }
+.right { position: relative; }
+.phone-wrap { position: relative; }
+.phone { width: 240px; height: 480px; background: #1c1c1e; border-radius: 36px; padding: 12px; box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), 0 0 60px rgba(37,211,102,0.15); }
+.screen { background: #fff; border-radius: 26px; height: 100%; overflow: hidden; display: flex; flex-direction: column; }
+.wa-header { background: #075e54; padding: 12px 14px; display: flex; align-items: center; gap: 8px; }
+.wa-back { color: #25d366; font-size: 18px; }
+.wa-avatar { width: 34px; height: 34px; background: linear-gradient(135deg, #25d366, #128c7e); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.wa-info { flex: 1; }
+.wa-name { color: white; font-size: 13px; font-weight: 700; }
+.wa-status { color: #9de6c5; font-size: 10px; }
+.chat-bg { flex: 1; background: #ece5dd; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
+.bubble { max-width: 88%; padding: 7px 10px; border-radius: 10px; font-size: 10px; line-height: 1.4; }
+.b-in { background: white; align-self: flex-start; border-radius: 2px 10px 10px 10px; color: #111; }
+.b-out { background: #dcf8c6; align-self: flex-end; border-radius: 10px 2px 10px 10px; color: #111; }
+.b-time { font-size: 8px; color: #999; text-align: right; margin-top: 1px; }
+.b-ai { font-size: 8px; color: #25d366; font-weight: 700; margin-bottom: 2px; }
+.chat-input { background: #f0f0f0; padding: 8px 12px; display: flex; gap: 6px; align-items: center; }
+.inp { flex: 1; background: white; border-radius: 20px; padding: 6px 10px; font-size: 9px; color: #999; }
+.send-btn { width: 28px; height: 28px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+.floating { position: absolute; background: rgba(15,20,25,0.9); border: 1px solid rgba(37,211,102,0.3); border-radius: 14px; padding: 14px 18px; backdrop-filter: blur(10px); }
+.f1 { top: -20px; right: -120px; }
+.f2 { bottom: 40px; right: -130px; }
+.f-val { font-size: 26px; font-weight: 800; color: #25d366; }
+.f-label { font-size: 11px; color: #8b949e; margin-top: 2px; }
+.shopify-badge { position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); background: #96bf48; color: white; padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <div class="left">
+    <div class="logo">
+      <div class="logo-icon">🦞</div>
+      <div>
+        <div class="logo-text">WhatsClaw</div>
+        <div class="logo-sub">WhatsApp AI for Shopify</div>
+      </div>
+    </div>
+    <h1>Turn WhatsApp into your<br><em>best sales rep</em></h1>
+    <div class="desc">AI-powered customer support, order tracking,<br>and abandoned cart recovery — all on WhatsApp.</div>
+    <div class="tags">
+      <div class="tag">✓ 14-Day Free Trial</div>
+      <div class="tag">✓ No Code Required</div>
+      <div class="tag">✓ Setup in 5 min</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="screen">
+          <div class="wa-header">
+            <div class="wa-back">‹</div>
+            <div class="wa-avatar">🛍️</div>
+            <div class="wa-info">
+              <div class="wa-name">Lune & Craft Shop</div>
+              <div class="wa-status">🤖 AI Online · 24/7</div>
+            </div>
+          </div>
+          <div class="chat-bg">
+            <div class="bubble b-in">Hi! I need help with order #1042 📦<div class="b-time">2:14 PM</div></div>
+            <div class="bubble b-out"><div class="b-ai">⚡ WhatsClaw AI</div>Hey Sarah! Order #1042 shipped via FedEx ✈️ Arriving tomorrow by 3PM 🎉<div class="b-time">2:14 PM ✓✓</div></div>
+            <div class="bubble b-in">Perfect! Also can I change my address?<div class="b-time">2:15 PM</div></div>
+            <div class="bubble b-out"><div class="b-ai">⚡ WhatsClaw AI</div>Sure! Your order is still in transit — I've flagged this for our team. You'll get a confirmation within 1hr 👍<div class="b-time">2:15 PM ✓✓</div></div>
+            <div class="bubble b-in">You're amazing 🙏<div class="b-time">2:16 PM</div></div>
+          </div>
+          <div class="chat-input">
+            <div class="inp">Type a message...</div>
+            <div class="send-btn">➤</div>
+          </div>
+        </div>
+      </div>
+      <div class="floating f1">
+        <div class="f-val">+34%</div>
+        <div class="f-label">Cart Recovery</div>
+      </div>
+      <div class="floating f2">
+        <div class="f-val">&lt;3s</div>
+        <div class="f-label">AI Response</div>
+      </div>
+      <div class="shopify-badge">✓ Shopify App Store</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

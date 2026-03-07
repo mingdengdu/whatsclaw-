@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1280px; height: 800px; background: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(37,211,102,0.08) 0%, transparent 60%); }
+.container { width: 1180px; position: relative; z-index: 1; }
+.top-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 24px; }
+h2 { font-size: 44px; font-weight: 900; color: white; line-height: 1.15; margin-bottom: 12px; }
+h2 em { font-style: normal; color: #25d366; }
+.subtitle { font-size: 18px; color: #8b949e; margin-bottom: 48px; }
+.steps-row { display: flex; gap: 24px; }
+.step-card { flex: 1; background: #161b22; border: 1px solid #30363d; border-radius: 20px; padding: 28px; position: relative; }
+.step-card.active { border-color: #25d366; box-shadow: 0 0 0 1px rgba(37,211,102,0.2), 0 20px 40px rgba(0,0,0,0.3); }
+.step-num { position: absolute; top: -16px; left: 28px; width: 32px; height: 32px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: white; }
+.step-num.done { background: #25d366; }
+.step-num.current { background: #25d366; box-shadow: 0 0 0 4px rgba(37,211,102,0.2); }
+.step-num.pending { background: #21262d; border: 2px solid #30363d; color: #6e7681; }
+.step-icon { font-size: 32px; margin-bottom: 16px; }
+.step-title { font-size: 17px; font-weight: 700; color: white; margin-bottom: 8px; }
+.step-desc { font-size: 13px; color: #6e7681; line-height: 1.6; margin-bottom: 16px; }
+.step-time { display: inline-flex; align-items: center; gap: 6px; background: rgba(37,211,102,0.1); color: #25d366; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+.step-code { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 10px 14px; margin-top: 12px; font-family: monospace; font-size: 12px; color: #25d366; }
+.bottom-bar { display: flex; align-items: center; justify-content: center; gap: 32px; margin-top: 36px; padding: 20px; background: rgba(37,211,102,0.05); border: 1px solid rgba(37,211,102,0.1); border-radius: 16px; }
+.bb-item { display: flex; align-items: center; gap: 10px; }
+.bb-icon { font-size: 20px; }
+.bb-text { color: #8b949e; font-size: 14px; }
+.bb-text strong { color: white; }
+.divider { width: 1px; height: 30px; background: #30363d; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <div class="top-tag">⚡ QUICK SETUP</div>
+  <h2>Live in <em>5 minutes</em> — no code required</h2>
+  <div class="subtitle">Connect WhatsApp to your Shopify store in 3 simple steps</div>
+  <div class="steps-row">
+    <div class="step-card active">
+      <div class="step-num done">✓</div>
+      <div class="step-icon">🛍️</div>
+      <div class="step-title">1. Install from Shopify</div>
+      <div class="step-desc">Click "Add App" in the Shopify App Store. WhatsClaw auto-connects to your store — no API keys needed.</div>
+      <div class="step-time">⏱ 1 minute</div>
+    </div>
+    <div class="step-card active">
+      <div class="step-num current">2</div>
+      <div class="step-icon">📱</div>
+      <div class="step-title">2. Connect WhatsApp</div>
+      <div class="step-desc">Scan a QR code with your WhatsApp app. Uses your existing business number — no Meta Business API required.</div>
+      <div class="step-time">⏱ 2 minutes</div>
+      <div class="step-code">📲 Scan QR → WhatsApp linked ✓</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num pending">3</div>
+      <div class="step-icon">🤖</div>
+      <div class="step-title">3. Configure AI Agent</div>
+      <div class="step-desc">Tell the AI your store name and tone. It learns your products automatically from your Shopify catalog.</div>
+      <div class="step-time">⏱ 2 minutes</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num pending">🚀</div>
+      <div class="step-icon">✨</div>
+      <div class="step-title">You're live!</div>
+      <div class="step-desc">Your WhatsApp AI is now handling customer inquiries, tracking orders, and recovering carts 24/7.</div>
+      <div class="step-time">🎉 Start earning</div>
+    </div>
+  </div>
+  <div class="bottom-bar">
+    <div class="bb-item"><div class="bb-icon">✅</div><div class="bb-text"><strong>No code</strong> required</div></div>
+    <div class="divider"></div>
+    <div class="bb-item"><div class="bb-icon">🔒</div><div class="bb-text"><strong>No Meta</strong> Business API needed</div></div>
+    <div class="divider"></div>
+    <div class="bb-item"><div class="bb-icon">🆓</div><div class="bb-text"><strong>14-day</strong> free trial</div></div>
+    <div class="divider"></div>
+    <div class="bb-item"><div class="bb-icon">💳</div><div class="bb-text"><strong>No credit card</strong> to start</div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1280px; height: 800px; background: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(251,191,36,0.08) 0%, transparent 60%); }
+.container { display: flex; align-items: center; gap: 80px; width: 1180px; position: relative; z-index: 1; }
+.left { flex: 1; }
+.section-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.3); color: #fbbf24; padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; margin-bottom: 24px; }
+h2 { font-size: 48px; font-weight: 900; color: white; line-height: 1.15; margin-bottom: 20px; letter-spacing: -1px; }
+h2 em { font-style: normal; color: #fbbf24; }
+.desc { font-size: 18px; color: #8b949e; line-height: 1.6; margin-bottom: 40px; }
+.steps { display: flex; flex-direction: column; gap: 20px; }
+.step { display: flex; align-items: flex-start; gap: 16px; }
+.step-num { width: 36px; height: 36px; background: linear-gradient(135deg, #fbbf24, #f59e0b); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: #1a1a1a; flex-shrink: 0; }
+.step-text strong { display: block; color: white; font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+.step-text span { color: #6e7681; font-size: 14px; }
+.right { flex-shrink: 0; width: 480px; }
+.dashboard { background: #161b22; border: 1px solid #30363d; border-radius: 20px; overflow: hidden; }
+.dash-header { background: #21262d; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #30363d; }
+.dash-title { color: white; font-size: 15px; font-weight: 700; }
+.dash-badge { background: #25d366; color: white; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+.dash-body { padding: 20px; }
+.metric-row { display: flex; gap: 12px; margin-bottom: 20px; }
+.metric { flex: 1; background: #0d1117; border-radius: 12px; padding: 16px; }
+.metric-val { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+.metric-label { font-size: 12px; color: #6e7681; }
+.mv-green { color: #25d366; }
+.mv-yellow { color: #fbbf24; }
+.mv-blue { color: #58a6ff; }
+.chart-label { color: #6e7681; font-size: 12px; margin-bottom: 10px; }
+.bar-chart { display: flex; flex-direction: column; gap: 8px; }
+.bar-row { display: flex; align-items: center; gap: 10px; }
+.bar-name { color: #8b949e; font-size: 12px; width: 60px; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; background: #21262d; border-radius: 4px; height: 20px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; display: flex; align-items: center; padding-left: 8px; font-size: 10px; color: white; font-weight: 700; }
+.bf-green { background: linear-gradient(90deg, #25d366, #128c7e); }
+.bf-yellow { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+.bf-gray { background: #30363d; }
+.notification { background: #0d1117; border: 1px solid #30363d; border-radius: 12px; padding: 14px; margin-top: 16px; display: flex; gap: 12px; align-items: flex-start; }
+.notif-icon { font-size: 20px; flex-shrink: 0; }
+.notif-text strong { display: block; color: white; font-size: 13px; font-weight: 700; }
+.notif-text span { color: #6e7681; font-size: 12px; }
+.notif-time { color: #fbbf24; font-size: 11px; margin-top: 4px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="container">
+  <div class="left">
+    <div class="section-tag">🛒 ABANDONED CART RECOVERY</div>
+    <h2>Recover lost sales<br>on <em>autopilot</em></h2>
+    <div class="desc">WhatsClaw detects abandoned carts and sends<br>personalized WhatsApp messages automatically.</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <strong>Customer abandons cart</strong>
+          <span>Shopify triggers webhook → WhatsClaw detects it instantly</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <strong>AI sends WhatsApp message</strong>
+          <span>Personalized message with product details + discount code</span>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <strong>Customer clicks, completes purchase</strong>
+          <span>Average 34% recovery rate across WhatsClaw merchants</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="dashboard">
+      <div class="dash-header">
+        <div class="dash-title">📊 Cart Recovery Dashboard</div>
+        <div class="dash-badge">LIVE</div>
+      </div>
+      <div class="dash-body">
+        <div class="metric-row">
+          <div class="metric"><div class="metric-val mv-green">+34%</div><div class="metric-label">Recovery Rate</div></div>
+          <div class="metric"><div class="metric-val mv-yellow">$2,840</div><div class="metric-label">Recovered This Month</div></div>
+          <div class="metric"><div class="metric-val mv-blue">127</div><div class="metric-label">Carts Sent</div></div>
+        </div>
+        <div class="chart-label">Conversion by Day (this week)</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-name">Mon</div><div class="bar-track"><div class="bar-fill bf-green" style="width:65%">65%</div></div></div>
+          <div class="bar-row"><div class="bar-name">Tue</div><div class="bar-track"><div class="bar-fill bf-green" style="width:72%">72%</div></div></div>
+          <div class="bar-row"><div class="bar-name">Wed</div><div class="bar-track"><div class="bar-fill bf-yellow" style="width:48%">48%</div></div></div>
+          <div class="bar-row"><div class="bar-name">Thu</div><div class="bar-track"><div class="bar-fill bf-green" style="width:81%">81%</div></div></div>
+          <div class="bar-row"><div class="bar-name">Fri</div><div class="bar-track"><div class="bar-fill bf-green" style="width:76%">76%</div></div></div>
+          <div class="bar-row"><div class="bar-name">Sat</div><div class="bar-track"><div class="bar-fill bf-gray" style="width:30%">30%</div></div></div>
+        </div>
+        <div class="notification">
+          <div class="notif-icon">💬</div>
+          <div class="notif-text">
+            <strong>Recovery message sent to Emma K.</strong>
+            <span>Abandoned: Silver Necklace Set × 2 — $89.00</span>
+            <div class="notif-time">✓ Opened · 2 min ago</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
