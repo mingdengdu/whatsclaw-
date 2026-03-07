@@ -2,7 +2,7 @@
 
 > WhatsApp AI for Shopify — the Wati alternative with real AI, no per-message fees, and optional self-hosting.
 
-**Live:** www.whatsclaw.xyz
+**Live:** www.WhatsClaw.xyz
 
 ---
 
