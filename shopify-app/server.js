@@ -273,10 +273,119 @@ async function provisionClawApp(subscription) {
   console.log('Provisioning ClawApp for subscription:', subscription.id);
 }
 
+// ── WhatsApp Inbound Message Handler ─────────────────────────────────────────
+// OpenClaw forwards inbound WhatsApp messages to this endpoint
+// POST /whatsapp/inbound { from, body, name }
+
+const SHOPIFY_TOKEN = process.env.SHOPIFY_ACCESS_TOKEN;
+const SHOPIFY_STORE = process.env.SHOPIFY_STORE_URL;
+
+async function shopifyGet(path) {
+  const res = await axios.get(`https://${SHOPIFY_STORE}/admin/api/2024-01${path}`, {
+    headers: { 'X-Shopify-Access-Token': SHOPIFY_TOKEN }
+  });
+  return res.data;
+}
+
+async function buildAIReply(source, body, name) {
+  const q = body.toLowerCase();
+
+  // ── [DEMO] Demo booking flow ──────────────────────────────────────────────
+  if (source === 'DEMO') {
+    const data = await shopifyGet('/products.json?limit=5');
+    const products = data.products.slice(0, 3);
+    const productList = products.map(p => `• *${p.title}* — $${p.variants[0]?.price}`).join('\n');
+
+    return `Hi ${name}! 👋 I'm the WhatsClaw bot — and you just experienced what your customers will feel.\n\n` +
+      `Here's a live example from a real store:\n\n${productList}\n\n` +
+      `This is what WhatsClaw reads from your Shopify store automatically.\n\n` +
+      `What's the #1 thing eating your time on WhatsApp right now?\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── [SHOPIFY] Shopify connect flow ────────────────────────────────────────
+  if (source === 'SHOPIFY') {
+    const storeMatch = body.match(/([a-z0-9\-]+\.myshopify\.com)/i);
+    const store = storeMatch ? storeMatch[1] : 'your store';
+    return `Hi ${name}! 👋 Got your Shopify store: *${store}*\n\n` +
+      `Next step — let's connect your WhatsApp number.\n\n` +
+      `Reply with your WhatsApp number (the one customers message you on) and I'll walk you through the 3-minute setup.\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── [STORY] Story page visitor ────────────────────────────────────────────
+  if (source === 'STORY') {
+    return `Hi ${name}! 👋 Sarah's story resonates, doesn't it?\n\n` +
+      `Tell me about your store — how many WhatsApp messages do you get per day?\n\n` +
+      `Once I know your volume, I can show you exactly what WhatsClaw would save you.\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── [WEB] Website visitor ────────────────────────────────────────────────
+  if (source === 'WEB') {
+    return `Hey ${name}! 👋 Thanks for reaching out about WhatsClaw.\n\n` +
+      `Quick question — are you a Shopify store owner looking to automate WhatsApp customer service?\n\n` +
+      `Reply *Yes* to see a live demo, or *No* if you're just exploring 😊\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── Product/price questions (any source) ─────────────────────────────────
+  if (q.match(/product|sell|have|item|price|cost|how much/)) {
+    const data = await shopifyGet('/products.json?limit=5');
+    const products = data.products;
+    let reply = `Here's what we have in stock 🛍️\n\n`;
+    products.forEach(p => {
+      reply += `• *${p.title}* — $${p.variants[0]?.price}\n`;
+    });
+    reply += `\nWhich one interests you?\n\n— WhatsClaw 🦞`;
+    return reply;
+  }
+
+  // ── Order tracking ────────────────────────────────────────────────────────
+  if (q.match(/order|track|ship|where|delivery/)) {
+    return `Hi! To track your order, please reply with your order number (e.g. *#1001*) or the email used at checkout.\n\nI'll pull it up instantly! 📦\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── Pricing / conversion ──────────────────────────────────────────────────
+  if (q.match(/plan|subscribe|start|trial|sign up|interested|let.s do/)) {
+    return `Great! Here are your options 🎉\n\n` +
+      `🟢 *Starter* — $29/mo\n   1 WhatsApp number, unlimited AI chats\n\n` +
+      `⭐ *Growth* — $79/mo (most popular)\n   3 numbers, cart recovery, analytics\n\n` +
+      `Start here: https://whatsclaw.xyz/#pricing\n\n` +
+      `14-day free trial, no credit card needed.\n\n— WhatsClaw 🦞`;
+  }
+
+  // ── Default ───────────────────────────────────────────────────────────────
+  return `Hi ${name}! 👋 I'm the WhatsClaw AI assistant.\n\n` +
+    `I can help with:\n• 🛍️ Product info & availability\n• 📦 Order tracking\n• 💰 Pricing & plans\n• 🚀 Setting up WhatsClaw for your store\n\n` +
+    `What would you like to know?\n\n— WhatsClaw 🦞`;
+}
+
+app.post('/whatsapp/inbound', async (req, res) => {
+  try {
+    const { from, body = '', name = 'there' } = req.body;
+    console.log(`📱 Inbound WhatsApp from ${from}: ${body.substring(0, 80)}`);
+
+    // Detect source prefix
+    const prefixMatch = body.match(/^\[([A-Z]+)\]/);
+    const source = prefixMatch ? prefixMatch[1] : null;
+
+    // No prefix = private message, do NOT auto-reply
+    if (!source) {
+      console.log('⏭️  No prefix — skipping auto-reply (private message)');
+      return res.json({ reply: null, reason: 'no-prefix' });
+    }
+
+    const reply = await buildAIReply(source, body, name);
+    console.log(`💬 Replying to [${source}] message:`, reply.substring(0, 80));
+    res.json({ reply });
+
+  } catch (err) {
+    console.error('Inbound handler error:', err.message);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // ── Start ─────────────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-  console.log(`🦞 ClawApp server running on port ${PORT}`);
-  console.log(`   Landing page: http://localhost:${PORT}`);
-  console.log(`   Shopify install: http://localhost:${PORT}/shopify/install?shop=YOUR_STORE.myshopify.com`);
+  console.log(`🦞 WhatsClaw server running on port ${PORT}`);
+  console.log(`   Health: http://localhost:${PORT}/health`);
+  console.log(`   WhatsApp inbound: POST http://localhost:${PORT}/whatsapp/inbound`);
 });
