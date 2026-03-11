@@ -70,4 +70,88 @@ function closeWC() {
   document.getElementById('ov').classList.remove('on');
 }
 </script>
+
+<!-- ── AI Chat Widget ─────────────────────────────────────────────────── -->
+<style>
+#chat-bubble{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+#chat-btn{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#25D366,#128C7E);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,211,102,0.5);display:flex;align-items:center;justify-content:center;font-size:28px;transition:transform .2s}
+#chat-btn:hover{transform:scale(1.1)}
+#chat-box{width:340px;background:#1a1a1a;border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.6);border:1px solid #2a2a2a;display:none;flex-direction:column}
+#chat-box.open{display:flex}
+#chat-head{background:linear-gradient(135deg,#25D366,#128C7E);padding:14px 18px;display:flex;align-items:center;gap:10px}
+#chat-head .av{width:36px;height:36px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:18px}
+#chat-head .info{flex:1}.info .nm{font-weight:700;font-size:14px;color:#fff}.info .st{font-size:11px;color:rgba(255,255,255,0.8)}
+#chat-close{background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:0.8}
+#chat-msgs{flex:1;padding:16px;overflow-y:auto;max-height:320px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:14px;line-height:1.5}
+.msg.bot{background:#222;color:#ddd;align-self:flex-start;border-bottom-left-radius:4px}
+.msg.user{background:#25D366;color:#000;font-weight:500;align-self:flex-end;border-bottom-right-radius:4px}
+.typing{display:flex;gap:4px;padding:10px 14px;background:#222;border-radius:12px;align-self:flex-start;width:56px}
+.typing span{width:8px;height:8px;border-radius:50%;background:#555;animation:blink 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{opacity:0.2}40%{opacity:1}}
+#chat-input-row{display:flex;padding:12px;gap:8px;border-top:1px solid #2a2a2a}
+#chat-input{flex:1;background:#111;border:1px solid #333;border-radius:8px;padding:10px 12px;color:#fff;font-size:14px;outline:none}
+#chat-input::placeholder{color:#555}
+#chat-send{background:#25D366;border:none;border-radius:8px;width:40px;height:40px;cursor:pointer;font-size:18px;color:#000;font-weight:700}
+</style>
+
+<div id="chat-bubble">
+  <div id="chat-box">
+    <div id="chat-head">
+      <div class="av">🦞</div>
+      <div class="info"><div class="nm">WhatsClaw AI</div><div class="st">● Online · Typically replies in seconds</div></div>
+      <button id="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div id="chat-msgs">
+      <div class="msg bot">👋 Hi! I'm the WhatsClaw AI assistant.<br><br>Ask me anything about WhatsApp AI for your Shopify store — pricing, features, setup, or how to recover abandoned carts!</div>
+    </div>
+    <div id="chat-input-row">
+      <input id="chat-input" placeholder="Ask a question..." onkeydown="if(event.key==='Enter')sendChat()"/>
+      <button id="chat-send" onclick="sendChat()">↑</button>
+    </div>
+  </div>
+  <button id="chat-btn" onclick="toggleChat()" title="Chat with AI">💬</button>
+</div>
+
+<script>
+var chatOpen = false;
+function toggleChat() {
+  chatOpen = !chatOpen;
+  var box = document.getElementById('chat-box');
+  if (chatOpen) { box.classList.add('open'); document.getElementById('chat-btn').textContent = '✕'; }
+  else { box.classList.remove('open'); document.getElementById('chat-btn').textContent = '💬'; }
+}
+function sendChat() {
+  var inp = document.getElementById('chat-input');
+  var msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  var msgs = document.getElementById('chat-msgs');
+  // user bubble
+  msgs.innerHTML += '<div class="msg user">' + msg.replace(/</g,'&lt;') + '</div>';
+  // typing indicator
+  msgs.innerHTML += '<div class="typing" id="typing"><span></span><span></span><span></span></div>';
+  msgs.scrollTop = msgs.scrollHeight;
+  fetch('/api/chat', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify({message: msg})
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d) {
+    var t = document.getElementById('typing');
+    if (t) t.remove();
+    msgs.innerHTML += '<div class="msg bot">' + (d.reply||'Sorry, please try again.').replace(/\n/g,'<br>').replace(/</g,'&lt;') + '</div>';
+    msgs.scrollTop = msgs.scrollHeight;
+  })
+  .catch(function() {
+    var t = document.getElementById('typing');
+    if (t) t.remove();
+    msgs.innerHTML += '<div class="msg bot">Sorry, the AI is resting. Try again in a moment 😅</div>';
+    msgs.scrollTop = msgs.scrollHeight;
+  });
+}
+</script>
+
 </body></html>
