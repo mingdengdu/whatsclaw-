@@ -116,40 +116,63 @@ function closeWC() {
 
 <script>
 var chatOpen = false;
+var chatSessionId = localStorage.getItem('wc_sid') || null;
+
 function toggleChat() {
   chatOpen = !chatOpen;
   var box = document.getElementById('chat-box');
-  if (chatOpen) { box.classList.add('open'); document.getElementById('chat-btn').textContent = '✕'; }
-  else { box.classList.remove('open'); document.getElementById('chat-btn').textContent = '💬'; }
+  if (chatOpen) {
+    box.classList.add('open');
+    document.getElementById('chat-btn').textContent = '✕';
+    // Show welcome message on first open
+    var msgs = document.getElementById('chat-msgs');
+    if (!msgs.dataset.greeted) {
+      msgs.dataset.greeted = '1';
+      setTimeout(function() {
+        msgs.innerHTML += '<div class="msg bot">👋 Hey! I\'m Claw, your WhatsClaw AI guide.<br><br>Are you a Shopify store owner looking to automate WhatsApp customer service? I can help you figure out the right plan in 2 minutes 🦞</div>';
+        msgs.scrollTop = msgs.scrollHeight;
+      }, 400);
+    }
+  } else {
+    box.classList.remove('open');
+    document.getElementById('chat-btn').textContent = '💬';
+  }
 }
+
+function addMsg(content, role) {
+  var msgs = document.getElementById('chat-msgs');
+  var safe = content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  // make URLs clickable
+  safe = safe.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" style="color:#25D366">$1</a>');
+  msgs.innerHTML += '<div class="msg ' + role + '">' + safe + '</div>';
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
 function sendChat() {
   var inp = document.getElementById('chat-input');
   var msg = inp.value.trim();
   if (!msg) return;
   inp.value = '';
   var msgs = document.getElementById('chat-msgs');
-  // user bubble
-  msgs.innerHTML += '<div class="msg user">' + msg.replace(/</g,'&lt;') + '</div>';
-  // typing indicator
+  addMsg(msg, 'user');
   msgs.innerHTML += '<div class="typing" id="typing"><span></span><span></span><span></span></div>';
   msgs.scrollTop = msgs.scrollHeight;
   fetch('/api/chat', {
     method: 'POST',
     headers: {'Content-Type':'application/json'},
-    body: JSON.stringify({message: msg})
+    body: JSON.stringify({message: msg, sessionId: chatSessionId})
   })
   .then(function(r){ return r.json(); })
   .then(function(d) {
     var t = document.getElementById('typing');
     if (t) t.remove();
-    msgs.innerHTML += '<div class="msg bot">' + (d.reply||'Sorry, please try again.').replace(/\n/g,'<br>').replace(/</g,'&lt;') + '</div>';
-    msgs.scrollTop = msgs.scrollHeight;
+    if (d.sessionId) { chatSessionId = d.sessionId; localStorage.setItem('wc_sid', d.sessionId); }
+    addMsg(d.reply || 'Sorry, please try again.', 'bot');
   })
   .catch(function() {
     var t = document.getElementById('typing');
     if (t) t.remove();
-    msgs.innerHTML += '<div class="msg bot">Sorry, the AI is resting. Try again in a moment 😅</div>';
-    msgs.scrollTop = msgs.scrollHeight;
+    addMsg('Sorry, the AI is resting. Try again in a moment 😅', 'bot');
   });
 }
 </script>
