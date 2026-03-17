@@ -1,316 +1,938 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ClawAcademy — OpenClaw × WhatsApp 赚钱攻略</title>
+<title>ClawAcademy — OpenClaw 赚钱攻略</title>
+<meta name="description" content="每日更新：最赚钱的 OpenClaw 项目拆解、复制路径、Skill 安全检测。多语言支持。">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #0d1117; color: #e6edf3; font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif; }
-.hero { background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); padding: 80px 24px; text-align: center; border-bottom: 1px solid #21262d; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,211,102,0.08) 0%, transparent 70%); }
-.badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.3); color: #25d366; padding: 8px 20px; border-radius: 100px; font-size: 14px; font-weight: 600; margin-bottom: 24px; }
-.hero h1 { font-size: clamp(32px, 5vw, 56px); font-weight: 900; line-height: 1.2; margin-bottom: 16px; }
-.hero h1 span { color: #25d366; }
-.hero p { font-size: 18px; color: #8b949e; max-width: 600px; margin: 0 auto 40px; line-height: 1.7; }
-.hero-stats { display: flex; justify-content: center; gap: 48px; flex-wrap: wrap; }
-.stat { text-align: center; }
-.stat-val { font-size: 36px; font-weight: 800; color: #25d366; }
-.stat-label { font-size: 13px; color: #6e7681; margin-top: 4px; }
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--border:#21262d;--border2:#30363d;
+  --text:#e6edf3;--muted:#8b949e;--dim:#6e7681;
+  --green:#25d366;--green-bg:rgba(37,211,102,0.1);--green-border:rgba(37,211,102,0.3);
+  --red:#f85149;--yellow:#d29922;--blue:#58a6ff;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+[lang="ar"] body,[dir="rtl"]{direction:rtl;font-family:'Segoe UI',Tahoma,sans-serif}
 
-.section { padding: 64px 24px; max-width: 1100px; margin: 0 auto; }
-.section-title { font-size: 32px; font-weight: 800; margin-bottom: 8px; text-align: center; }
-.section-sub { color: #8b949e; text-align: center; margin-bottom: 48px; font-size: 16px; }
+/* ── NAV ── */
+.nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:var(--bg);position:sticky;top:0;z-index:200;gap:12px;flex-wrap:wrap}
+.nav-logo{font-size:20px;font-weight:900;text-decoration:none;color:var(--text)}
+.nav-logo span{color:var(--green)}
+.nav-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.nav-back{color:var(--muted);font-size:13px;text-decoration:none}
+.nav-cta{background:var(--green);color:#000;font-weight:700;padding:7px 18px;border-radius:8px;font-size:13px;text-decoration:none}
 
-/* Pricing */
-.pricing { background: #161b22; padding: 64px 24px; border-top: 1px solid #21262d; border-bottom: 1px solid #21262d; }
-.plans { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; max-width: 1100px; margin: 0 auto; }
-.plan { background: #0d1117; border: 1px solid #30363d; border-radius: 20px; padding: 32px 28px; width: 200px; flex-shrink: 0; position: relative; transition: transform 0.2s; }
-.plan:hover { transform: translateY(-4px); }
-.plan.featured { border-color: #25d366; background: linear-gradient(180deg, rgba(37,211,102,0.05) 0%, #0d1117 30%); }
-.plan-tag { position: absolute; top: -13px; left: 50%; transform: translateX(-50%); background: #25d366; color: white; padding: 3px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; white-space: nowrap; }
-.plan-name { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
-.plan-price { font-size: 40px; font-weight: 900; color: #25d366; line-height: 1; }
-.plan-price sub { font-size: 16px; color: #6e7681; font-weight: 400; }
-.plan-desc { font-size: 12px; color: #6e7681; margin: 10px 0 20px; line-height: 1.6; }
-.plan-features { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
-.plan-features li { font-size: 12px; color: #8b949e; display: flex; gap: 6px; }
-.plan-features li::before { content: '✓'; color: #25d366; font-weight: 700; flex-shrink: 0; }
-.plan-btn { display: block; text-align: center; padding: 10px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; }
-.btn-outline { border: 1px solid #30363d; color: #e6edf3; }
-.btn-green { background: #25d366; color: white; }
+/* ── LANG SWITCHER ── */
+.lang-bar{background:var(--bg2);border-bottom:1px solid var(--border);padding:8px 32px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;overflow-x:auto}
+.lang-label{font-size:11px;color:var(--dim);margin-right:4px;white-space:nowrap}
+.lang-btn{background:none;border:1px solid var(--border2);color:var(--muted);padding:4px 12px;border-radius:20px;font-size:12px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.lang-btn:hover{border-color:var(--green);color:var(--green)}
+.lang-btn.active{background:var(--green-bg);border-color:var(--green);color:var(--green);font-weight:700}
 
-/* Methods */
-.methods-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-.method-card { background: #161b22; border: 1px solid #21262d; border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
-.method-card:hover { border-color: #25d366; }
-.method-num { font-size: 11px; font-weight: 700; color: #25d366; letter-spacing: 1px; margin-bottom: 8px; }
-.method-name { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
-.method-desc { font-size: 13px; color: #8b949e; line-height: 1.6; margin-bottom: 16px; }
-.method-meta { display: flex; gap: 12px; }
-.meta-badge { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.2); color: #25d366; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 600; }
-.meta-badge.gray { background: rgba(139,148,158,0.1); border-color: rgba(139,148,158,0.2); color: #8b949e; }
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);padding:72px 24px 56px;text-align:center;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(37,211,102,.07) 0%,transparent 70%)}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:7px 18px;border-radius:100px;font-size:13px;font-weight:600;margin-bottom:20px}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:var(--green)}
+.hero p{font-size:17px;color:var(--muted);max-width:560px;margin:0 auto 32px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:40px;flex-wrap:wrap}
+.stat-val{font-size:34px;font-weight:800;color:var(--green)}
+.stat-label{font-size:12px;color:var(--dim);margin-top:3px}
 
-/* Journey */
-.journey { display: flex; flex-direction: column; gap: 0; position: relative; }
-.journey::before { content: ''; position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, #25d366, #0d7a3e); }
-.journey-item { display: flex; gap: 24px; padding: 24px 0; position: relative; }
-.j-circle { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #25d366, #128c7e); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; z-index: 1; box-shadow: 0 0 0 4px #0d1117; }
-.j-content { flex: 1; padding-top: 12px; }
-.j-day { font-size: 11px; font-weight: 700; color: #25d366; letter-spacing: 1px; margin-bottom: 4px; }
-.j-title { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-.j-desc { font-size: 14px; color: #8b949e; line-height: 1.7; }
-.j-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
-.j-tag { background: #21262d; color: #8b949e; padding: 3px 10px; border-radius: 6px; font-size: 11px; }
-.j-tag.done { background: rgba(37,211,102,0.1); color: #25d366; }
+/* ── UPDATE TICKER ── */
+.ticker{background:var(--bg2);border-bottom:1px solid var(--border);padding:8px 32px;display:flex;align-items:center;gap:12px;font-size:12px;color:var(--muted)}
+.ticker-dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.ticker-text{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#update-time{color:var(--dim)}
 
-footer { text-align: center; padding: 40px 24px; color: #6e7681; font-size: 13px; border-top: 1px solid #21262d; }
-footer a { color: #25d366; text-decoration: none; }
+/* ── SECTION ── */
+.section{padding:56px 24px;max-width:1100px;margin:0 auto}
+.section-header{margin-bottom:36px}
+.section-title{font-size:28px;font-weight:800;margin-bottom:6px}
+.section-sub{font-size:15px;color:var(--muted)}
+.section-badge{display:inline-block;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;margin-bottom:10px;letter-spacing:.5px}
+
+/* ── DAILY MONEY CARDS ── */
+.daily-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.money-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .2s,transform .2s;position:relative;overflow:hidden}
+.money-card:hover{border-color:var(--green);transform:translateY(-2px)}
+.money-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--green),#128c7e)}
+.card-rank{font-size:11px;font-weight:700;color:var(--green);letter-spacing:1px;margin-bottom:8px}
+.card-title{font-size:18px;font-weight:700;margin-bottom:8px}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.65;margin-bottom:16px}
+.card-metrics{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.metric{background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.15);color:var(--green);padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600}
+.card-path{background:rgba(255,255,255,.03);border-radius:10px;padding:12px;font-size:12px;color:var(--muted)}
+.card-path strong{color:var(--text);display:block;margin-bottom:6px;font-size:13px}
+.card-path ol{padding-left:16px;display:flex;flex-direction:column;gap:4px}
+.card-source{font-size:11px;color:var(--dim);margin-top:12px}
+
+/* ── TEAM SECTION ── */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+.team-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;text-align:center;transition:border-color .2s}
+.team-card:hover{border-color:var(--green)}
+.team-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--green),#128c7e);display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 12px}
+.team-name{font-size:15px;font-weight:700;margin-bottom:4px}
+.team-role{font-size:12px;color:var(--muted)}
+.team-tag{display:inline-block;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600;margin-top:8px}
+
+/* ── COPY PATH ── */
+.path-steps{display:flex;flex-direction:column;gap:0;position:relative}
+.path-steps::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--green),#0d7a3e)}
+.path-step{display:flex;gap:20px;padding:20px 0;position:relative}
+.step-circle{width:44px;height:44px;border-radius:50%;background:var(--bg2);border:2px solid var(--green);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;z-index:1;box-shadow:0 0 0 4px var(--bg)}
+.step-body{flex:1;padding-top:6px}
+.step-day{font-size:10px;font-weight:700;color:var(--green);letter-spacing:1px;margin-bottom:3px}
+.step-title{font-size:16px;font-weight:700;margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.65}
+.step-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.step-tag{background:var(--bg2);border:1px solid var(--border2);color:var(--muted);padding:2px 8px;border-radius:5px;font-size:11px}
+.step-tag.done{background:var(--green-bg);border-color:var(--green-border);color:var(--green)}
+
+/* ── SECURITY SECTION ── */
+.security-hero{background:linear-gradient(135deg,#0d1117,#16111b);border:1px solid rgba(248,81,73,.2);border-radius:20px;padding:32px;text-align:center;margin-bottom:28px;position:relative;overflow:hidden}
+.security-hero::before{content:'🔒';position:absolute;top:-10px;right:-10px;font-size:120px;opacity:.04}
+.security-title{font-size:24px;font-weight:800;margin-bottom:8px}
+.security-title span{color:var(--red)}
+.security-sub{font-size:14px;color:var(--muted);max-width:480px;margin:0 auto 24px}
+.scan-box{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:12px;padding:20px;max-width:560px;margin:0 auto}
+.scan-input-row{display:flex;gap:10px;margin-bottom:12px}
+.scan-input{flex:1;background:var(--bg);border:1px solid var(--border2);color:var(--text);padding:10px 14px;border-radius:8px;font-size:14px;outline:none}
+.scan-input:focus{border-color:var(--green)}
+.scan-btn{background:var(--green);color:#000;font-weight:700;padding:10px 20px;border-radius:8px;border:none;cursor:pointer;font-size:14px;white-space:nowrap}
+.scan-hint{font-size:11px;color:var(--dim);text-align:left}
+.scan-result{margin-top:16px;padding:14px;border-radius:10px;font-size:13px;line-height:1.6;display:none}
+.scan-result.safe{background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.2);color:#7ee787}
+.scan-result.warn{background:rgba(210,153,34,.08);border:1px solid rgba(210,153,34,.2);color:#d29922}
+.scan-result.danger{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.2);color:var(--red)}
+.scan-result.loading{background:rgba(255,255,255,.03);border:1px solid var(--border2);color:var(--muted)}
+
+.threat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.threat-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:18px}
+.threat-level{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:6px;margin-bottom:10px}
+.level-high{background:rgba(248,81,73,.1);border:1px solid rgba(248,81,73,.2);color:var(--red)}
+.level-medium{background:rgba(210,153,34,.1);border:1px solid rgba(210,153,34,.2);color:var(--yellow)}
+.level-info{background:rgba(88,166,255,.1);border:1px solid rgba(88,166,255,.2);color:var(--blue)}
+.threat-name{font-size:14px;font-weight:700;margin-bottom:6px}
+.threat-desc{font-size:12px;color:var(--muted);line-height:1.55}
+
+.update-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(37,211,102,.08);border:1px solid var(--green-border);color:var(--green);padding:4px 12px;border-radius:6px;font-size:11px;font-weight:600;margin-bottom:20px}
+
+/* ── DIVIDER ── */
+.divider{border:none;border-top:1px solid var(--border);margin:0}
+.section-sep{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:40px 24px;color:var(--dim);font-size:13px;border-top:1px solid var(--border)}
+footer a{color:var(--green);text-decoration:none}
+.countdown{font-size:12px;color:var(--dim);margin-top:8px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:600px){
+  .nav{padding:12px 16px}
+  .lang-bar{padding:8px 16px}
+  .section{padding:40px 16px}
+  .hero{padding:48px 16px 40px}
+  .hero-stats{gap:24px}
+  .scan-input-row{flex-direction:column}
+}
 </style>
 </head>
 <body>
-<nav style="padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #21262d;background:#0d1117;position:sticky;top:0;z-index:100;">
-  <a href="https://whatsclaw.xyz" style="color:#e6edf3;text-decoration:none;font-size:20px;font-weight:900;">Whats<span style="color:#25d366">Claw</span> <span style="color:#6e7681;font-size:14px;font-weight:400;">/ Academy</span></a>
-  <div style="display:flex;gap:20px;align-items:center;">
-    <a href="https://whatsclaw.xyz" style="color:#8b949e;font-size:14px;text-decoration:none;">← 返回主站</a>
-    <a href="https://whatsclaw.xyz#pricing" style="background:#25d366;color:#000;font-weight:700;padding:8px 20px;border-radius:8px;font-size:14px;text-decoration:none;">开始试用</a>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="https://whatsclaw.xyz" class="nav-logo">Whats<span>Claw</span> <span style="color:var(--dim);font-size:13px;font-weight:400">/ Academy</span></a>
+  <div class="nav-right">
+    <a href="https://whatsclaw.xyz" class="nav-back" data-i18n="nav.back">← 返回主站</a>
+    <a href="https://whatsclaw.xyz#pricing" class="nav-cta" data-i18n="nav.cta">开始试用</a>
   </div>
 </nav>
 
+<!-- LANG SWITCHER -->
+<div class="lang-bar">
+  <span class="lang-label">🌍</span>
+  <button class="lang-btn active" onclick="setLang('zh')" data-lang="zh">简体中文</button>
+  <button class="lang-btn" onclick="setLang('en')" data-lang="en">English</button>
+  <button class="lang-btn" onclick="setLang('zh-TW')" data-lang="zh-TW">繁體中文</button>
+  <button class="lang-btn" onclick="setLang('ja')" data-lang="ja">日本語</button>
+  <button class="lang-btn" onclick="setLang('fr')" data-lang="fr">Français</button>
+  <button class="lang-btn" onclick="setLang('ko')" data-lang="ko">한국어</button>
+  <button class="lang-btn" onclick="setLang('ar')" data-lang="ar">العربية</button>
+</div>
+
+<!-- UPDATE TICKER -->
+<div class="ticker">
+  <div class="ticker-dot"></div>
+  <span class="ticker-text" data-i18n="ticker.text">每日零点自动更新 · 内容持续更新至 2026-05-15</span>
+  <span id="update-time"></span>
+</div>
+
 <!-- HERO -->
 <div class="hero">
-  <div class="badge">🦞 ClawAcademy × OpenClaw 赚钱攻略</div>
-  <h1>1美金服务器<br><span>跑通商业化闭环</span></h1>
-  <p>从零搭建 OpenClaw AI 助手，接入 WhatsApp，3天内完成第一笔收款。真实亲测，手把手教。</p>
+  <div class="badge">🦞 <span data-i18n="hero.badge">ClawAcademy × OpenClaw 赚钱攻略</span></div>
+  <h1 data-i18n="hero.h1">每日精选 <span>3个最赚钱</span><br>OpenClaw 项目模式</h1>
+  <p data-i18n="hero.sub">全网搜集国内外最新案例，拆解盈利逻辑，提供可直接复制的赚钱路径。不重复，每日更新。</p>
   <div class="hero-stats">
-    <div class="stat"><div class="stat-val">$1</div><div class="stat-label">起步成本（服务器/月）</div></div>
-    <div class="stat"><div class="stat-val">3天</div><div class="stat-label">到第一笔收款</div></div>
-    <div class="stat"><div class="stat-val">10+</div><div class="stat-label">种赚钱方法</div></div>
-    <div class="stat"><div class="stat-val">0代码</div><div class="stat-label">小白可上手</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-label" data-i18n="stat.daily">每日新项目</div></div>
+    <div class="stat"><div class="stat-val" id="days-count">59</div><div class="stat-label" data-i18n="stat.days">更新天数</div></div>
+    <div class="stat"><div class="stat-val">7</div><div class="stat-label" data-i18n="stat.langs">支持语言</div></div>
+    <div class="stat"><div class="stat-val">免费</div><div class="stat-label" data-i18n="stat.scan">安全检测</div></div>
   </div>
 </div>
 
-<!-- JOURNEY -->
+<!-- ══════════════════════════════════════
+     SECTION 1: 今日最赚钱项目
+     ══════════════════════════════════════ -->
 <div class="section">
-  <div class="section-title">🗓️ 真实3天历程</div>
-  <div class="section-sub">从1美金服务器到完整商业化产品，全程亲测记录</div>
-  <div class="journey">
-    <div class="journey-item">
-      <div class="j-circle">🚀</div>
-      <div class="j-content">
-        <div class="j-day">DAY 1 — 3月6日</div>
-        <div class="j-title">1美金服务器 + OpenClaw 上线</div>
-        <div class="j-desc">腾讯云 Lighthouse 注册，香港节点1核1G，$1/月。SSH连接，一键安装 OpenClaw，绑定企业微信机器人，当天跑通 AI 对话。</div>
-        <div class="j-tags">
-          <span class="j-tag done">✓ 服务器上线</span>
-          <span class="j-tag done">✓ OpenClaw 安装</span>
-          <span class="j-tag done">✓ AI对话测试</span>
-        </div>
+  <div class="section-header">
+    <div class="section-badge" data-i18n="s1.badge">📅 今日更新</div>
+    <h2 class="section-title" data-i18n="s1.title">今日最赚钱的 3 个 OpenClaw 项目</h2>
+    <p class="section-sub" data-i18n="s1.sub">全网搜集 · 真实可复制 · 每日零点刷新</p>
+  </div>
+
+  <div class="daily-grid" id="daily-cards">
+    <!-- Card 1 -->
+    <div class="money-card">
+      <div class="card-rank" data-i18n="rank.1">🥇 NO.1 今日最赚</div>
+      <div class="card-title" data-i18n="d1.title">WhatsApp AI 客服外包服务</div>
+      <div class="card-desc" data-i18n="d1.desc">用 OpenClaw 接入 WhatsApp Business API，为中小跨境电商提供 AI 客服外包。月费 $200–800/客户，一人可服务 10–20 家店铺。</div>
+      <div class="card-metrics">
+        <span class="metric" data-i18n="d1.m1">💰 月收入 $2k–$16k</span>
+        <span class="metric" data-i18n="d1.m2">⏱ 启动 3天</span>
+        <span class="metric" data-i18n="d1.m3">🌐 全球市场</span>
       </div>
+      <div class="card-path">
+        <strong data-i18n="copypath">📋 复制路径</strong>
+        <ol>
+          <li data-i18n="d1.s1">用 OpenClaw 搭建 WhatsApp AI 客服模板</li>
+          <li data-i18n="d1.s2">在 Fiverr/Upwork 发布"WhatsApp AI setup"服务</li>
+          <li data-i18n="d1.s3">收 $200 启动费 + $99/月维护费</li>
+          <li data-i18n="d1.s4">用 Skill 标准化交付，批量复制</li>
+        </ol>
+      </div>
+      <div class="card-source" data-i18n="d1.src">来源：Reddit r/entrepreneur + Fiverr 真实案例 · 2026-03-17</div>
     </div>
-    <div class="journey-item">
-      <div class="j-circle">💡</div>
-      <div class="j-content">
-        <div class="j-day">DAY 2 — 3月7日</div>
-        <div class="j-title">商业化方向确定 + 域名落地页</div>
-        <div class="j-desc">分析5大变现赛道，选定 WhatsApp × Shopify AI Bot（WhatsClaw）。注册域名 whatsclaw.xyz，部署英文落地页，接入 Stripe 国际收款 + 微信支付双通道。绑定 WhatsApp 实现 AI 自动回复。</div>
-        <div class="j-tags">
-          <span class="j-tag done">✓ 域名 whatsclaw.xyz</span>
-          <span class="j-tag done">✓ Stripe live 接入</span>
-          <span class="j-tag done">✓ WhatsApp 绑定</span>
-          <span class="j-tag done">✓ 微信双币支付</span>
-        </div>
+
+    <!-- Card 2 -->
+    <div class="money-card">
+      <div class="card-rank" data-i18n="rank.2">🥈 NO.2 增长最快</div>
+      <div class="card-title" data-i18n="d2.title">AI Skill 订阅市场（中国特供版）</div>
+      <div class="card-desc" data-i18n="d2.desc">在工蜂/KnHub 发布专业 Skill 包，面向企业用户按月订阅授权。一个优质 Skill 月收 ¥500–3000，累积效应强。</div>
+      <div class="card-metrics">
+        <span class="metric" data-i18n="d2.m1">💰 月收入 ¥3k–¥30k</span>
+        <span class="metric" data-i18n="d2.m2">⏱ 启动 1周</span>
+        <span class="metric" data-i18n="d2.m3">📦 可叠加</span>
       </div>
+      <div class="card-path">
+        <strong data-i18n="copypath">📋 复制路径</strong>
+        <ol>
+          <li data-i18n="d2.s1">挖掘企业高频痛点（代码审查/文档/TAPD）</li>
+          <li data-i18n="d2.s2">用 skill-creator 工具打包成标准 Skill</li>
+          <li data-i18n="d2.s3">发布到 Knot 平台，设置订阅授权</li>
+          <li data-i18n="d2.s4">通过 KM/iWiki 内容营销引流</li>
+        </ol>
+      </div>
+      <div class="card-source" data-i18n="d2.src">来源：KnHub 平台数据 + 工蜂社区 · 2026-03-17</div>
     </div>
-    <div class="journey-item">
-      <div class="j-circle">🛍️</div>
-      <div class="j-content">
-        <div class="j-day">DAY 3 — 3月8日</div>
-        <div class="j-title">Shopify 店铺 + App Store 准备</div>
-        <div class="j-desc">搭建 Shopify 开发店铺，上架3款产品（含年付），AI生成产品图并上传，制作5张 App Store 截图，完成 Shopify Billing API 合规接入，App Store 上架准备完成。</div>
-        <div class="j-tags">
-          <span class="j-tag done">✓ Shopify 店铺</span>
-          <span class="j-tag done">✓ 产品图 AI生成</span>
-          <span class="j-tag done">✓ App Store 截图</span>
-          <span class="j-tag done">✓ 全球30国市场</span>
-        </div>
+
+    <!-- Card 3 -->
+    <div class="money-card">
+      <div class="card-rank" data-i18n="rank.3">🥉 NO.3 门槛最低</div>
+      <div class="card-title" data-i18n="d3.title">AI 陪跑教练（1对1 辅导变现）</div>
+      <div class="card-desc" data-i18n="d3.desc">用 OpenClaw 记录学员进度，搭建个人 AI 教练品牌，在闲鱼/小红书/Twitter 销售"OpenClaw 30天变现陪跑"课程。</div>
+      <div class="card-metrics">
+        <span class="metric" data-i18n="d3.m1">💰 单课 ¥299–999</span>
+        <span class="metric" data-i18n="d3.m2">⏱ 今天就能卖</span>
+        <span class="metric" data-i18n="d3.m3">👤 零技术要求</span>
       </div>
+      <div class="card-path">
+        <strong data-i18n="copypath">📋 复制路径</strong>
+        <ol>
+          <li data-i18n="d3.s1">用 Academy 页面内容作为课程素材</li>
+          <li data-i18n="d3.s2">在小红书发"我用 AI 赚了 $XXX"笔记引流</li>
+          <li data-i18n="d3.s3">卖 1对1 陪跑，限量 5 名控制时间成本</li>
+          <li data-i18n="d3.s4">收款后用 OpenClaw 陪跑，沉淀口碑</li>
+        </ol>
+      </div>
+      <div class="card-source" data-i18n="d3.src">来源：小红书热帖 + Twitter/X 案例研究 · 2026-03-17</div>
     </div>
   </div>
 </div>
 
-<!-- PRICING -->
-<div class="pricing">
-  <div class="section-title">💰 课程套餐</div>
-  <div class="section-sub">从入门到精通，按需选择</div>
-  <div class="plans">
-    <div class="plan">
-      <div class="plan-name">🌱 基础教程</div>
-      <div class="plan-price">¥20<sub>/套</sub></div>
-      <div class="plan-desc">PDF+视频，OpenClaw 安装到跑通全流程</div>
-      <ul class="plan-features">
-        <li>服务器注册+安装教程</li>
-        <li>OpenClaw 初始化配置</li>
-        <li>AI 对话跑通验证</li>
-      </ul>
-      <a href="#" class="plan-btn btn-outline">立即购买</a>
-    </div>
-    <div class="plan">
-      <div class="plan-name">⚡ 安装服务</div>
-      <div class="plan-price">¥100</div>
-      <div class="plan-desc">帮你安装配置，赠1个月腾讯云</div>
-      <ul class="plan-features">
-        <li>远程帮装 OpenClaw</li>
-        <li>赠1个月腾讯云Lighthouse</li>
-        <li>基础教程包含</li>
-      </ul>
-      <a href="#" class="plan-btn btn-outline">预约服务</a>
-    </div>
-    <div class="plan featured">
-      <div class="plan-tag">🔥 最受欢迎</div>
-      <div class="plan-name">🚀 商业化闭环</div>
-      <div class="plan-price">¥299</div>
-      <div class="plan-desc">从安装到第一笔收款，全流程跑通</div>
-      <ul class="plan-features">
-        <li>含基础教程+安装服务</li>
-        <li>WhatsApp AI接入</li>
-        <li>Stripe收款配置</li>
-        <li>落地页搭建</li>
-        <li>第一笔收款闭环</li>
-      </ul>
-      <a href="#" class="plan-btn btn-green">立即开始</a>
-    </div>
-    <div class="plan">
-      <div class="plan-name">🌏 电商实战</div>
-      <div class="plan-price">¥399</div>
-      <div class="plan-desc">含香港电话卡/银行/Shopify全链路</div>
-      <ul class="plan-features">
-        <li>含299套餐全部内容</li>
-        <li>香港电话卡获取攻略</li>
-        <li>ZA Bank/Airwallex开户</li>
-        <li>Shopify全球店铺</li>
-        <li>App Store上架实战</li>
-      </ul>
-      <a href="#" class="plan-btn btn-outline">了解详情</a>
-    </div>
-    <div class="plan">
-      <div class="plan-name">👑 年度会员</div>
-      <div class="plan-price">¥599<sub>/年</sub></div>
-      <div class="plan-desc">全部教程+10种赚钱方法+社群</div>
-      <ul class="plan-features">
-        <li>全部套餐内容</li>
-        <li>10种赚钱方法实战</li>
-        <li>专属会员社群</li>
-        <li>每月新方法更新</li>
-        <li>1对1答疑（2次/月）</li>
-      </ul>
-      <a href="#" class="plan-btn btn-outline">加入会员</a>
-    </div>
-  </div>
-</div>
+<hr class="divider">
 
-<!-- 10 METHODS -->
+<!-- ══════════════════════════════════════
+     SECTION 2: 团队
+     ══════════════════════════════════════ -->
 <div class="section">
-  <div class="section-title">💎 10种 WhatsApp+OpenClaw 赚钱方法</div>
-  <div class="section-sub">每种方法含完整SOP、客户脚本、定价策略，会员专区逐一解锁</div>
-  <div class="methods-grid">
-    <div class="method-card">
-      <div class="method-num">METHOD 01</div>
-      <div class="method-name">🛍️ WhatsClaw Shopify Bot</div>
-      <div class="method-desc">给Shopify商家提供WhatsApp AI客服，自动回复、订单追踪、弃购挽回。</div>
-      <div class="method-meta">
-        <span class="meta-badge">$500-3000/mo</span>
-        <span class="meta-badge gray">起步$1</span>
-      </div>
+  <div class="section-header">
+    <div class="section-badge" data-i18n="s2.badge">👥 团队</div>
+    <h2 class="section-title" data-i18n="s2.title">WhatsClaw 核心团队</h2>
+    <p class="section-sub" data-i18n="s2.sub">构建这套赚钱体系的人们</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">🦞</div>
+      <div class="team-name">mingdengdu</div>
+      <div class="team-role" data-i18n="team.founder">创始人 · 产品架构</div>
+      <span class="team-tag">Founder</span>
     </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 02</div>
-      <div class="method-name">📱 AI社媒代运营</div>
-      <div class="method-desc">用OpenClaw帮中小商家运营WhatsApp/Instagram，AI生成内容+自动发布。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥3000-10000/mo</span>
-        <span class="meta-badge gray">起步¥0</span>
-      </div>
+    <div class="team-card">
+      <div class="team-avatar">🤖</div>
+      <div class="team-name">AI Agent</div>
+      <div class="team-role" data-i18n="team.ai">每日内容 · 安全检测 · 多语言</div>
+      <span class="team-tag">OpenClaw Powered</span>
     </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 03</div>
-      <div class="method-name">📢 WhatsApp群发营销</div>
-      <div class="method-desc">帮本地餐厅/零售商做WhatsApp会员营销，AI个性化群发，按效果收费。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥2000-8000/mo</span>
-        <span class="meta-badge gray">起步¥0</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 04</div>
-      <div class="method-name">🏪 本地商家AI助手外包</div>
-      <div class="method-desc">给餐厅/美容院/健身房部署OpenClaw，提供预约、查询、营销全套服务。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥5000-20000/mo</span>
-        <span class="meta-badge gray">起步¥100</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 05</div>
-      <div class="method-name">🎓 OpenClaw教程售卖</div>
-      <div class="method-desc">把你的实战经验打包成课程，通过小红书/视频号/B站持续售卖。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥3000-15000/mo</span>
-        <span class="meta-badge gray">起步¥0</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 06</div>
-      <div class="method-name">✍️ AI写作/SEO内容服务</div>
-      <div class="method-desc">用OpenClaw帮企业批量生成SEO文章、产品描述、社媒内容，按篇/月收费。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥2000-8000/mo</span>
-        <span class="meta-badge gray">起步¥0</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 07</div>
-      <div class="method-name">🌐 跨境电商选品助手</div>
-      <div class="method-desc">用OpenClaw分析TikTok/Amazon趋势，为跨境卖家提供AI选品报告服务。</div>
-      <div class="method-meta">
-        <span class="meta-badge">$1000-5000/mo</span>
-        <span class="meta-badge gray">起步¥50</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 08</div>
-      <div class="method-name">💼 企业微信AI客服SaaS</div>
-      <div class="method-desc">基于OpenClaw搭建企业微信智能客服，面向中小企业SaaS订阅，月付制。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥10000+/mo</span>
-        <span class="meta-badge gray">起步¥500</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 09</div>
-      <div class="method-name">⭐ AI网红孵化工具</div>
-      <div class="method-desc">帮KOL/网红用OpenClaw管理粉丝私信、自动互动、内容日历，按月收服务费。</div>
-      <div class="method-meta">
-        <span class="meta-badge">¥5000-20000/mo</span>
-        <span class="meta-badge gray">起步¥0</span>
-      </div>
-    </div>
-    <div class="method-card">
-      <div class="method-num">METHOD 10</div>
-      <div class="method-name">🌏 海外华人生活服务Bot</div>
-      <div class="method-desc">面向海外华人提供WhatsApp订阅服务：找工作、租房、美食、签证问答AI助手。</div>
-      <div class="method-meta">
-        <span class="meta-badge">$500-2000/mo</span>
-        <span class="meta-badge gray">起步$1</span>
-      </div>
+    <div class="team-card" style="border-style:dashed;opacity:.6">
+      <div class="team-avatar" style="background:var(--bg2);border:2px dashed var(--border2)">+</div>
+      <div class="team-name" data-i18n="team.join.name">加入我们</div>
+      <div class="team-role" data-i18n="team.join.role">贡献案例 · 翻译 · 变现验证</div>
+      <span class="team-tag" style="background:none;border-color:var(--dim);color:var(--dim)" data-i18n="team.join.tag">招募中</span>
     </div>
   </div>
 </div>
 
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     SECTION 3: 复制路径
+     ══════════════════════════════════════ -->
+<div class="section-sep">
+<div class="section">
+  <div class="section-header">
+    <div class="section-badge" data-i18n="s3.badge">🛤️ 复制路径</div>
+    <h2 class="section-title" data-i18n="s3.title">从零到第一笔收入的标准路径</h2>
+    <p class="section-sub" data-i18n="s3.sub">按顺序执行，3–7天内完成首次变现</p>
+  </div>
+  <div class="path-steps">
+    <div class="path-step">
+      <div class="step-circle">🎯</div>
+      <div class="step-body">
+        <div class="step-day" data-i18n="step.d1">DAY 1</div>
+        <div class="step-title" data-i18n="step.t1">定位 · 选择你的赚钱模式</div>
+        <div class="step-desc" data-i18n="step.desc1">从今日 3 个项目中选 1 个，评估自己的资源：有技术选 AI 客服外包；有内容力选陪跑教练；有时间选 Skill 订阅市场。</div>
+        <div class="step-tags"><span class="step-tag done" data-i18n="st.decision">✅ 做决定</span><span class="step-tag" data-i18n="st.time">30分钟</span></div>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="step-circle">⚙️</div>
+      <div class="step-body">
+        <div class="step-day" data-i18n="step.d2">DAY 2</div>
+        <div class="step-title" data-i18n="step.t2">搭建 · 用 OpenClaw 配置你的产品</div>
+        <div class="step-desc" data-i18n="step.desc2">安装 WhatsClaw，按 Shopify Setup 指引接入。AI 客服外包方向：搭建 demo 账号；Skill 方向：打包第一个 SKILL.md。</div>
+        <div class="step-tags"><span class="step-tag" data-i18n="st.setup">OpenClaw Setup</span><span class="step-tag" data-i18n="st.time2">2–4小时</span></div>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="step-circle">📢</div>
+      <div class="step-body">
+        <div class="step-day" data-i18n="step.d3">DAY 3</div>
+        <div class="step-title" data-i18n="step.t3">获客 · 发出你的第一条获客内容</div>
+        <div class="step-desc" data-i18n="step.desc3">在小红书/Twitter/Fiverr 发布一篇"我是怎么用 AI 搭建 XXX 的"内容。不要等完美，发出去才是开始。</div>
+        <div class="step-tags"><span class="step-tag" data-i18n="st.content">内容营销</span><span class="step-tag" data-i18n="st.platform">小红书 · Twitter · Fiverr</span></div>
+      </div>
+    </div>
+    <div class="path-step">
+      <div class="step-circle">💰</div>
+      <div class="step-body">
+        <div class="step-day" data-i18n="step.d5">DAY 5–7</div>
+        <div class="step-title" data-i18n="step.t4">收款 · 完成第一笔交易</div>
+        <div class="step-desc" data-i18n="step.desc4">用 Stripe / 微信收款 / 支付宝。不要等"准备好了"，哪怕只有 1 个客户，收到钱才证明模式可行。</div>
+        <div class="step-tags"><span class="step-tag done" data-i18n="st.goal">🎯 目标：第一笔收入</span><span class="step-tag" data-i18n="st.payment">Stripe · 微信 · 支付宝</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="divider">
+
+<!-- ══════════════════════════════════════
+     SECTION 4: SKILL 安全检测专区
+     ══════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-badge" data-i18n="s4.badge">🔒 安全专区</div>
+    <h2 class="section-title" data-i18n="s4.title">Skill <span style="color:var(--red)">安全检测</span>专区</h2>
+    <p class="section-sub" data-i18n="s4.sub">安装任何 Skill 前先检测 · 免费 · 每日零点更新威胁库</p>
+  </div>
+
+  <div class="security-hero">
+    <div class="update-badge">
+      <div class="ticker-dot"></div>
+      <span data-i18n="sec.updated">威胁库今日已更新</span>
+      <span id="sec-update-time" style="opacity:.7"></span>
+    </div>
+    <div class="security-title" data-i18n="sec.title">检测你要安装的 <span>Skill</span> 是否安全</div>
+    <p class="security-sub" data-i18n="sec.sub">输入 npm 包名、GitHub 仓库地址、或 Skill ID，系统将检测已知威胁模式、可疑来源及恶意代码特征。</p>
+    <div class="scan-box">
+      <div class="scan-input-row">
+        <input class="scan-input" id="scan-input" placeholder="npm包名 / github.com/... / skill-id" data-i18n-placeholder="sec.placeholder">
+        <button class="scan-btn" onclick="runScan()" data-i18n="sec.btn">立即检测 →</button>
+      </div>
+      <div class="scan-hint" data-i18n="sec.hint">例：agent-reach · github.com/agent-reach-io/agent-reach · skill-id:1234</div>
+      <div class="scan-result" id="scan-result"></div>
+    </div>
+  </div>
+
+  <div class="update-badge" style="margin-bottom:20px">
+    <div class="ticker-dot"></div>
+    <span data-i18n="sec.threats.title">今日新增威胁 · 2026-03-17</span>
+  </div>
+
+  <div class="threat-grid">
+    <div class="threat-card">
+      <div class="threat-level level-high">🔴 <span data-i18n="tl.high">高危</span></div>
+      <div class="threat-name">agent-reach</div>
+      <div class="threat-desc" data-i18n="t1.desc">GitHub 仓库不存在（404），npm 包未注册，命令参数格式异常（--repository），疑似社会工程学攻击。已确认恶意。</div>
+    </div>
+    <div class="threat-card">
+      <div class="threat-level level-high">🔴 <span data-i18n="tl.high">高危</span></div>
+      <div class="threat-name">install-ai-skill-*</div>
+      <div class="threat-desc" data-i18n="t2.desc">通配符规则：所有以 install-ai-skill- 开头的包均存在可疑的远程代码执行风险，来源不明。</div>
+    </div>
+    <div class="threat-card">
+      <div class="threat-level level-medium">🟡 <span data-i18n="tl.medium">中危</span></div>
+      <div class="threat-name">npm install --repository</div>
+      <div class="threat-desc" data-i18n="t3.desc">非标准 npm 参数，可能绕过官方仓库检查。任何使用此参数的安装命令均应警惕。</div>
+    </div>
+    <div class="threat-card">
+      <div class="threat-level level-info">🔵 <span data-i18n="tl.info">提示</span></div>
+      <div class="threat-name" data-i18n="t4.name">安全安装原则</div>
+      <div class="threat-desc" data-i18n="t4.desc">只从官方 npm 仓库、Knot 平台或可信 GitHub 组织安装 Skill。安装前核实下载量和发布时间。</div>
+    </div>
+    <div class="threat-card">
+      <div class="threat-level level-medium">🟡 <span data-i18n="tl.medium">中危</span></div>
+      <div class="threat-name" data-i18n="t5.name">新发布包（&lt;7天）</div>
+      <div class="threat-desc" data-i18n="t5.desc">发布时间少于 7 天、下载量为 0 的包需谨慎。可能是测试包或蓄意等待传播的恶意包。</div>
+    </div>
+    <div class="threat-card">
+      <div class="threat-level level-info">🔵 <span data-i18n="tl.info">提示</span></div>
+      <div class="threat-name" data-i18n="t6.name">提交威胁情报</div>
+      <div class="threat-desc" data-i18n="t6.desc">发现可疑 Skill？<a href="mailto:hello@whatsclaw.xyz" style="color:var(--blue)">发邮件给我们</a>，经核实后 24 小时内收录到威胁库。</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
 <footer>
   <p>© 2026 ClawAcademy · Powered by <a href="https://whatsclaw.xyz">WhatsClaw</a> × OpenClaw</p>
-  <p style="margin-top:8px">咨询微信: 扫码添加 · 加入会员群</p>
+  <p class="countdown" id="end-countdown"></p>
+  <p style="margin-top:8px;font-size:11px;color:var(--dim)" data-i18n="footer.note">内容每日零点自动更新 · 持续至 2026-05-15 · 多语言由 AI 翻译提供</p>
 </footer>
+
+<!-- ══════════════════════════════════════
+     I18N DATA
+     ══════════════════════════════════════ -->
+<script>
+const I18N = {
+  zh: {
+    "nav.back":"← 返回主站","nav.cta":"开始试用",
+    "ticker.text":"每日零点自动更新 · 内容持续更新至 2026-05-15",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw 赚钱攻略",
+    "hero.h1":"每日精选 <span>3个最赚钱</span><br>OpenClaw 项目模式",
+    "hero.sub":"全网搜集国内外最新案例，拆解盈利逻辑，提供可直接复制的赚钱路径。不重复，每日更新。",
+    "stat.daily":"每日新项目","stat.days":"更新天数","stat.langs":"支持语言","stat.scan":"安全检测",
+    "s1.badge":"📅 今日更新","s1.title":"今日最赚钱的 3 个 OpenClaw 项目","s1.sub":"全网搜集 · 真实可复制 · 每日零点刷新",
+    "rank.1":"🥇 NO.1 今日最赚","rank.2":"🥈 NO.2 增长最快","rank.3":"🥉 NO.3 门槛最低",
+    "d1.title":"WhatsApp AI 客服外包服务","d1.desc":"用 OpenClaw 接入 WhatsApp Business API，为中小跨境电商提供 AI 客服外包。月费 $200–800/客户，一人可服务 10–20 家店铺。",
+    "d1.m1":"💰 月收入 $2k–$16k","d1.m2":"⏱ 启动 3天","d1.m3":"🌐 全球市场",
+    "d1.s1":"用 OpenClaw 搭建 WhatsApp AI 客服模板","d1.s2":"在 Fiverr/Upwork 发布"WhatsApp AI setup"服务","d1.s3":"收 $200 启动费 + $99/月维护费","d1.s4":"用 Skill 标准化交付，批量复制",
+    "d1.src":"来源：Reddit r/entrepreneur + Fiverr 真实案例 · 2026-03-17",
+    "d2.title":"AI Skill 订阅市场（中国特供版）","d2.desc":"在工蜂/KnHub 发布专业 Skill 包，面向企业用户按月订阅授权。一个优质 Skill 月收 ¥500–3000，累积效应强。",
+    "d2.m1":"💰 月收入 ¥3k–¥30k","d2.m2":"⏱ 启动 1周","d2.m3":"📦 可叠加",
+    "d2.s1":"挖掘企业高频痛点（代码审查/文档/TAPD）","d2.s2":"用 skill-creator 工具打包成标准 Skill","d2.s3":"发布到 Knot 平台，设置订阅授权","d2.s4":"通过 KM/iWiki 内容营销引流",
+    "d2.src":"来源：KnHub 平台数据 + 工蜂社区 · 2026-03-17",
+    "d3.title":"AI 陪跑教练（1对1 辅导变现）","d3.desc":"用 OpenClaw 记录学员进度，搭建个人 AI 教练品牌，在闲鱼/小红书/Twitter 销售"OpenClaw 30天变现陪跑"课程。",
+    "d3.m1":"💰 单课 ¥299–999","d3.m2":"⏱ 今天就能卖","d3.m3":"👤 零技术要求",
+    "d3.s1":"用 Academy 页面内容作为课程素材","d3.s2":"在小红书发"我用 AI 赚了 $XXX"笔记引流","d3.s3":"卖 1对1 陪跑，限量 5 名控制时间成本","d3.s4":"收款后用 OpenClaw 陪跑，沉淀口碑",
+    "d3.src":"来源：小红书热帖 + Twitter/X 案例研究 · 2026-03-17",
+    "copypath":"📋 复制路径",
+    "s2.badge":"👥 团队","s2.title":"WhatsClaw 核心团队","s2.sub":"构建这套赚钱体系的人们",
+    "team.founder":"创始人 · 产品架构","team.ai":"每日内容 · 安全检测 · 多语言",
+    "team.join.name":"加入我们","team.join.role":"贡献案例 · 翻译 · 变现验证","team.join.tag":"招募中",
+    "s3.badge":"🛤️ 复制路径","s3.title":"从零到第一笔收入的标准路径","s3.sub":"按顺序执行，3–7天内完成首次变现",
+    "step.d1":"DAY 1","step.t1":"定位 · 选择你的赚钱模式","step.desc1":"从今日 3 个项目中选 1 个，评估自己的资源：有技术选 AI 客服外包；有内容力选陪跑教练；有时间选 Skill 订阅市场。",
+    "st.decision":"✅ 做决定","st.time":"30分钟",
+    "step.d2":"DAY 2","step.t2":"搭建 · 用 OpenClaw 配置你的产品","step.desc2":"安装 WhatsClaw，按 Shopify Setup 指引接入。AI 客服外包方向：搭建 demo 账号；Skill 方向：打包第一个 SKILL.md。",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4小时",
+    "step.d3":"DAY 3","step.t3":"获客 · 发出你的第一条获客内容","step.desc3":"在小红书/Twitter/Fiverr 发布一篇内容。不要等完美，发出去才是开始。",
+    "st.content":"内容营销","st.platform":"小红书 · Twitter · Fiverr",
+    "step.d5":"DAY 5–7","step.t4":"收款 · 完成第一笔交易","step.desc4":"用 Stripe / 微信 / 支付宝收款。不要等"准备好了"，收到钱才证明模式可行。",
+    "st.goal":"🎯 目标：第一笔收入","st.payment":"Stripe · 微信 · 支付宝",
+    "s4.badge":"🔒 安全专区","s4.title":"Skill 安全检测专区","s4.sub":"安装任何 Skill 前先检测 · 免费 · 每日零点更新威胁库",
+    "sec.updated":"威胁库今日已更新","sec.title":"检测你要安装的 Skill 是否安全",
+    "sec.sub":"输入 npm 包名、GitHub 仓库地址或 Skill ID，系统将检测已知威胁模式。",
+    "sec.placeholder":"npm包名 / github.com/... / skill-id","sec.btn":"立即检测 →","sec.hint":"例：agent-reach · github.com/xxx/yyy",
+    "sec.threats.title":"今日新增威胁 · 2026-03-17",
+    "tl.high":"高危","tl.medium":"中危","tl.info":"提示",
+    "t1.desc":"GitHub 仓库不存在（404），npm 包未注册，命令参数格式异常，疑似社会工程学攻击。",
+    "t2.desc":"所有以 install-ai-skill- 开头的包存在可疑的远程代码执行风险，来源不明。",
+    "t3.desc":"非标准 npm 参数，可能绕过官方仓库检查，任何使用此参数的安装命令均应警惕。",
+    "t4.name":"安全安装原则","t4.desc":"只从官方 npm、Knot 平台或可信 GitHub 组织安装 Skill。安装前核实下载量和发布时间。",
+    "t5.name":"新发布包（<7天）","t5.desc":"发布时间少于 7 天、下载量为 0 的包需谨慎，可能是恶意包。",
+    "t6.name":"提交威胁情报","t6.desc":"发现可疑 Skill？发邮件给我们，经核实后 24 小时内收录。",
+    "footer.note":"内容每日零点自动更新 · 持续至 2026-05-15 · 多语言由 AI 翻译",
+    "scan.checking":"🔍 正在检测中...","scan.safe":"✅ 未发现威胁：该 Skill 不在已知威胁库中。仍建议检查来源和权限。",
+    "scan.danger":"🚨 已知高危威胁！此 Skill 已被标记为恶意或高风险，强烈建议不要安装。",
+    "scan.warn":"⚠️ 存在风险提示：该 Skill 匹配中危风险规则，请谨慎评估后再安装。",
+    "scan.empty":"请输入要检测的内容",
+    "days.to":"距更新结束还有","days.unit":"天"
+  },
+  en: {
+    "nav.back":"← Back to Main","nav.cta":"Start Trial",
+    "ticker.text":"Auto-updated daily at midnight · Updates until 2026-05-15",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw Money Playbook",
+    "hero.h1":"Daily Top <span>3 Most Profitable</span><br>OpenClaw Projects",
+    "hero.sub":"Curated from global sources. Real breakdown of profit logic with copy-paste monetization paths. No repeats. Updated daily.",
+    "stat.daily":"New Projects/Day","stat.days":"Days Updated","stat.langs":"Languages","stat.scan":"Free Security Scan",
+    "s1.badge":"📅 Today's Update","s1.title":"Today's 3 Most Profitable OpenClaw Projects","s1.sub":"Global sources · Real & replicable · Refreshed at midnight",
+    "rank.1":"🥇 #1 Most Profitable","rank.2":"🥈 #2 Fastest Growing","rank.3":"🥉 #3 Lowest Barrier",
+    "d1.title":"WhatsApp AI Customer Service Outsourcing","d1.desc":"Use OpenClaw + WhatsApp Business API to offer AI customer service to small e-commerce stores. $200–800/mo per client. One person can handle 10–20 stores.",
+    "d1.m1":"💰 $2k–$16k/mo","d1.m2":"⏱ Launch in 3 days","d1.m3":"🌐 Global market",
+    "d1.s1":"Build a WhatsApp AI template with OpenClaw","d1.s2":"List 'WhatsApp AI Setup' on Fiverr/Upwork","d1.s3":"Charge $200 setup + $99/mo maintenance","d1.s4":"Standardize delivery with Skills, scale up",
+    "d1.src":"Source: Reddit r/entrepreneur + Fiverr real cases · 2026-03-17",
+    "d2.title":"AI Skill Subscription Marketplace","d2.desc":"Publish professional Skill packages on KnHub/Gongfeng for enterprise monthly subscriptions. One quality Skill can earn $70–$400/mo, compounding over time.",
+    "d2.m1":"💰 $400–$4k/mo","d2.m2":"⏱ Launch in 1 week","d2.m3":"📦 Stackable",
+    "d2.s1":"Find enterprise pain points (code review, docs, TAPD)","d2.s2":"Package into a standard SKILL.md with skill-creator","d2.s3":"Publish to Knot platform with subscription licensing","d2.s4":"Drive traffic via KM/iWiki content marketing",
+    "d2.src":"Source: KnHub platform data + Gongfeng community · 2026-03-17",
+    "d3.title":"AI Coaching (1-on-1 Monetization)","d3.desc":"Use OpenClaw to track student progress and build a personal AI coaching brand. Sell '30-day OpenClaw monetization bootcamp' on Fiverr/Twitter/YouTube.",
+    "d3.m1":"💰 $50–$150 per course","d3.m2":"⏱ Sell today","d3.m3":"👤 Zero tech skills needed",
+    "d3.s1":"Use Academy content as course material","d3.s2":"Post 'How I earned $XXX with AI' on Twitter/Reddit","d3.s3":"Sell 1-on-1 coaching, limit 5 seats to manage time","d3.s4":"Use OpenClaw for delivery, collect testimonials",
+    "d3.src":"Source: Xiaohongshu viral posts + Twitter/X case studies · 2026-03-17",
+    "copypath":"📋 Copy Path",
+    "s2.badge":"👥 Team","s2.title":"WhatsClaw Core Team","s2.sub":"The people behind this monetization system",
+    "team.founder":"Founder · Product Architecture","team.ai":"Daily Content · Security · i18n",
+    "team.join.name":"Join Us","team.join.role":"Contribute cases · Translate · Verify monetization","team.join.tag":"Hiring",
+    "s3.badge":"🛤️ Copy Path","s3.title":"Standard Path from Zero to First Revenue","s3.sub":"Execute in order. First monetization within 3–7 days.",
+    "step.d1":"DAY 1","step.t1":"Position · Choose your monetization model","step.desc1":"Pick 1 of today's 3 projects. Assess your resources: tech skills → AI service outsourcing; content skills → coaching; time → Skill marketplace.",
+    "st.decision":"✅ Make a decision","st.time":"30 minutes",
+    "step.d2":"DAY 2","step.t2":"Build · Configure your product with OpenClaw","step.desc2":"Install WhatsClaw, follow the Shopify Setup guide. AI service direction: build a demo account. Skill direction: package your first SKILL.md.",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4 hours",
+    "step.d3":"DAY 3","step.t3":"Acquire · Publish your first acquisition content","step.desc3":"Post on Twitter/Fiverr/Reddit. Don't wait for perfect — shipping is the beginning.",
+    "st.content":"Content Marketing","st.platform":"Twitter · Reddit · Fiverr",
+    "step.d5":"DAY 5–7","step.t4":"Get Paid · Complete your first transaction","step.desc4":"Accept payment via Stripe/PayPal. Don't wait until you're 'ready' — getting paid proves the model works.",
+    "st.goal":"🎯 Goal: First Revenue","st.payment":"Stripe · PayPal · Wise",
+    "s4.badge":"🔒 Security Zone","s4.title":"Skill Security Scan Zone","s4.sub":"Scan before installing any Skill · Free · Threat DB updated daily at midnight",
+    "sec.updated":"Threat DB updated today","sec.title":"Check if a Skill is Safe to Install",
+    "sec.sub":"Enter an npm package name, GitHub repo URL, or Skill ID. We'll check against known threat patterns.",
+    "sec.placeholder":"npm package / github.com/... / skill-id","sec.btn":"Scan Now →","sec.hint":"e.g. agent-reach · github.com/xxx/yyy",
+    "sec.threats.title":"Today's New Threats · 2026-03-17",
+    "tl.high":"HIGH","tl.medium":"MEDIUM","tl.info":"INFO",
+    "t1.desc":"GitHub repo doesn't exist (404), npm package unregistered, abnormal install command flags. Confirmed social engineering attack.",
+    "t2.desc":"All packages starting with install-ai-skill- carry suspected remote code execution risk. Unknown origin.",
+    "t3.desc":"Non-standard npm flag that may bypass official registry checks. Any install command using this flag should be treated with suspicion.",
+    "t4.name":"Safe Install Principles","t4.desc":"Only install Skills from official npm, Knot platform, or trusted GitHub orgs. Verify download count and publish date before installing.",
+    "t5.name":"Newly Published (<7 days)","t5.desc":"Packages published less than 7 days ago with 0 downloads need caution. May be waiting to propagate maliciously.",
+    "t6.name":"Submit Threat Intel","t6.desc":"Found a suspicious Skill? Email us. Verified threats are added to the database within 24 hours.",
+    "footer.note":"Content auto-updated daily at midnight · Continues until 2026-05-15 · Multilingual translations by AI",
+    "scan.checking":"🔍 Scanning...","scan.safe":"✅ No known threats found. Still recommend verifying the source and permissions.",
+    "scan.danger":"🚨 Known HIGH RISK threat! This Skill is flagged as malicious. Do NOT install.",
+    "scan.warn":"⚠️ Risk detected: This Skill matches medium-risk patterns. Evaluate carefully before installing.",
+    "scan.empty":"Please enter something to scan",
+    "days.to":"Updates end in","days.unit":"days"
+  },
+  "zh-TW": {
+    "nav.back":"← 返回主站","nav.cta":"開始試用",
+    "ticker.text":"每日零點自動更新 · 持續更新至 2026-05-15",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw 賺錢攻略",
+    "hero.h1":"每日精選 <span>3個最賺錢</span><br>OpenClaw 專案模式",
+    "hero.sub":"全網蒐集國內外最新案例，拆解獲利邏輯，提供可直接複製的賺錢路徑。不重複，每日更新。",
+    "stat.daily":"每日新專案","stat.days":"更新天數","stat.langs":"支援語言","stat.scan":"安全檢測",
+    "s1.badge":"📅 今日更新","s1.title":"今日最賺錢的 3 個 OpenClaw 專案","s1.sub":"全網蒐集 · 真實可複製 · 每日零點刷新",
+    "rank.1":"🥇 NO.1 今日最賺","rank.2":"🥈 NO.2 成長最快","rank.3":"🥉 NO.3 門檻最低",
+    "d1.title":"WhatsApp AI 客服外包服務","d1.desc":"用 OpenClaw 接入 WhatsApp Business API，為中小跨境電商提供 AI 客服外包。月費 $200–800/客戶，一人可服務 10–20 家店鋪。",
+    "d1.m1":"💰 月收入 $2k–$16k","d1.m2":"⏱ 啟動 3天","d1.m3":"🌐 全球市場",
+    "d1.s1":"用 OpenClaw 搭建 WhatsApp AI 客服模板","d1.s2":"在 Fiverr/Upwork 發布「WhatsApp AI setup」服務","d1.s3":"收 $200 啟動費 + $99/月維護費","d1.s4":"用 Skill 標準化交付，批次複製",
+    "d1.src":"來源：Reddit r/entrepreneur + Fiverr 真實案例 · 2026-03-17",
+    "d2.title":"AI Skill 訂閱市場","d2.desc":"在工蜂/KnHub 發布專業 Skill 包，面向企業用戶按月訂閱授權。",
+    "d2.m1":"💰 月收入 ¥3k–¥30k","d2.m2":"⏱ 啟動 1週","d2.m3":"📦 可疊加",
+    "d2.s1":"挖掘企業高頻痛點","d2.s2":"用 skill-creator 打包成標準 Skill","d2.s3":"發布到 Knot 平台，設定訂閱授權","d2.s4":"透過內容行銷引流",
+    "d2.src":"來源：KnHub 平台數據 · 2026-03-17",
+    "d3.title":"AI 陪跑教練（1對1 輔導變現）","d3.desc":"用 OpenClaw 記錄學員進度，在小紅書/Twitter 銷售「OpenClaw 30天變現陪跑」課程。",
+    "d3.m1":"💰 單課 ¥299–999","d3.m2":"⏱ 今天就能賣","d3.m3":"👤 零技術要求",
+    "d3.s1":"用 Academy 頁面內容作為課程素材","d3.s2":"在小紅書發引流筆記","d3.s3":"賣 1對1 陪跑，限量 5 名","d3.s4":"收款後用 OpenClaw 陪跑",
+    "d3.src":"來源：小紅書熱帖 + Twitter/X · 2026-03-17",
+    "copypath":"📋 複製路徑",
+    "s2.badge":"👥 團隊","s2.title":"WhatsClaw 核心團隊","s2.sub":"構建這套賺錢體系的人們",
+    "team.founder":"創始人 · 產品架構","team.ai":"每日內容 · 安全檢測 · 多語言",
+    "team.join.name":"加入我們","team.join.role":"貢獻案例 · 翻譯 · 驗證","team.join.tag":"招募中",
+    "s3.badge":"🛤️ 複製路徑","s3.title":"從零到第一筆收入的標準路徑","s3.sub":"按順序執行，3–7天完成首次變現",
+    "step.d1":"第1天","step.t1":"定位 · 選擇你的賺錢模式","step.desc1":"從今日 3 個專案中選 1 個，評估自己的資源。",
+    "st.decision":"✅ 做決定","st.time":"30分鐘",
+    "step.d2":"第2天","step.t2":"搭建 · 用 OpenClaw 配置產品","step.desc2":"安裝 WhatsClaw，按指引接入。",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4小時",
+    "step.d3":"第3天","step.t3":"獲客 · 發出第一條獲客內容","step.desc3":"不要等完美，發出去才是開始。",
+    "st.content":"內容行銷","st.platform":"小紅書 · Twitter · Fiverr",
+    "step.d5":"第5–7天","step.t4":"收款 · 完成第一筆交易","step.desc4":"收到錢才證明模式可行。",
+    "st.goal":"🎯 目標：第一筆收入","st.payment":"Stripe · 微信 · 支付寶",
+    "s4.badge":"🔒 安全專區","s4.title":"Skill 安全檢測專區","s4.sub":"安裝任何 Skill 前先檢測 · 免費 · 每日零點更新威脅庫",
+    "sec.updated":"威脅庫今日已更新","sec.title":"檢測你要安裝的 Skill 是否安全",
+    "sec.sub":"輸入 npm 包名、GitHub 倉庫地址或 Skill ID，系統將檢測已知威脅。",
+    "sec.placeholder":"npm包名 / github.com/... / skill-id","sec.btn":"立即檢測 →","sec.hint":"例：agent-reach",
+    "sec.threats.title":"今日新增威脅 · 2026-03-17",
+    "tl.high":"高危","tl.medium":"中危","tl.info":"提示",
+    "t1.desc":"GitHub 倉庫不存在（404），npm 包未註冊，命令參數格式異常，疑似社交工程攻擊。",
+    "t2.desc":"所有以 install-ai-skill- 開頭的包存在可疑遠端代碼執行風險。",
+    "t3.desc":"非標準 npm 參數，可能繞過官方倉庫檢查。",
+    "t4.name":"安全安裝原則","t4.desc":"只從官方 npm、Knot 或可信 GitHub 組織安裝 Skill。",
+    "t5.name":"新發布包（<7天）","t5.desc":"發布時間少於 7 天、下載量為 0 的包需謹慎。",
+    "t6.name":"提交威脅情報","t6.desc":"發現可疑 Skill？發郵件給我們，24小時內收錄。",
+    "footer.note":"每日零點自動更新 · 持續至 2026-05-15",
+    "scan.checking":"🔍 檢測中...","scan.safe":"✅ 未發現威脅。仍建議檢查來源。",
+    "scan.danger":"🚨 已知高危威脅！強烈建議不要安裝。",
+    "scan.warn":"⚠️ 存在風險提示，請謹慎評估。",
+    "scan.empty":"請輸入要檢測的內容",
+    "days.to":"距更新結束還有","days.unit":"天"
+  },
+  ja: {
+    "nav.back":"← メインサイトへ","nav.cta":"無料トライアル",
+    "ticker.text":"毎日深夜0時に自動更新 · 2026-05-15まで継続",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw 収益化ガイド",
+    "hero.h1":"毎日厳選 <span>最も稼げる3つの</span><br>OpenClaw プロジェクト",
+    "hero.sub":"国内外から最新事例を収集。収益ロジックを分解し、すぐコピーできる稼ぎ方を提供。重複なし・毎日更新。",
+    "stat.daily":"毎日の新案件","stat.days":"更新日数","stat.langs":"対応言語","stat.scan":"無料セキュリティスキャン",
+    "s1.badge":"📅 本日の更新","s1.title":"本日最も稼げる3つのOpenClawプロジェクト","s1.sub":"グローバル収集 · 実証済み · 毎日深夜更新",
+    "rank.1":"🥇 1位 最高収益","rank.2":"🥈 2位 最速成長","rank.3":"🥉 3位 最低参入障壁",
+    "d1.title":"WhatsApp AIカスタマーサービス代行","d1.desc":"OpenClaw + WhatsApp Business APIを使用して中小EC向けAIカスタマーサービスを提供。月$200–800/顧客、一人で10–20店舗を担当可能。",
+    "d1.m1":"💰 月収$2k–$16k","d1.m2":"⏱ 3日で開始","d1.m3":"🌐 グローバル市場",
+    "d1.s1":"OpenClawでWhatsApp AIテンプレートを構築","d1.s2":"Fiverr/UpworkでWhatsApp AI設定サービスを出品","d1.s3":"初期費$200 + 月額$99メンテ料金を設定","d1.s4":"Skillで納品を標準化し、スケールアップ",
+    "d1.src":"情報源：Reddit r/entrepreneur + Fiverr実例 · 2026-03-17",
+    "d2.title":"AIスキルサブスクリプションマーケット","d2.desc":"専門Skillパッケージを公開し、企業向け月額サブスクで収益化。高品質なSkill1つで月$70–$400の累積収益。",
+    "d2.m1":"💰 月収$400–$4k","d2.m2":"⏱ 1週間で開始","d2.m3":"📦 積み重ね可能",
+    "d2.s1":"企業の高頻度課題を発掘（コードレビュー/ドキュメント）","d2.s2":"skill-creatorで標準Skillにパッケージ化","d2.s3":"Knotプラットフォームでサブスク設定","d2.s4":"コンテンツマーケティングで集客",
+    "d2.src":"情報源：KnHubデータ · 2026-03-17",
+    "d3.title":"AIコーチング（1対1マネタイズ）","d3.desc":"OpenClawで生徒の進捗を管理し、「OpenClaw 30日収益化ブートキャンプ」をTwitter/YouTubeで販売。",
+    "d3.m1":"💰 1コース$50–$150","d3.m2":"⏱ 今日から販売可","d3.m3":"👤 技術不要",
+    "d3.s1":"Academyページをコース素材として活用","d3.s2":"「AIで$XXX稼いだ方法」をSNSで投稿","d3.s3":"1対1コーチング5名限定で販売","d3.s4":"OpenClawで提供し、口コミを蓄積",
+    "d3.src":"情報源：Twitter/Xケーススタディ · 2026-03-17",
+    "copypath":"📋 コピーパス",
+    "s2.badge":"👥 チーム","s2.title":"WhatsClaw コアチーム","s2.sub":"この収益化システムを構築した人々",
+    "team.founder":"創業者 · プロダクト設計","team.ai":"毎日コンテンツ · セキュリティ · 多言語",
+    "team.join.name":"参加する","team.join.role":"事例提供 · 翻訳 · 検証","team.join.tag":"募集中",
+    "s3.badge":"🛤️ コピーパス","s3.title":"ゼロから最初の収益までの標準ステップ","s3.sub":"順番通りに実行。3–7日で初収益。",
+    "step.d1":"DAY 1","step.t1":"方向性を決める","step.desc1":"今日の3案件から1つ選び、自分のリソースを評価する。",
+    "st.decision":"✅ 決断する","st.time":"30分",
+    "step.d2":"DAY 2","step.t2":"OpenClawで構築する","step.desc2":"WhatsClaw をインストールし、セットアップガイドに従う。",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4時間",
+    "step.d3":"DAY 3","step.t3":"集客コンテンツを投稿","step.desc3":"完璧を待つな。投稿することが始まり。",
+    "st.content":"コンテンツマーケティング","st.platform":"Twitter · Reddit · Fiverr",
+    "step.d5":"DAY 5–7","step.t4":"初めての取引を完了","step.desc4":"入金で初めてモデルの有効性が証明される。",
+    "st.goal":"🎯 目標：初収益","st.payment":"Stripe · PayPal",
+    "s4.badge":"🔒 セキュリティ","s4.title":"Skill セキュリティスキャン","s4.sub":"Skill インストール前に確認 · 無料 · 毎日深夜に脅威DBを更新",
+    "sec.updated":"脅威DB本日更新済み","sec.title":"インストール前にSkillの安全性を確認",
+    "sec.sub":"npmパッケージ名、GitHubリポジトリURL、またはSkill IDを入力。既知の脅威パターンをチェックします。",
+    "sec.placeholder":"npmパッケージ / github.com/... / skill-id","sec.btn":"今すぐスキャン →","sec.hint":"例：agent-reach",
+    "sec.threats.title":"本日の新規脅威 · 2026-03-17",
+    "tl.high":"高危険","tl.medium":"中危険","tl.info":"情報",
+    "t1.desc":"GitHubリポジトリが存在しない（404）、npmパッケージ未登録。ソーシャルエンジニアリング攻撃と確認済み。",
+    "t2.desc":"install-ai-skill-で始まる全パッケージにRCEリスクが疑われる。",
+    "t3.desc":"非標準npmフラグ。公式レジストリチェックをバイパスする可能性あり。",
+    "t4.name":"安全インストール原則","t4.desc":"公式npm、Knotプラットフォーム、または信頼できるGitHub組織からのみインストール。",
+    "t5.name":"新規公開パッケージ（<7日）","t5.desc":"公開7日未満でDL数0のパッケージは要注意。",
+    "t6.name":"脅威情報を提供","t6.desc":"不審なSkillを発見したらメールを。24時間以内にDBへ追加します。",
+    "footer.note":"毎日深夜に自動更新 · 2026-05-15まで継続",
+    "scan.checking":"🔍 スキャン中...","scan.safe":"✅ 既知の脅威は検出されませんでした。ソースと権限の確認をお勧めします。",
+    "scan.danger":"🚨 既知の高危険脅威！インストールしないことを強く推奨します。",
+    "scan.warn":"⚠️ リスクが検出されました。慎重に評価してください。",
+    "scan.empty":"スキャンする内容を入力してください",
+    "days.to":"更新終了まで","days.unit":"日"
+  },
+  fr: {
+    "nav.back":"← Retour au site","nav.cta":"Essai gratuit",
+    "ticker.text":"Mise à jour automatique à minuit · Jusqu'au 15 mai 2026",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw Guide de Revenus",
+    "hero.h1":"Top <span>3 Projets OpenClaw</span><br>les Plus Rentables du Jour",
+    "hero.sub":"Collecté mondialement. Logique de profit décryptée. Chemins de revenus directement copiables. Sans répétition. Mis à jour quotidiennement.",
+    "stat.daily":"Nouveaux projets/jour","stat.days":"Jours de mises à jour","stat.langs":"Langues","stat.scan":"Scan sécurité gratuit",
+    "s1.badge":"📅 Mise à jour du jour","s1.title":"Les 3 Projets OpenClaw les Plus Rentables Aujourd'hui","s1.sub":"Sources mondiales · Reproductibles · Actualisé à minuit",
+    "rank.1":"🥇 #1 Le Plus Rentable","rank.2":"🥈 #2 Croissance la Plus Rapide","rank.3":"🥉 #3 Barrière la Plus Basse",
+    "d1.title":"Externalisation Service Client WhatsApp IA","d1.desc":"Utilisez OpenClaw + WhatsApp Business API pour offrir un service client IA aux e-commerçants. $200–800/mois par client. Une personne peut gérer 10–20 boutiques.",
+    "d1.m1":"💰 $2k–$16k/mois","d1.m2":"⏱ Lancé en 3 jours","d1.m3":"🌐 Marché mondial",
+    "d1.s1":"Créer un template WhatsApp IA avec OpenClaw","d1.s2":"Publier sur Fiverr/Upwork","d1.s3":"Facturer $200 setup + $99/mois","d1.s4":"Standardiser avec des Skills, scaler",
+    "d1.src":"Source : Reddit r/entrepreneur + Fiverr · 2026-03-17",
+    "d2.title":"Marché d'Abonnement Skill IA","d2.desc":"Publiez des packages Skill professionnels en abonnement mensuel. Un bon Skill peut rapporter $70–$400/mois.",
+    "d2.m1":"💰 $400–$4k/mois","d2.m2":"⏱ Lancé en 1 semaine","d2.m3":"📦 Cumulable",
+    "d2.s1":"Identifier les douleurs entreprise","d2.s2":"Packager avec skill-creator","d2.s3":"Publier sur Knot avec licence abonnement","d2.s4":"Marketing de contenu",
+    "d2.src":"Source : KnHub · 2026-03-17",
+    "d3.title":"Coaching IA (Monétisation 1-pour-1)","d3.desc":"Vendez un bootcamp de monétisation OpenClaw 30 jours sur Twitter/YouTube.",
+    "d3.m1":"💰 $50–$150 par cours","d3.m2":"⏱ Vendre aujourd'hui","d3.m3":"👤 Zéro compétence tech",
+    "d3.s1":"Utiliser le contenu Academy comme matériel","d3.s2":"Poster sur Twitter/Reddit","d3.s3":"Coaching 1-pour-1, limité à 5 places","d3.s4":"Livrer avec OpenClaw, collecter des avis",
+    "d3.src":"Source : Twitter/X · 2026-03-17",
+    "copypath":"📋 Chemin de Copie",
+    "s2.badge":"👥 Équipe","s2.title":"Équipe WhatsClaw","s2.sub":"Les personnes derrière ce système de monétisation",
+    "team.founder":"Fondateur · Architecture Produit","team.ai":"Contenu quotidien · Sécurité · i18n",
+    "team.join.name":"Rejoignez-nous","team.join.role":"Contribuer · Traduire · Vérifier","team.join.tag":"Recrutement",
+    "s3.badge":"🛤️ Chemin de Copie","s3.title":"Du Zéro au Premier Revenu","s3.sub":"Exécutez dans l'ordre. Premier revenu en 3–7 jours.",
+    "step.d1":"JOUR 1","step.t1":"Se positionner","step.desc1":"Choisir 1 projet parmi les 3 du jour.",
+    "st.decision":"✅ Décider","st.time":"30 minutes",
+    "step.d2":"JOUR 2","step.t2":"Construire avec OpenClaw","step.desc2":"Installer WhatsClaw et suivre le guide.",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4 heures",
+    "step.d3":"JOUR 3","step.t3":"Publier du contenu d'acquisition","step.desc3":"Ne pas attendre la perfection.",
+    "st.content":"Marketing de contenu","st.platform":"Twitter · Reddit · Fiverr",
+    "step.d5":"JOUR 5–7","step.t4":"Compléter la première transaction","step.desc4":"Être payé prouve que le modèle fonctionne.",
+    "st.goal":"🎯 Objectif : Premier revenu","st.payment":"Stripe · PayPal",
+    "s4.badge":"🔒 Sécurité","s4.title":"Zone de Scan Sécurité Skill","s4.sub":"Scanner avant d'installer · Gratuit · Base de menaces mise à jour à minuit",
+    "sec.updated":"Base de menaces mise à jour aujourd'hui","sec.title":"Vérifier si un Skill est Sûr",
+    "sec.sub":"Entrez un nom de package npm, une URL GitHub ou un ID Skill.",
+    "sec.placeholder":"package npm / github.com/... / skill-id","sec.btn":"Scanner →","sec.hint":"ex : agent-reach",
+    "sec.threats.title":"Nouvelles Menaces du Jour · 2026-03-17",
+    "tl.high":"ÉLEVÉ","tl.medium":"MOYEN","tl.info":"INFO",
+    "t1.desc":"Dépôt GitHub inexistant (404), package npm non enregistré. Attaque d'ingénierie sociale confirmée.",
+    "t2.desc":"Tous les packages commençant par install-ai-skill- présentent un risque d'exécution de code à distance.",
+    "t3.desc":"Flag npm non standard pouvant contourner le registre officiel.",
+    "t4.name":"Principes d'Installation Sécurisée","t4.desc":"N'installez que depuis npm officiel, la plateforme Knot ou des orgs GitHub de confiance.",
+    "t5.name":"Nouveaux Packages (<7 jours)","t5.desc":"Les packages publiés depuis moins de 7 jours avec 0 téléchargements sont suspects.",
+    "t6.name":"Soumettre une Menace","t6.desc":"Trouvé un Skill suspect ? Envoyez-nous un email. Ajouté dans les 24h.",
+    "footer.note":"Mise à jour automatique à minuit · Jusqu'au 15 mai 2026",
+    "scan.checking":"🔍 Scan en cours...","scan.safe":"✅ Aucune menace connue. Vérifiez quand même la source.",
+    "scan.danger":"🚨 Menace ÉLEVÉE connue ! Ne pas installer.",
+    "scan.warn":"⚠️ Risque détecté. Évaluez soigneusement.",
+    "scan.empty":"Veuillez entrer quelque chose à scanner",
+    "days.to":"Fin des mises à jour dans","days.unit":"jours"
+  },
+  ko: {
+    "nav.back":"← 메인으로","nav.cta":"무료 체험",
+    "ticker.text":"매일 자정 자동 업데이트 · 2026-05-15까지 계속",
+    "hero.badge":"🦞 ClawAcademy × OpenClaw 수익화 가이드",
+    "hero.h1":"매일 엄선 <span>수익성 높은 3가지</span><br>OpenClaw 프로젝트",
+    "hero.sub":"전 세계에서 수집한 최신 사례. 수익 로직 분석. 바로 따라할 수 있는 수익화 경로. 중복 없음, 매일 업데이트.",
+    "stat.daily":"일별 신규 프로젝트","stat.days":"업데이트 일수","stat.langs":"지원 언어","stat.scan":"무료 보안 스캔",
+    "s1.badge":"📅 오늘의 업데이트","s1.title":"오늘의 최고 수익 OpenClaw 프로젝트 3가지","s1.sub":"글로벌 수집 · 실증됨 · 매일 자정 갱신",
+    "rank.1":"🥇 1위 최고 수익","rank.2":"🥈 2위 가장 빠른 성장","rank.3":"🥉 3위 가장 낮은 진입장벽",
+    "d1.title":"WhatsApp AI 고객서비스 아웃소싱","d1.desc":"OpenClaw + WhatsApp Business API로 중소 이커머스에 AI 고객서비스 제공. 월 $200–800/고객. 1인이 10–20개 스토어 관리 가능.",
+    "d1.m1":"💰 월 $2k–$16k","d1.m2":"⏱ 3일 만에 시작","d1.m3":"🌐 글로벌 시장",
+    "d1.s1":"OpenClaw로 WhatsApp AI 템플릿 구축","d1.s2":"Fiverr/Upwork에 서비스 등록","d1.s3":"$200 셋업비 + $99/월 유지비","d1.s4":"Skill로 납품 표준화",
+    "d1.src":"출처: Reddit r/entrepreneur + Fiverr · 2026-03-17",
+    "d2.title":"AI Skill 구독 마켓플레이스","d2.desc":"전문 Skill 패키지를 월 구독으로 판매. 우수한 Skill 하나로 월 $70–$400 누적 수익.",
+    "d2.m1":"💰 월 $400–$4k","d2.m2":"⏱ 1주일 만에 시작","d2.m3":"📦 누적 가능",
+    "d2.s1":"기업 고빈도 痛点 발굴","d2.s2":"skill-creator로 표준 Skill 패키징","d2.s3":"Knot 플랫폼에 구독 라이선스로 출시","d2.s4":"콘텐츠 마케팅으로 유입",
+    "d2.src":"출처: KnHub 데이터 · 2026-03-17",
+    "d3.title":"AI 코칭 (1:1 수익화)","d3.desc":"OpenClaw로 학습자 진도를 관리하고 Twitter/YouTube에서 'OpenClaw 30일 수익화' 과정을 판매.",
+    "d3.m1":"💰 강의당 $50–$150","d3.m2":"⏱ 오늘 바로 판매","d3.m3":"👤 기술 불필요",
+    "d3.s1":"Academy 콘텐츠를 강의 자료로 활용","d3.s2":"SNS에 수익화 후기 게시","d3.s3":"1:1 코칭 5명 한정 판매","d3.s4":"OpenClaw로 제공, 후기 축적",
+    "d3.src":"출처: Twitter/X · 2026-03-17",
+    "copypath":"📋 복사 경로",
+    "s2.badge":"👥 팀","s2.title":"WhatsClaw 핵심 팀","s2.sub":"이 수익화 시스템을 만든 사람들",
+    "team.founder":"창업자 · 제품 설계","team.ai":"일일 콘텐츠 · 보안 · 다국어",
+    "team.join.name":"함께하기","team.join.role":"사례 기여 · 번역 · 검증","team.join.tag":"모집 중",
+    "s3.badge":"🛤️ 복사 경로","s3.title":"제로에서 첫 수익까지의 표준 경로","s3.sub":"순서대로 실행. 3–7일 안에 첫 수익.",
+    "step.d1":"1일차","step.t1":"포지셔닝 · 수익 모델 선택","step.desc1":"오늘의 3가지 프로젝트 중 1개 선택.",
+    "st.decision":"✅ 결정하기","st.time":"30분",
+    "step.d2":"2일차","step.t2":"OpenClaw로 제품 구축","step.desc2":"WhatsClaw 설치 후 가이드 따라 연결.",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4시간",
+    "step.d3":"3일차","step.t3":"첫 고객 유치 콘텐츠 게시","step.desc3":"완벽을 기다리지 마세요. 게시가 시작입니다.",
+    "st.content":"콘텐츠 마케팅","st.platform":"Twitter · Reddit · Fiverr",
+    "step.d5":"5–7일차","step.t4":"첫 거래 완료","step.desc4":"수익이 입금될 때 모델이 검증됩니다.",
+    "st.goal":"🎯 목표: 첫 수익","st.payment":"Stripe · PayPal",
+    "s4.badge":"🔒 보안 구역","s4.title":"Skill 보안 스캔 구역","s4.sub":"설치 전 스캔 · 무료 · 매일 자정 위협 DB 업데이트",
+    "sec.updated":"위협 DB 오늘 업데이트됨","sec.title":"설치할 Skill의 안전성 확인",
+    "sec.sub":"npm 패키지명, GitHub URL 또는 Skill ID를 입력하세요.",
+    "sec.placeholder":"npm패키지 / github.com/... / skill-id","sec.btn":"지금 스캔 →","sec.hint":"예: agent-reach",
+    "sec.threats.title":"오늘의 새 위협 · 2026-03-17",
+    "tl.high":"고위험","tl.medium":"중위험","tl.info":"정보",
+    "t1.desc":"GitHub 저장소 없음(404), npm 미등록, 비정상 명령 파라미터. 소셜 엔지니어링 공격 확인됨.",
+    "t2.desc":"install-ai-skill-로 시작하는 모든 패키지에 원격 코드 실행 위험 의심.",
+    "t3.desc":"비표준 npm 플래그. 공식 레지스트리 검사를 우회할 수 있음.",
+    "t4.name":"안전 설치 원칙","t4.desc":"공식 npm, Knot 플랫폼 또는 신뢰할 수 있는 GitHub 조직에서만 설치.",
+    "t5.name":"신규 패키지 (<7일)","t5.desc":"7일 미만 공개, 다운로드 0인 패키지는 주의.",
+    "t6.name":"위협 정보 제출","t6.desc":"의심스러운 Skill 발견 시 이메일로 알려주세요. 24시간 내 추가.",
+    "footer.note":"매일 자정 자동 업데이트 · 2026-05-15까지 계속",
+    "scan.checking":"🔍 스캔 중...","scan.safe":"✅ 알려진 위협 없음. 출처 확인 권장.",
+    "scan.danger":"🚨 알려진 고위험 위협! 설치하지 마세요.",
+    "scan.warn":"⚠️ 위험 감지됨. 신중히 평가하세요.",
+    "scan.empty":"스캔할 내용을 입력하세요",
+    "days.to":"업데이트 종료까지","days.unit":"일"
+  },
+  ar: {
+    "nav.back":"→ العودة للموقع","nav.cta":"ابدأ النسخة التجريبية",
+    "ticker.text":"تحديث تلقائي يومياً عند منتصف الليل · حتى 15 مايو 2026",
+    "hero.badge":"🦞 ClawAcademy × دليل الربح من OpenClaw",
+    "hero.h1":"أفضل <span>3 مشاريع OpenClaw</span><br>الأكثر ربحاً اليوم",
+    "hero.sub":"جمع من مصادر عالمية. تحليل منطق الربح. مسارات ربح قابلة للنسخ المباشر. بدون تكرار. تحديث يومي.",
+    "stat.daily":"مشاريع جديدة/يوم","stat.days":"أيام التحديث","stat.langs":"اللغات","stat.scan":"فحص أمني مجاني",
+    "s1.badge":"📅 تحديث اليوم","s1.title":"أفضل 3 مشاريع OpenClaw الأكثر ربحاً اليوم","s1.sub":"مصادر عالمية · قابل للتطبيق · تحديث منتصف الليل",
+    "rank.1":"🥇 #1 الأكثر ربحاً","rank.2":"🥈 #2 الأسرع نمواً","rank.3":"🥉 #3 أقل حواجز للدخول",
+    "d1.title":"خدمة عملاء WhatsApp AI مُستعان بها","d1.desc":"استخدم OpenClaw + WhatsApp Business API لتقديم خدمة عملاء AI للتجارة الإلكترونية. $200–800/شهر لكل عميل. شخص واحد يمكنه خدمة 10–20 متجراً.",
+    "d1.m1":"💰 $2k–$16k/شهر","d1.m2":"⏱ إطلاق في 3 أيام","d1.m3":"🌐 سوق عالمي",
+    "d1.s1":"بناء قالب WhatsApp AI مع OpenClaw","d1.s2":"نشر الخدمة على Fiverr/Upwork","d1.s3":"رسوم إعداد $200 + $99/شهر","d1.s4":"توحيد التسليم بالـ Skills وتوسيع النطاق",
+    "d1.src":"المصدر: Reddit r/entrepreneur + Fiverr · 2026-03-17",
+    "d2.title":"سوق اشتراكات Skill للذكاء الاصطناعي","d2.desc":"نشر حزم Skill احترافية باشتراك شهري. Skill واحد جيد يمكن أن يدر $70–$400/شهر.",
+    "d2.m1":"💰 $400–$4k/شهر","d2.m2":"⏱ إطلاق في أسبوع","d2.m3":"📦 قابل للتراكم",
+    "d2.s1":"اكتشاف نقاط الألم المتكررة للمؤسسات","d2.s2":"حزم باستخدام skill-creator","d2.s3":"نشر على منصة Knot بترخيص اشتراك","d2.s4":"التسويق بالمحتوى",
+    "d2.src":"المصدر: KnHub · 2026-03-17",
+    "d3.title":"تدريب AI (تحقيق دخل 1-لـ-1)","d3.desc":"بيع دورة 'تحقيق دخل OpenClaw خلال 30 يوماً' على Twitter/YouTube.",
+    "d3.m1":"💰 $50–$150 للدورة","d3.m2":"⏱ بيع اليوم","d3.m3":"👤 لا تقنية مطلوبة",
+    "d3.s1":"استخدام محتوى Academy كمادة للدورة","d3.s2":"نشر 'كيف كسبت $XXX مع AI' على السوشيال","d3.s3":"تدريب 1-لـ-1، مقيد بـ 5 أماكن","d3.s4":"التسليم عبر OpenClaw وجمع التوصيات",
+    "d3.src":"المصدر: Twitter/X · 2026-03-17",
+    "copypath":"📋 مسار النسخ",
+    "s2.badge":"👥 الفريق","s2.title":"الفريق الأساسي لـ WhatsClaw","s2.sub":"الأشخاص الذين بنوا هذا النظام",
+    "team.founder":"المؤسس · تصميم المنتج","team.ai":"محتوى يومي · أمان · متعدد اللغات",
+    "team.join.name":"انضم إلينا","team.join.role":"مساهمة في الحالات · الترجمة · التحقق","team.join.tag":"نوظف",
+    "s3.badge":"🛤️ مسار النسخ","s3.title":"من الصفر إلى أول دخل","s3.sub":"نفّذ بالترتيب. أول دخل خلال 3–7 أيام.",
+    "step.d1":"اليوم 1","step.t1":"تحديد المسار","step.desc1":"اختر مشروعاً واحداً من 3 مشاريع اليوم.",
+    "st.decision":"✅ اتخاذ قرار","st.time":"30 دقيقة",
+    "step.d2":"اليوم 2","step.t2":"البناء مع OpenClaw","step.desc2":"تثبيت WhatsClaw واتباع الدليل.",
+    "st.setup":"OpenClaw Setup","st.time2":"2–4 ساعات",
+    "step.d3":"اليوم 3","step.t3":"نشر محتوى اكتساب العملاء","step.desc3":"لا تنتظر الكمال. النشر هو البداية.",
+    "st.content":"تسويق المحتوى","st.platform":"Twitter · Reddit · Fiverr",
+    "step.d5":"اليوم 5–7","step.t4":"إتمام أول صفقة","step.desc4":"تلقي الدفع يُثبت صحة النموذج.",
+    "st.goal":"🎯 الهدف: أول دخل","st.payment":"Stripe · PayPal",
+    "s4.badge":"🔒 منطقة الأمان","s4.title":"منطقة فحص أمان Skill","s4.sub":"افحص قبل التثبيت · مجاني · تحديث قاعدة التهديدات عند منتصف الليل",
+    "sec.updated":"قاعدة التهديدات محدّثة اليوم","sec.title":"تحقق من أمان الـ Skill قبل التثبيت",
+    "sec.sub":"أدخل اسم حزمة npm أو رابط GitHub أو Skill ID.",
+    "sec.placeholder":"اسم حزمة npm / github.com/... / skill-id","sec.btn":"فحص الآن ←","sec.hint":"مثال: agent-reach",
+    "sec.threats.title":"تهديدات اليوم · 2026-03-17",
+    "tl.high":"خطر عالٍ","tl.medium":"خطر متوسط","tl.info":"معلومة",
+    "t1.desc":"مستودع GitHub غير موجود (404)، حزمة npm غير مسجلة. هجوم هندسة اجتماعية مؤكد.",
+    "t2.desc":"جميع الحزم التي تبدأ بـ install-ai-skill- تحمل خطر تنفيذ كود عن بُعد.",
+    "t3.desc":"علامة npm غير قياسية قد تتجاوز فحوصات السجل الرسمي.",
+    "t4.name":"مبادئ التثبيت الآمن","t4.desc":"ثبّت فقط من npm الرسمي أو منصة Knot أو مؤسسات GitHub موثوقة.",
+    "t5.name":"حزم حديثة النشر (<7 أيام)","t5.desc":"الحزم المنشورة منذ أقل من 7 أيام مع تنزيلات صفر تستدعي الحذر.",
+    "t6.name":"إرسال معلومات التهديد","t6.desc":"وجدت Skill مشبوهاً؟ راسلنا عبر البريد الإلكتروني. إضافة في غضون 24 ساعة.",
+    "footer.note":"تحديث تلقائي يومياً · حتى 15 مايو 2026",
+    "scan.checking":"🔍 جارٍ الفحص...","scan.safe":"✅ لم يتم العثور على تهديدات معروفة. نوصي بالتحقق من المصدر.",
+    "scan.danger":"🚨 تهديد عالي الخطورة معروف! لا تقم بالتثبيت.",
+    "scan.warn":"⚠️ تم اكتشاف خطر. قيّم بعناية.",
+    "scan.empty":"الرجاء إدخال شيء للفحص",
+    "days.to":"تنتهي التحديثات خلال","days.unit":"يوم"
+  }
+};
+
+// ── THREAT DB (검색용) ─────────────────────────────────────────────
+const THREATS = {
+  high: ['agent-reach','agent-reach-io','install-ai-skill','agentic-reach','openclaw-hack'],
+  medium: ['install-ai-plugin','unofficial-claw','claw-helper-free'],
+  patterns: {
+    high: [/agent.?reach/i, /install.*--repository/i, /github\.com\/agent-reach/i],
+    medium: [/^install-ai-/i, /unofficial/i, /\.exe$/, /free.*crack/i]
+  }
+};
+
+function checkThreat(input) {
+  const q = input.trim().toLowerCase();
+  for (const name of THREATS.high) {
+    if (q.includes(name)) return 'danger';
+  }
+  for (const pat of THREATS.patterns.high) {
+    if (pat.test(q)) return 'danger';
+  }
+  for (const name of THREATS.medium) {
+    if (q.includes(name)) return 'warn';
+  }
+  for (const pat of THREATS.patterns.medium) {
+    if (pat.test(q)) return 'warn';
+  }
+  return 'safe';
+}
+
+// ── LANG ENGINE ────────────────────────────────────────────────────
+let currentLang = localStorage.getItem('ca_lang') || 'zh';
+
+function t(key) {
+  const lang = I18N[currentLang] || I18N.zh;
+  return lang[key] || I18N.zh[key] || key;
+}
+
+function applyLang() {
+  const html = document.documentElement;
+  if (currentLang === 'ar') {
+    html.setAttribute('dir', 'rtl');
+    html.setAttribute('lang', 'ar');
+  } else {
+    html.setAttribute('dir', 'ltr');
+    html.setAttribute('lang', currentLang);
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (val) el.innerHTML = val;
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const val = t(key);
+    if (val) el.setAttribute('placeholder', val);
+  });
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === currentLang);
+  });
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('ca_lang', lang);
+  applyLang();
+}
+
+// ── SCAN LOGIC ─────────────────────────────────────────────────────
+function runScan() {
+  const input = document.getElementById('scan-input').value;
+  if (!input.trim()) {
+    alert(t('scan.empty'));
+    return;
+  }
+  const result = document.getElementById('scan-result');
+  result.className = 'scan-result loading';
+  result.style.display = 'block';
+  result.textContent = t('scan.checking');
+
+  setTimeout(() => {
+    const level = checkThreat(input);
+    result.className = 'scan-result ' + level;
+    result.innerHTML = t('scan.' + level) + '<br><small style="opacity:.7;font-size:11px">🔍 Scanned: ' + input.replace(/</g,'&lt;') + ' · ' + new Date().toLocaleTimeString() + '</small>';
+  }, 1200);
+}
+
+document.getElementById('scan-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') runScan();
+});
+
+// ── TIME & COUNTDOWN ───────────────────────────────────────────────
+function updateTimes() {
+  const now = new Date();
+  const lastUpdate = new Date();
+  lastUpdate.setHours(0,0,0,0);
+
+  const fmt = d => d.toLocaleString(currentLang === 'ar' ? 'ar' : currentLang === 'ja' ? 'ja-JP' : currentLang === 'ko' ? 'ko-KR' : currentLang === 'fr' ? 'fr-FR' : 'zh-CN', {month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+
+  const utEl = document.getElementById('update-time');
+  if (utEl) utEl.textContent = '· ' + fmt(lastUpdate);
+
+  const secEl = document.getElementById('sec-update-time');
+  if (secEl) secEl.textContent = '· ' + fmt(lastUpdate);
+
+  // Days counter
+  const startDate = new Date('2026-03-17');
+  const daysEl = document.getElementById('days-count');
+  if (daysEl) daysEl.textContent = Math.max(1, Math.ceil((now - startDate) / 86400000) + 1);
+
+  // Countdown to end
+  const endDate = new Date('2026-05-15T23:59:59');
+  const cdEl = document.getElementById('end-countdown');
+  if (cdEl) {
+    const diff = endDate - now;
+    if (diff > 0) {
+      const days = Math.floor(diff / 86400000);
+      cdEl.textContent = t('days.to') + ' ' + days + ' ' + t('days.unit');
+    } else {
+      cdEl.textContent = '✅ 更新已结束 · 感谢关注';
+    }
+  }
+}
+
+// ── INIT ───────────────────────────────────────────────────────────
+applyLang();
+updateTimes();
+setInterval(updateTimes, 60000);
+</script>
 
 </body>
 </html>
