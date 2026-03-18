@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WhatsClaw Security — Skill 安全检测中心</title>
+<title>WhatsClaw Security — Skill Safety Scanner</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -20,11 +20,18 @@ a{color:inherit;text-decoration:none}
 /* NAV */
 nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);background:rgba(13,17,23,.95);position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
 .logo{font-size:20px;font-weight:900}.logo span{color:var(--green)}
-.nav-links{display:flex;gap:20px;align-items:center}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-links{display:flex;gap:16px;align-items:center}
 .nav-links a{color:var(--muted);font-size:14px;transition:color .15s}
 .nav-links a:hover{color:var(--text)}
 .nav-cta{background:var(--green);color:#000;font-weight:700;padding:7px 18px;border-radius:8px;font-size:13px}
 .nav-cta:hover{opacity:.9}
+
+/* LANG SWITCHER */
+.lang-switch{display:flex;gap:0;border:1px solid var(--border2);border-radius:8px;overflow:hidden}
+.lang-btn{padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--dim);transition:all .15s}
+.lang-btn.active{background:var(--green);color:#000}
+.lang-btn:hover:not(.active){color:var(--text)}
 
 /* HERO */
 .hero{background:linear-gradient(160deg,#0d1117 0%,#0d1a10 50%,#0d1117 100%);padding:72px 20px 56px;text-align:center;position:relative;overflow:hidden}
@@ -69,9 +76,8 @@ nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:cen
 .threat-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px 20px}
 .threat-card.high{border-left:3px solid var(--red)}
 .threat-card.medium{border-left:3px solid var(--yellow)}
-.threat-card.info{border-left:3px solid var(--blue)}
-.threat-level{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-.lv-high{color:var(--red)}.lv-med{color:var(--yellow)}.lv-info{color:var(--blue)}
+.threat-level{font-size:11px;font-weight:700;letter-spacing:1px;margin-bottom:8px}
+.lv-high{color:var(--red)}.lv-med{color:var(--yellow)}
 .threat-name{font-size:15px;font-weight:700;margin-bottom:6px;font-family:monospace;color:var(--text)}
 .threat-desc{font-size:13px;color:var(--muted);line-height:1.6}
 .threat-date{font-size:11px;color:var(--dim);margin-top:8px}
@@ -80,7 +86,6 @@ nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:cen
 .victims-section{max-width:1100px;margin:0 auto;padding:0 20px 56px}
 .victim-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;margin-top:20px}
 .victim-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.victim-card:hover{border-color:var(--border2)}
 .victim-header{padding:16px 20px 0;display:flex;align-items:flex-start;gap:14px}
 .victim-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1a3a2a,#0d2318);border:1px solid var(--green-border);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
 .victim-meta{flex:1}
@@ -92,13 +97,12 @@ nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:cen
 .victim-story strong{color:var(--text)}
 .victim-tag{display:inline-flex;align-items:center;gap:4px;background:var(--red-bg);border:1px solid var(--red-border);color:var(--red);font-size:11px;padding:3px 10px;border-radius:20px;margin-top:10px}
 
-/* COUNTER WIDGET */
+/* COUNTER */
 .counter-section{background:linear-gradient(135deg,var(--red-bg),rgba(13,17,23,0));border:1px solid var(--red-border);border-radius:20px;padding:32px;margin:0 20px 56px;max-width:1060px;margin-left:auto;margin-right:auto}
 .counter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px;text-align:center}
 .counter-item .c-val{font-size:36px;font-weight:900;color:var(--red)}
 .counter-item .c-label{font-size:12px;color:var(--muted);margin-top:4px}
 
-/* DIVIDER */
 .divider{border:none;border-top:1px solid var(--border);margin:0 20px}
 
 /* ACADEMY CTA */
@@ -112,7 +116,7 @@ nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:cen
 .btn-green{background:var(--green);color:#000;font-weight:800;font-size:15px;padding:14px 36px;border-radius:12px;display:inline-block}
 .btn-green:hover{opacity:.9}
 
-/* USECASE / SHOPIFY */
+/* USECASE */
 .usecase-section{max-width:1100px;margin:0 auto;padding:56px 20px}
 .uc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:28px}
 @media(max-width:700px){.uc-grid{grid-template-columns:1fr}}
@@ -123,14 +127,12 @@ nav{padding:14px 32px;display:flex;justify-content:space-between;align-items:cen
 .uc-result{display:flex;gap:10px;flex-wrap:wrap}
 .uc-badge{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);font-size:12px;font-weight:700;padding:4px 12px;border-radius:6px}
 .uc-link{font-size:13px;color:var(--green);display:inline-flex;align-items:center;gap:4px;margin-top:12px;font-weight:600}
-.uc-link:hover{opacity:.8}
 
 /* PRICING */
 .pricing-section{max-width:900px;margin:0 auto;padding:0 20px 56px}
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:28px}
 .plan{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:28px;position:relative}
 .plan.hot{border-color:var(--green-border)}
-.plan.hot::before{content:'推荐';position:absolute;top:14px;right:14px;background:var(--green);color:#000;font-size:10px;font-weight:800;padding:3px 10px;border-radius:4px}
 .plan-name{font-size:16px;font-weight:700;margin-bottom:8px}
 .plan-price{font-size:36px;font-weight:900;color:var(--green);margin-bottom:4px}
 .plan-price small{font-size:13px;color:var(--dim);font-weight:400}
@@ -165,7 +167,7 @@ footer a{color:var(--green)}
 
 @media(max-width:600px){
   nav{padding:12px 16px}
-  .nav-links a:not(.nav-cta){display:none}
+  .nav-links{display:none}
   .stats-bar .stat-item{min-width:100px}
 }
 </style>
@@ -174,217 +176,204 @@ footer a{color:var(--green)}
 
 <nav>
   <div class="logo">Whats<span>Claw</span> <span style="color:var(--dim);font-size:13px;font-weight:400">/ Security</span></div>
-  <div class="nav-links">
-    <a href="/academy/">🎓 Academy</a>
-    <a href="#usecase">🛍️ 电商实战</a>
-    <a href="#pricing">定价</a>
-    <a href="mailto:hello@whatsclaw.xyz">联系</a>
-    <a href="/academy/" class="nav-cta">免费检测 →</a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="/academy/" data-i18n="nav_academy">🎓 Academy</a>
+      <a href="#usecase" data-i18n="nav_usecase">🦞 Showcase</a>
+      <a href="#pricing" data-i18n="nav_pricing">Pricing</a>
+      <a href="mailto:hello@whatsclaw.xyz" data-i18n="nav_contact">Contact</a>
+    </div>
+    <div class="lang-switch">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('zh-TW')">繁體</button>
+      <button class="lang-btn" onclick="setLang('zh-CN')">简体</button>
+    </div>
+    <a href="/academy/" class="nav-cta" data-i18n="nav_scan">Free Scan →</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">🚨 实时威胁监控中 · 最新威胁：agent-reach（2026-03-18）</div>
-  <h1>安装 Skill 之前<br><em>先检测一下</em></h1>
-  <p>OpenClaw / AI Agent 生态里存在伪装成有用工具的恶意 Skill。<br>免费检测，每日更新威胁库，保护你的系统和数据。</p>
+  <div class="hero-badge" data-i18n="hero_badge">🚨 Live Threat Monitor · Latest: agent-reach (2026-03-18)</div>
+  <h1 data-i18n="hero_h1">Before Installing Any Skill<br><em>Scan It First</em></h1>
+  <p data-i18n="hero_p">Malicious Skills disguised as useful tools exist in the OpenClaw / AI Agent ecosystem.<br>Free scanner, daily-updated threat database, protect your system and data.</p>
 
-  <!-- LIVE STATS -->
   <div class="stats-bar">
     <div class="stat-item">
-      <span class="stat-val" id="stat-scans">1,<span id="scan-live">247</span></span>
-      <div class="stat-label"><span class="stat-live"><span class="live-dot"></span>实时检测次数</span></div>
+      <span class="stat-val" id="stat-scans">1,247</span>
+      <div class="stat-label"><span class="stat-live"><span class="live-dot"></span><span data-i18n="stat_scans">Live Scans</span></span></div>
     </div>
     <div class="stat-item">
-      <span class="stat-val" id="stat-blocked">83</span>
-      <div class="stat-label">已拦截高危 Skill</div>
+      <span class="stat-val">83</span>
+      <div class="stat-label" data-i18n="stat_blocked">High-Risk Skills Blocked</div>
     </div>
     <div class="stat-item">
       <span class="stat-val" id="stat-threats">12</span>
-      <div class="stat-label">本周新增威胁</div>
+      <div class="stat-label" data-i18n="stat_threats">New Threats This Week</div>
     </div>
     <div class="stat-item">
-      <span class="stat-val">免费</span>
-      <div class="stat-label">永久免费使用</div>
+      <span class="stat-val" data-i18n="stat_free">Free</span>
+      <div class="stat-label" data-i18n="stat_free_label">Always Free</div>
     </div>
   </div>
 </div>
 
 <!-- SCAN ZONE -->
 <div class="scan-section">
-  <div class="section-badge">🔍 在线检测</div>
-  <div class="section-title">立即检测 Skill 安全性</div>
-  <div class="section-sub">输入 npm 包名、GitHub 仓库地址、或 Skill ID，系统实时比对已知威胁库、可疑来源及恶意代码特征。</div>
-
+  <div class="section-badge" data-i18n="scan_badge">🔍 Online Scanner</div>
+  <div class="section-title" data-i18n="scan_title">Scan a Skill Right Now</div>
+  <div class="section-sub" data-i18n="scan_sub">Enter an npm package name, GitHub repo URL, or Skill ID. We check it against our live threat database, suspicious sources, and malicious code patterns.</div>
   <div class="scan-box">
     <div class="scan-input-row">
-      <input class="scan-input" id="scan-input" placeholder="npm包名 / github.com/用户名/仓库 / skill-id">
-      <button class="scan-btn" onclick="runScan()">立即检测 →</button>
+      <input class="scan-input" id="scan-input" data-i18n-ph="scan_placeholder" placeholder="npm package / github.com/user/repo / skill-id">
+      <button class="scan-btn" onclick="runScan()" data-i18n="scan_btn">Scan Now →</button>
     </div>
-    <div class="scan-hint">例：agent-reach · github.com/agent-reach-io/install · install-ai-skill-*</div>
+    <div class="scan-hint" data-i18n="scan_hint">e.g. agent-reach · github.com/agent-reach-io/install · install-ai-skill-*</div>
     <div class="scan-result" id="scan-result"></div>
   </div>
 </div>
 
 <!-- THREAT DB -->
 <div class="threat-section">
-  <div class="section-badge">🛡️ 威胁情报库</div>
-  <div class="section-title">已知威胁 · 每日零点更新</div>
-  <div class="section-sub" id="threat-date">最后更新：2026-03-18 00:00 · 本周新增 5 条</div>
-
+  <div class="section-badge" data-i18n="threat_badge">🛡️ Threat Intelligence</div>
+  <div class="section-title" data-i18n="threat_title">Known Threats · Updated Daily at Midnight</div>
+  <div class="section-sub" id="threat-date"></div>
   <div class="threat-grid">
     <div class="threat-card high">
-      <div class="threat-level lv-high">🔴 HIGH — 已确认恶意</div>
+      <div class="threat-level lv-high" data-i18n="lv_high1">🔴 HIGH — Confirmed Malicious</div>
       <div class="threat-name">agent-reach</div>
-      <div class="threat-desc">GitHub 仓库不存在（404），npm 包未注册，使用非标准参数 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">--repository</code> 绕过官方仓库。疑似社会工程学攻击，已有多名用户中招。</div>
-      <div class="threat-date">首次发现：2026-03-18 · 来源：OpenClaw 社区举报</div>
+      <div class="threat-desc" data-i18n="t1_desc">GitHub repo returns 404, npm package unregistered. Uses non-standard <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">--repository</code> flag to bypass official registry. Multiple confirmed victims.</div>
+      <div class="threat-date" data-i18n="t1_date">First seen: 2026-03-18 · Source: OpenClaw community</div>
     </div>
     <div class="threat-card high">
-      <div class="threat-level lv-high">🔴 HIGH — 已确认恶意</div>
+      <div class="threat-level lv-high" data-i18n="lv_high2">🔴 HIGH — Confirmed Malicious</div>
       <div class="threat-name">agent-reach-io</div>
-      <div class="threat-desc">agent-reach 的变体，同一攻击者。通过伪装成合法 AI 工具传播，安装后尝试读取 workspace 文件和 API Key。</div>
-      <div class="threat-date">首次发现：2026-03-18 · 关联：agent-reach</div>
+      <div class="threat-desc" data-i18n="t2_desc">Variant of agent-reach, same attacker. Disguises as a legitimate AI tool, reads workspace files and API keys after installation.</div>
+      <div class="threat-date" data-i18n="t2_date">First seen: 2026-03-18 · Related: agent-reach</div>
     </div>
     <div class="threat-card high">
-      <div class="threat-level lv-high">🔴 HIGH — 规则匹配</div>
-      <div class="threat-name">install-ai-skill-*（通配符）</div>
-      <div class="threat-desc">所有以 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">install-ai-skill-</code> 开头的包均存在可疑远程代码执行风险，来源不明，无正规维护者。</div>
-      <div class="threat-date">规则创建：2026-03-15 · 影响范围：持续监控中</div>
+      <div class="threat-level lv-high" data-i18n="lv_high3">🔴 HIGH — Pattern Match</div>
+      <div class="threat-name">install-ai-skill-* (wildcard)</div>
+      <div class="threat-desc" data-i18n="t3_desc">All packages starting with <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">install-ai-skill-</code> carry suspected RCE risk. Unknown publisher, no legitimate maintainer.</div>
+      <div class="threat-date" data-i18n="t3_date">Rule created: 2026-03-15 · Scope: ongoing</div>
     </div>
     <div class="threat-card high">
-      <div class="threat-level lv-high">🔴 HIGH — 已确认恶意</div>
+      <div class="threat-level lv-high" data-i18n="lv_high4">🔴 HIGH — Confirmed Malicious</div>
       <div class="threat-name">agentic-reach</div>
-      <div class="threat-desc">agent-reach 仿冒变体，名称相似度高，利用用户输入错误传播。安装流程要求不必要的系统权限。</div>
-      <div class="threat-date">首次发现：2026-03-17 · 类型：typosquatting</div>
+      <div class="threat-desc" data-i18n="t4_desc">Typosquatting variant of agent-reach. High name similarity exploits typos. Requests unnecessary system permissions during install.</div>
+      <div class="threat-date" data-i18n="t4_date">First seen: 2026-03-17 · Type: typosquatting</div>
     </div>
     <div class="threat-card medium">
-      <div class="threat-level lv-med">🟡 MEDIUM — 风险提示</div>
-      <div class="threat-name">npm install --repository 参数</div>
-      <div class="threat-desc">非标准 npm 安装参数，可绕过官方 registry 检查。任何要求你用此参数安装的命令均应高度警惕。</div>
-      <div class="threat-date">规则创建：2026-03-18 · 适用：所有 npm 安装场景</div>
+      <div class="threat-level lv-med" data-i18n="lv_med1">🟡 MEDIUM — Risk Warning</div>
+      <div class="threat-name">npm install --repository &lt;url&gt;</div>
+      <div class="threat-desc" data-i18n="t5_desc">Non-standard npm flag that bypasses official registry checks. Any install command using this flag should be treated with extreme suspicion.</div>
+      <div class="threat-date" data-i18n="t5_date">Rule created: 2026-03-18 · Applies to: all npm installs</div>
     </div>
     <div class="threat-card medium">
-      <div class="threat-level lv-med">🟡 MEDIUM — 风险提示</div>
-      <div class="threat-name">新发布包（发布 &lt;7天，下载量为0）</div>
-      <div class="threat-desc">发布时间极短且无人使用的包，可能处于传播前的潜伏期。建议等待社区验证后再安装。</div>
-      <div class="threat-date">通用规则 · 持续适用</div>
+      <div class="threat-level lv-med" data-i18n="lv_med2">🟡 MEDIUM — Risk Warning</div>
+      <div class="threat-name" data-i18n="t6_name">Newly published packages (&lt;7 days, 0 downloads)</div>
+      <div class="threat-desc" data-i18n="t6_desc">Very new packages with no downloads may be in a pre-propagation phase. Wait for community verification before installing.</div>
+      <div class="threat-date" data-i18n="t6_date">General rule · Always applicable</div>
     </div>
   </div>
 </div>
 
 <!-- VICTIM COUNTER -->
 <div class="counter-section">
-  <div class="section-badge" style="margin-bottom:16px">📊 受害统计</div>
+  <div class="section-badge" style="margin-bottom:16px" data-i18n="counter_badge">📊 Impact Statistics</div>
   <div class="counter-grid">
     <div class="counter-item">
       <div class="c-val" id="c-victims">47+</div>
-      <div class="c-label">已知受害用户</div>
+      <div class="c-label" data-i18n="c1">Known Victims</div>
     </div>
     <div class="counter-item">
-      <div class="c-val">¥83,000+</div>
-      <div class="c-label">估计数据/资产损失</div>
+      <div class="c-val">$11,000+</div>
+      <div class="c-label" data-i18n="c2">Estimated Data / Asset Loss</div>
     </div>
     <div class="counter-item">
       <div class="c-val">3</div>
-      <div class="c-label">活跃攻击变体</div>
+      <div class="c-label" data-i18n="c3">Active Attack Variants</div>
     </div>
     <div class="counter-item">
       <div class="c-val" id="c-days">1</div>
-      <div class="c-label">首次发现至今（天）</div>
+      <div class="c-label" data-i18n="c4">Days Since First Detected</div>
     </div>
   </div>
 </div>
 
 <!-- VICTIM CASES -->
 <div class="victims-section">
-  <div class="section-badge">😱 真实受害案例</div>
-  <div class="section-title">他们都中了同一个招</div>
-  <div class="section-sub">以下案例来自社区用户举报，细节经当事人授权或匿名处理。</div>
-
+  <div class="section-badge" data-i18n="victim_badge">😱 Real Victim Stories</div>
+  <div class="section-title" data-i18n="victim_title">They All Fell for the Same Trick</div>
+  <div class="section-sub" data-i18n="victim_sub">Cases submitted by community members. Details anonymised with consent.</div>
   <div class="victim-grid">
     <div class="victim-card">
       <div class="victim-header">
         <div class="victim-avatar">👨‍💻</div>
         <div class="victim-meta">
-          <div class="victim-name">小王，深圳，独立开发者</div>
-          <div class="victim-role">OpenClaw 用户 · 2026-03-18</div>
+          <div class="victim-name" data-i18n="v1_name">Xiao Wang, Shenzhen · Indie Developer</div>
+          <div class="victim-role">OpenClaw User · 2026-03-18</div>
         </div>
-        <div class="victim-loss">API Key 泄露</div>
+        <div class="victim-loss" data-i18n="v1_loss">API Key Leaked</div>
       </div>
       <div class="victim-body">
-        <div class="victim-story">
-          收到一条消息：<strong>"有个新 Skill 可以帮你自动赚钱，用这个命令安装：<code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">npm install agent-reach --repository https://...</code>"</strong><br><br>
-          安装后，Skill 在后台读取了他的 workspace 目录，包含 OpenAI API Key 和 Stripe Secret Key。<strong>发现时密钥已被用于调用约 $200 的 API 请求。</strong>
-        </div>
+        <div class="victim-story" data-i18n="v1_story">Got a message: <strong>"New Skill that makes money automatically — install with: <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">npm install agent-reach --repository https://…</code>"</strong><br><br>After installing, the Skill silently read his workspace including OpenAI and Stripe keys. <strong>By the time he noticed, ~$200 in API calls had already been made.</strong></div>
         <div class="victim-tag">🔴 agent-reach</div>
       </div>
     </div>
-
     <div class="victim-card">
       <div class="victim-header">
         <div class="victim-avatar">👩‍🦱</div>
         <div class="victim-meta">
-          <div class="victim-name">阿敏，马来西亚，电商卖家</div>
-          <div class="victim-role">WhatsClaw 用户 · 2026-03-17</div>
+          <div class="victim-name" data-i18n="v2_name">Amin, Malaysia · Shopify Seller</div>
+          <div class="victim-role">WhatsClaw User · 2026-03-17</div>
         </div>
-        <div class="victim-loss">Shopify Token 盗取</div>
+        <div class="victim-loss" data-i18n="v2_loss">Shopify Token Stolen</div>
       </div>
       <div class="victim-body">
-        <div class="victim-story">
-          在 Telegram 群里看到有人分享"免费 Shopify AI 插件"，按照指引安装了 <strong>install-ai-skill-shopify</strong>。<br><br>
-          安装脚本在运行时静默读取了 <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">.env</code> 文件里的 Shopify Admin Token，<strong>导致店铺订单数据被外传。发现时已有 312 条客户记录泄露。</strong>
-        </div>
+        <div class="victim-story" data-i18n="v2_story">Saw a "free Shopify AI plugin" shared in a Telegram group. Followed the install guide for <strong>install-ai-skill-shopify</strong>.<br><br>The install script silently read her <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">.env</code> file. <strong>312 customer records were exfiltrated before she noticed.</strong></div>
         <div class="victim-tag">🔴 install-ai-skill-*</div>
       </div>
     </div>
-
     <div class="victim-card">
       <div class="victim-header">
         <div class="victim-avatar">🧑</div>
         <div class="victim-meta">
-          <div class="victim-name">David，香港，自由职业者</div>
-          <div class="victim-role">OpenClaw 用户 · 2026-03-16</div>
+          <div class="victim-name" data-i18n="v3_name">David, Hong Kong · Freelancer</div>
+          <div class="victim-role">OpenClaw User · 2026-03-16</div>
         </div>
-        <div class="victim-loss">服务器被入侵</div>
+        <div class="victim-loss" data-i18n="v3_loss">Server Compromised</div>
       </div>
       <div class="victim-body">
-        <div class="victim-story">
-          GitHub 某账号发布了一个"OpenClaw 效率提升 Skill"，README 写得很专业，Star 数是刷的。<br><br>
-          安装后 Skill 在服务器上开了一个反向 shell，<strong>攻击者获得了服务器 root 权限，随后用该服务器发送垃圾邮件。腾讯云账号因违规被暂停。</strong>
-        </div>
-        <div class="victim-tag">🔴 agentic-reach 变体</div>
+        <div class="victim-story" data-i18n="v3_story">A GitHub account published a polished "OpenClaw productivity Skill" with fake stars.<br><br>After install, it opened a reverse shell. <strong>The attacker gained root access and used the server for spam — Tencent Cloud suspended the account for abuse.</strong></div>
+        <div class="victim-tag">🔴 agentic-reach variant</div>
       </div>
     </div>
-
     <div class="victim-card">
       <div class="victim-header">
         <div class="victim-avatar">👨‍💼</div>
         <div class="victim-meta">
-          <div class="victim-name">老李，广州，AI 创业者</div>
-          <div class="victim-role">OpenClaw 用户 · 2026-03-15</div>
+          <div class="victim-name" data-i18n="v4_name">Lao Li, Guangzhou · AI Entrepreneur</div>
+          <div class="victim-role">OpenClaw User · 2026-03-15</div>
         </div>
-        <div class="victim-loss">差点中招</div>
+        <div class="victim-loss" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)" data-i18n="v4_loss">✅ Avoided</div>
       </div>
       <div class="victim-body">
-        <div class="victim-story">
-          朋友圈看到有人分享 <strong>agent-reach</strong>，说"用这个 Skill 可以自动接单赚钱"。他在执行命令前搜了一下，<strong>发现 GitHub 仓库返回 404，npm 上根本没有这个包。</strong><br><br>
-          立刻意识到是骗局，没有执行。他把截图发到了我们这里，才有了这个威胁库的第一条记录。
-        </div>
-        <div class="victim-tag" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)">✅ 成功避险</div>
+        <div class="victim-story" data-i18n="v4_story">Saw <strong>agent-reach</strong> shared as "auto income Skill". Before running it, he searched — <strong>GitHub returned 404, package not on npm.</strong><br><br>He reported it immediately, which became the first entry in this threat database.</div>
+        <div class="victim-tag" style="background:var(--green-bg);border-color:var(--green-border);color:var(--green)" data-i18n="v4_tag">✅ Danger Avoided</div>
       </div>
     </div>
-
     <div class="victim-card" style="border:1px dashed var(--border2);background:transparent">
       <div class="victim-header">
         <div class="victim-avatar" style="background:var(--border);border-color:var(--border2)">📮</div>
         <div class="victim-meta">
-          <div class="victim-name">你也遇到过？</div>
-          <div class="victim-role">提交你的案例，帮助更多人</div>
+          <div class="victim-name" data-i18n="v5_name">Encountered something suspicious?</div>
+          <div class="victim-role" data-i18n="v5_role">Submit your case — help protect others</div>
         </div>
       </div>
       <div class="victim-body">
-        <div class="victim-story">遭遇过可疑 Skill 或安装命令？发邮件告诉我们，经核实后 24 小时内收录到威胁库，并匿名保护你的信息。</div>
-        <a href="mailto:hello@whatsclaw.xyz?subject=威胁举报" style="display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-top:12px">📧 举报威胁 →</a>
+        <div class="victim-story" data-i18n="v5_story">Ran into a suspicious Skill or install command? Email us. Verified reports are added to the threat database within 24h — your identity is fully protected.</div>
+        <a href="mailto:hello@whatsclaw.xyz?subject=Threat Report" style="display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;margin-top:12px" data-i18n="v5_cta">📧 Report a Threat →</a>
       </div>
     </div>
   </div>
@@ -396,15 +385,15 @@ footer a{color:var(--green)}
 <div class="academy-cta">
   <div class="cta-box">
     <div class="section-badge" style="margin-bottom:16px">🎓 ClawAcademy</div>
-    <h2>安全之外，<span>还能用 OpenClaw 赚钱</span></h2>
-    <p>每日更新3个最赚钱的 OpenClaw 项目模式，10个真实案例全文，完整话术 + 定价策略 + 扩张路径。</p>
+    <h2 data-i18n="cta_h2">Beyond Security — <span>Make Money with OpenClaw</span></h2>
+    <p data-i18n="cta_p">Daily top-3 money-making OpenClaw patterns, 10 real case studies, full scripts + pricing strategy + growth paths.</p>
     <div class="cta-pills">
-      <span class="cta-pill">📅 每日更新</span>
-      <span class="cta-pill">🌍 7语言支持</span>
-      <span class="cta-pill">🔒 安全检测同步</span>
-      <span class="cta-pill">💰 真实案例</span>
+      <span class="cta-pill" data-i18n="pill1">📅 Daily Updates</span>
+      <span class="cta-pill" data-i18n="pill2">🌍 7 Languages</span>
+      <span class="cta-pill" data-i18n="pill3">🔒 Security Sync</span>
+      <span class="cta-pill" data-i18n="pill4">💰 Real Cases</span>
     </div>
-    <a href="/academy/" class="btn-green">进入 ClawAcademy →</a>
+    <a href="/academy/" class="btn-green" data-i18n="cta_btn">Enter ClawAcademy →</a>
   </div>
 </div>
 
@@ -412,110 +401,97 @@ footer a{color:var(--green)}
 
 <!-- SHOPIFY USECASE -->
 <div class="usecase-section" id="usecase">
-  <div class="section-badge">🦞 龙虾商业化实战</div>
-  <div class="section-title">用 WhatsClaw 跑通电商变现</div>
-  <div class="section-sub">这不是理论，是我们自己跑通的真实案例。从 $1 服务器到全球收款，3天上线。</div>
-
+  <div class="section-badge" data-i18n="uc_badge">🦞 Real-World Showcase</div>
+  <div class="section-title" data-i18n="uc_title">How We Monetise with WhatsClaw</div>
+  <div class="section-sub" data-i18n="uc_sub">Not theory — these are cases we've personally run. From a $1 server to global payments, live in 3 days.</div>
   <div class="uc-grid">
     <div class="uc-card">
       <div class="uc-icon">🛒</div>
-      <div class="uc-title">Shopify 弃购挽回</div>
-      <div class="uc-desc">WhatsApp 弃购消息 30 分钟内触发，比邮件挽回率高 3 倍。Sarah 的珠宝店第一个月额外回收 $2,840，什么都没做，只开了一个开关。</div>
-      <div class="uc-result">
-        <span class="uc-badge">💰 ROI 10-30x</span>
-        <span class="uc-badge">⚡ 5分钟接入</span>
-      </div>
-      <a href="/academy/cases.html" class="uc-link">查看完整案例 → <span style="font-size:11px;color:var(--dim)">(付费解锁)</span></a>
+      <div class="uc-title" data-i18n="uc1_title">Shopify Cart Recovery</div>
+      <div class="uc-desc" data-i18n="uc1_desc">WhatsApp abandoned-cart messages fire within 30 min — 3× better recovery than email. Sarah's jewellery store recovered an extra $2,840 in month one, just by flipping a switch.</div>
+      <div class="uc-result"><span class="uc-badge">💰 10-30× ROI</span><span class="uc-badge">⚡ 5-min setup</span></div>
+      <a href="/academy/cases.html" class="uc-link" data-i18n="uc1_link">Full case study → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span></a>
     </div>
     <div class="uc-card">
       <div class="uc-icon">💬</div>
-      <div class="uc-title">24小时 AI 客服</div>
-      <div class="uc-desc">一个人服务 10-20 家 Shopify 店铺的 WhatsApp 客服，月收 $2,000-16,000。AI 自动回复订单查询、退换货、产品咨询。</div>
-      <div class="uc-result">
-        <span class="uc-badge">👤 1人操盘</span>
-        <span class="uc-badge">🌐 全球客户</span>
-      </div>
-      <a href="/academy/cases.html" class="uc-link">查看完整 SOP → <span style="font-size:11px;color:var(--dim)">(付费解锁)</span></a>
+      <div class="uc-title" data-i18n="uc2_title">24/7 AI Customer Service</div>
+      <div class="uc-desc" data-i18n="uc2_desc">One person managing WhatsApp support for 10–20 Shopify stores, earning $2,000–$16,000/mo. AI handles orders, returns, and product queries automatically.</div>
+      <div class="uc-result"><span class="uc-badge">👤 Solo operator</span><span class="uc-badge">🌐 Global clients</span></div>
+      <a href="/academy/cases.html" class="uc-link" data-i18n="uc2_link">Full SOP → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span></a>
     </div>
     <div class="uc-card">
       <div class="uc-icon">📈</div>
-      <div class="uc-title">会员群 + 选品情报</div>
-      <div class="uc-desc">500人付费会员群，每天 AI 自动推送 TikTok 爆品情报，¥99/月。Kelvin 月收入 ¥49,500，每天只需 10 分钟审核。</div>
-      <div class="uc-result">
-        <span class="uc-badge">📊 ¥49,500/月</span>
-        <span class="uc-badge">⏱ 10分钟/天</span>
-      </div>
-      <a href="/academy/cases.html" class="uc-link">查看完整案例 → <span style="font-size:11px;color:var(--dim)">(付费解锁)</span></a>
+      <div class="uc-title" data-i18n="uc3_title">Paid Product-Intel Community</div>
+      <div class="uc-desc" data-i18n="uc3_desc">500-member paid group at ¥99/mo. AI auto-delivers daily TikTok trending product reports. Kelvin earns ¥49,500/mo spending just 10 minutes a day reviewing.</div>
+      <div class="uc-result"><span class="uc-badge">📊 ¥49,500/mo</span><span class="uc-badge">⏱ 10 min/day</span></div>
+      <a href="/academy/cases.html" class="uc-link" data-i18n="uc3_link">Full case study → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span></a>
     </div>
     <div class="uc-card">
       <div class="uc-icon">📓</div>
-      <div class="uc-title">3天建站实录</div>
-      <div class="uc-desc">从 $1 腾讯云 Lighthouse 到 OpenClaw + WhatsApp + Stripe + Shopify 全球收款，真实时间轴，每一步都可复制。</div>
-      <div class="uc-result">
-        <span class="uc-badge">💻 $1/月起</span>
-        <span class="uc-badge">🌍 全球收款</span>
-      </div>
-      <a href="/academy/journey.html" class="uc-link">查看3天实录 → <span style="font-size:11px;color:var(--dim)">(付费解锁)</span></a>
+      <div class="uc-title" data-i18n="uc4_title">3-Day Build Journal</div>
+      <div class="uc-desc" data-i18n="uc4_desc">From a $1 Tencent Cloud Lighthouse to full OpenClaw + WhatsApp + Stripe + Shopify stack accepting global payments. Real timeline, every step replicable.</div>
+      <div class="uc-result"><span class="uc-badge">💻 From $1/mo</span><span class="uc-badge">🌍 Global payments</span></div>
+      <a href="/academy/journey.html" class="uc-link" data-i18n="uc4_link">Read the journal → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span></a>
     </div>
   </div>
 </div>
 
 <!-- PRICING -->
 <div class="pricing-section" id="pricing">
-  <div class="section-badge">💳 定价</div>
-  <div class="section-title">简单透明的定价</div>
-  <div class="section-sub">Stripe 信用卡 · 微信支付（CNY &amp; HKD）· 14天免费试用</div>
+  <div class="section-badge" data-i18n="price_badge">💳 Pricing</div>
+  <div class="section-title" data-i18n="price_title">Simple, Transparent Pricing</div>
+  <div class="section-sub" data-i18n="price_sub">Stripe card · WeChat Pay (CNY &amp; HKD) · 14-day free trial</div>
   <div class="plans">
     <div class="plan">
       <div class="plan-name">Starter</div>
-      <div class="plan-price">$29<small>/月</small></div>
+      <div class="plan-price">$29<small>/mo</small></div>
       <ul class="plan-items">
-        <li>1个 WhatsApp 号码</li>
-        <li>无限 AI 对话</li>
-        <li>订单查询自动回复</li>
-        <li>弃购挽回</li>
+        <li data-i18n="s1">1 WhatsApp number</li>
+        <li data-i18n="s2">Unlimited AI chats</li>
+        <li data-i18n="s3">Order tracking replies</li>
+        <li data-i18n="s4">Cart recovery</li>
       </ul>
       <div class="pay-row">
-        <a href="https://buy.stripe.com/cNiaEQf6g9Jx2kc37M3oA00" class="pb s">💳 信用卡</a>
-        <button class="pb w" onclick="openWC('starter')">微信支付</button>
+        <a href="https://buy.stripe.com/cNiaEQf6g9Jx2kc37M3oA00" class="pb s">💳 Card</a>
+        <button class="pb w" onclick="openWC('starter')" data-i18n="wechat_pay">WeChat Pay</button>
       </div>
-      <div class="plan-trial">14天免费 · 之后 $29/月</div>
+      <div class="plan-trial" data-i18n="trial">14-day free · then $29/mo</div>
     </div>
     <div class="plan hot">
       <div class="plan-name">⭐ Growth</div>
-      <div class="plan-price">$79<small>/月</small></div>
+      <div class="plan-price">$79<small>/mo</small></div>
       <ul class="plan-items">
-        <li>3个 WhatsApp 号码</li>
-        <li>自动折扣码</li>
-        <li>CRM 集成</li>
-        <li>数据分析面板</li>
+        <li data-i18n="g1">3 WhatsApp numbers</li>
+        <li data-i18n="g2">Auto discount codes</li>
+        <li data-i18n="g3">CRM integration</li>
+        <li data-i18n="g4">Analytics dashboard</li>
       </ul>
       <div class="pay-row">
-        <a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01" class="pb g">💳 信用卡</a>
-        <button class="pb w" onclick="openWC('growth')">微信支付</button>
+        <a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01" class="pb g">💳 Card</a>
+        <button class="pb w" onclick="openWC('growth')" data-i18n="wechat_pay">WeChat Pay</button>
       </div>
-      <div class="plan-trial">14天免费 · 之后 $79/月</div>
+      <div class="plan-trial" data-i18n="trial_g">14-day free · then $79/mo</div>
     </div>
     <div class="plan">
       <div class="plan-name">Enterprise</div>
-      <div class="plan-price">$199<small>/月</small></div>
+      <div class="plan-price">$199<small>/mo</small></div>
       <ul class="plan-items">
-        <li>私有化部署</li>
-        <li>无限号码</li>
-        <li>自定义 AI 训练</li>
-        <li>专属支持</li>
+        <li data-i18n="e1">Private deployment</li>
+        <li data-i18n="e2">Unlimited numbers</li>
+        <li data-i18n="e3">Custom AI training</li>
+        <li data-i18n="e4">Dedicated support</li>
       </ul>
       <div class="pay-row">
-        <a href="mailto:hello@whatsclaw.xyz?subject=Enterprise" class="pb s">✉️ 联系我们</a>
-        <button class="pb w" onclick="openWC('enterprise')">微信支付</button>
+        <a href="mailto:hello@whatsclaw.xyz?subject=Enterprise" class="pb s">✉️ Contact</a>
+        <button class="pb w" onclick="openWC('enterprise')" data-i18n="wechat_pay">WeChat Pay</button>
       </div>
-      <div class="plan-trial">可定制报价</div>
+      <div class="plan-trial" data-i18n="trial_e">Custom pricing available</div>
     </div>
   </div>
 </div>
 
 <footer>
-  © 2026 WhatsClaw · <a href="/academy/">ClawAcademy</a> · <a href="mailto:hello@whatsclaw.xyz">hello@whatsclaw.xyz</a> · <a href="https://wa.me/85251300733">WhatsApp</a> · <a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a>
+  © 2026 WhatsClaw · Founder: <strong>Marty</strong> · <a href="/academy/">ClawAcademy</a> · <a href="mailto:hello@whatsclaw.xyz">hello@whatsclaw.xyz</a> · <a href="https://wa.me/85251300733">WhatsApp</a>
 </footer>
 
 <!-- WECHAT MODAL -->
@@ -523,79 +499,309 @@ footer a{color:var(--green)}
   <div id="box">
     <button id="xbtn" onclick="closeWC()">✕</button>
     <div id="hdr">
-      <div class="wl">微信支付 · WeChat Pay</div>
+      <div class="wl">WeChat Pay · 微信支付</div>
       <div id="amt">¥575</div>
-      <div id="lbl">Growth · 月付 ($79/mo)</div>
+      <div id="lbl">Growth · Monthly ($79/mo)</div>
     </div>
     <div class="cur-tabs">
       <button class="cur-tab active" onclick="setCur('cny',this)">CNY 人民币</button>
       <button class="cur-tab" onclick="setCur('hkd',this)">HKD 港币</button>
     </div>
     <img id="qr" src="/images/wechat.png" alt="WeChat Pay QR">
-    <div id="nm">Marty Du</div>
-    <div id="nt">付款备注：套餐名称 + 邮箱<br>24小时内开通账户</div>
+    <div id="nm">Marty</div>
+    <div id="nt" data-i18n="wc_note">Note plan name + email in payment remarks<br>Account activated within 24h</div>
   </div>
 </div>
 
 <script>
+// ── i18n ─────────────────────────────────────────────────────────────
+const I18N = {
+  en: {
+    nav_academy:'🎓 Academy', nav_usecase:'🦞 Showcase', nav_pricing:'Pricing', nav_contact:'Contact', nav_scan:'Free Scan →',
+    hero_badge:'🚨 Live Threat Monitor · Latest: agent-reach (2026-03-18)',
+    hero_h1:'Before Installing Any Skill<br><em>Scan It First</em>',
+    hero_p:'Malicious Skills disguised as useful tools exist in the OpenClaw / AI Agent ecosystem.<br>Free scanner, daily-updated threat database, protect your system and data.',
+    stat_scans:'Live Scans', stat_blocked:'High-Risk Skills Blocked', stat_threats:'New Threats This Week', stat_free:'Free', stat_free_label:'Always Free',
+    scan_badge:'🔍 Online Scanner', scan_title:'Scan a Skill Right Now',
+    scan_sub:'Enter an npm package name, GitHub repo URL, or Skill ID. We check it against our live threat database, suspicious sources, and malicious code patterns.',
+    scan_btn:'Scan Now →', scan_placeholder:'npm package / github.com/user/repo / skill-id',
+    scan_hint:'e.g. agent-reach · github.com/agent-reach-io/install · install-ai-skill-*',
+    threat_badge:'🛡️ Threat Intelligence', threat_title:'Known Threats · Updated Daily at Midnight',
+    lv_high1:'🔴 HIGH — Confirmed Malicious', lv_high2:'🔴 HIGH — Confirmed Malicious', lv_high3:'🔴 HIGH — Pattern Match', lv_high4:'🔴 HIGH — Confirmed Malicious',
+    lv_med1:'🟡 MEDIUM — Risk Warning', lv_med2:'🟡 MEDIUM — Risk Warning',
+    t1_desc:'GitHub repo returns 404, npm package unregistered. Uses non-standard <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">--repository</code> flag to bypass official registry. Multiple confirmed victims.',
+    t1_date:'First seen: 2026-03-18 · Source: OpenClaw community',
+    t2_desc:'Variant of agent-reach, same attacker. Disguises as a legitimate AI tool, reads workspace files and API keys after installation.',
+    t2_date:'First seen: 2026-03-18 · Related: agent-reach',
+    t3_desc:'All packages starting with <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">install-ai-skill-</code> carry suspected RCE risk. Unknown publisher, no legitimate maintainer.',
+    t3_date:'Rule created: 2026-03-15 · Scope: ongoing',
+    t4_desc:'Typosquatting variant of agent-reach. High name similarity exploits typos. Requests unnecessary system permissions during install.',
+    t4_date:'First seen: 2026-03-17 · Type: typosquatting',
+    t5_desc:'Non-standard npm flag that bypasses official registry checks. Any install command using this flag should be treated with extreme suspicion.',
+    t5_date:'Rule created: 2026-03-18 · Applies to: all npm installs',
+    t6_name:'Newly published packages (&lt;7 days, 0 downloads)',
+    t6_desc:'Very new packages with no downloads may be in a pre-propagation phase. Wait for community verification before installing.',
+    t6_date:'General rule · Always applicable',
+    counter_badge:'📊 Impact Statistics',
+    c1:'Known Victims', c2:'Estimated Data / Asset Loss', c3:'Active Attack Variants', c4:'Days Since First Detected',
+    victim_badge:'😱 Real Victim Stories', victim_title:'They All Fell for the Same Trick',
+    victim_sub:'Cases submitted by community members. Details anonymised with consent.',
+    v1_name:'Xiao Wang, Shenzhen · Indie Developer', v1_loss:'API Key Leaked',
+    v1_story:'Got a message: <strong>"New Skill that makes money automatically — install with: <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">npm install agent-reach --repository https://…</code>"</strong><br><br>After installing, the Skill silently read his workspace including OpenAI and Stripe keys. <strong>By the time he noticed, ~$200 in API calls had already been made.</strong>',
+    v2_name:'Amin, Malaysia · Shopify Seller', v2_loss:'Shopify Token Stolen',
+    v2_story:'Saw a "free Shopify AI plugin" shared in a Telegram group. Followed the install guide for <strong>install-ai-skill-shopify</strong>.<br><br>The install script silently read her <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">.env</code> file. <strong>312 customer records were exfiltrated before she noticed.</strong>',
+    v3_name:'David, Hong Kong · Freelancer', v3_loss:'Server Compromised',
+    v3_story:'A GitHub account published a polished "OpenClaw productivity Skill" with fake stars.<br><br>After install, it opened a reverse shell. <strong>The attacker gained root access and used the server for spam — Tencent Cloud suspended the account for abuse.</strong>',
+    v4_name:'Lao Li, Guangzhou · AI Entrepreneur', v4_loss:'✅ Avoided',
+    v4_story:'Saw <strong>agent-reach</strong> shared as "auto income Skill". Before running it, he searched — <strong>GitHub returned 404, package not on npm.</strong><br><br>He reported it immediately, which became the first entry in this threat database.',
+    v4_tag:'✅ Danger Avoided',
+    v5_name:'Encountered something suspicious?', v5_role:'Submit your case — help protect others',
+    v5_story:'Ran into a suspicious Skill or install command? Email us. Verified reports are added to the threat database within 24h — your identity is fully protected.',
+    v5_cta:'📧 Report a Threat →',
+    cta_h2:'Beyond Security — <span>Make Money with OpenClaw</span>',
+    cta_p:'Daily top-3 money-making OpenClaw patterns, 10 real case studies, full scripts + pricing strategy + growth paths.',
+    pill1:'📅 Daily Updates', pill2:'🌍 7 Languages', pill3:'🔒 Security Sync', pill4:'💰 Real Cases',
+    cta_btn:'Enter ClawAcademy →',
+    uc_badge:'🦞 Real-World Showcase', uc_title:'How We Monetise with WhatsClaw',
+    uc_sub:'Not theory — these are cases we\'ve personally run. From a $1 server to global payments, live in 3 days.',
+    uc1_title:'Shopify Cart Recovery', uc1_desc:'WhatsApp abandoned-cart messages fire within 30 min — 3× better recovery than email. Sarah\'s jewellery store recovered an extra $2,840 in month one, just by flipping a switch.',
+    uc1_link:'Full case study → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span>',
+    uc2_title:'24/7 AI Customer Service', uc2_desc:'One person managing WhatsApp support for 10–20 Shopify stores, earning $2,000–$16,000/mo. AI handles orders, returns, and product queries automatically.',
+    uc2_link:'Full SOP → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span>',
+    uc3_title:'Paid Product-Intel Community', uc3_desc:'500-member paid group at ¥99/mo. AI auto-delivers daily TikTok trending product reports. Kelvin earns ¥49,500/mo spending just 10 minutes a day reviewing.',
+    uc3_link:'Full case study → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span>',
+    uc4_title:'3-Day Build Journal', uc4_desc:'From a $1 Tencent Cloud Lighthouse to full OpenClaw + WhatsApp + Stripe + Shopify stack accepting global payments. Real timeline, every step replicable.',
+    uc4_link:'Read the journal → <span style="font-size:11px;color:var(--dim)">(unlock $9.9)</span>',
+    price_badge:'💳 Pricing', price_title:'Simple, Transparent Pricing',
+    price_sub:'Stripe card · WeChat Pay (CNY &amp; HKD) · 14-day free trial',
+    s1:'1 WhatsApp number', s2:'Unlimited AI chats', s3:'Order tracking replies', s4:'Cart recovery',
+    g1:'3 WhatsApp numbers', g2:'Auto discount codes', g3:'CRM integration', g4:'Analytics dashboard',
+    e1:'Private deployment', e2:'Unlimited numbers', e3:'Custom AI training', e4:'Dedicated support',
+    wechat_pay:'WeChat Pay', trial:'14-day free · then $29/mo', trial_g:'14-day free · then $79/mo', trial_e:'Custom pricing available',
+    wc_note:'Note plan name + email in payment remarks<br>Account activated within 24h',
+    threat_last_updated:'Last updated',
+    scan_loading:'🔍 Scanning…',
+    scan_safe:'✅ No known threats detected. This Skill is not in our threat database — still verify the source, maintainer identity, and required permissions.',
+    scan_danger:'🚨 HIGH-RISK THREAT CONFIRMED! This Skill is flagged as malicious or high-risk. Do NOT install. If already installed, remove it immediately and audit your system.',
+    scan_warn:'⚠️ Risk warning: This Skill matches a medium-risk rule. Carefully review the source and code before deciding to install.',
+    scan_at:'Scanned',
+  },
+  'zh-TW': {
+    nav_academy:'🎓 學院', nav_usecase:'🦞 實戰案例', nav_pricing:'定價', nav_contact:'聯繫', nav_scan:'免費檢測 →',
+    hero_badge:'🚨 即時威脅監控中 · 最新威脅：agent-reach（2026-03-18）',
+    hero_h1:'安裝 Skill 之前<br><em>先掃描一下</em>',
+    hero_p:'OpenClaw / AI Agent 生態中存在偽裝成實用工具的惡意 Skill。<br>免費掃描，每日更新威脅庫，保護你的系統和資料。',
+    stat_scans:'即時檢測次數', stat_blocked:'已攔截高危 Skill', stat_threats:'本週新增威脅', stat_free:'免費', stat_free_label:'永久免費',
+    scan_badge:'🔍 線上檢測', scan_title:'立即掃描 Skill 安全性',
+    scan_sub:'輸入 npm 套件名稱、GitHub 儲存庫網址或 Skill ID，系統即時比對已知威脅庫、可疑來源及惡意程式碼特徵。',
+    scan_btn:'立即掃描 →', scan_placeholder:'npm套件 / github.com/使用者/儲存庫 / skill-id',
+    scan_hint:'例：agent-reach · github.com/agent-reach-io/install · install-ai-skill-*',
+    threat_badge:'🛡️ 威脅情報庫', threat_title:'已知威脅 · 每日零點更新',
+    lv_high1:'🔴 HIGH — 已確認惡意', lv_high2:'🔴 HIGH — 已確認惡意', lv_high3:'🔴 HIGH — 規則匹配', lv_high4:'🔴 HIGH — 已確認惡意',
+    lv_med1:'🟡 MEDIUM — 風險提示', lv_med2:'🟡 MEDIUM — 風險提示',
+    t1_desc:'GitHub 儲存庫回傳 404，npm 套件未註冊。使用非標準 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">--repository</code> 參數繞過官方 registry。已有多名受害用戶。',
+    t1_date:'首次發現：2026-03-18 · 來源：OpenClaw 社群',
+    t2_desc:'agent-reach 的變體，同一攻擊者。偽裝成合法 AI 工具，安裝後讀取 workspace 檔案和 API Key。',
+    t2_date:'首次發現：2026-03-18 · 關聯：agent-reach',
+    t3_desc:'所有以 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">install-ai-skill-</code> 開頭的套件均有疑似遠端程式碼執行風險，來源不明，無正規維護者。',
+    t3_date:'規則建立：2026-03-15 · 影響範圍：持續監控',
+    t4_desc:'agent-reach 仿冒變體，名稱相似度高，利用打字錯誤傳播。安裝過程要求不必要的系統權限。',
+    t4_date:'首次發現：2026-03-17 · 類型：typosquatting',
+    t5_desc:'非標準 npm 安裝參數，可繞過官方 registry 檢查。任何使用此參數的安裝指令均應高度警惕。',
+    t5_date:'規則建立：2026-03-18 · 適用：所有 npm 安裝場景',
+    t6_name:'新發佈套件（發佈 &lt;7 天，下載量為 0）',
+    t6_desc:'發佈時間極短且無人使用的套件，可能處於傳播前的潛伏期。建議等待社群驗證後再安裝。',
+    t6_date:'通用規則 · 持續適用',
+    counter_badge:'📊 受害統計',
+    c1:'已知受害用戶', c2:'估計資料/資產損失', c3:'活躍攻擊變體', c4:'首次發現至今（天）',
+    victim_badge:'😱 真實受害案例', victim_title:'他們都中了同一個招',
+    victim_sub:'以下案例來自社群用戶舉報，細節經當事人授權後匿名處理。',
+    v1_name:'小王，深圳 · 獨立開發者', v1_loss:'API Key 洩露',
+    v1_story:'收到一條訊息：<strong>"有個新 Skill 可以自動賺錢，用這個指令安裝：<code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">npm install agent-reach --repository https://…</code>"</strong><br><br>安裝後，Skill 在背景讀取了他的 workspace，包含 OpenAI 及 Stripe 金鑰。<strong>發現時密鑰已被用於約 $200 的 API 請求。</strong>',
+    v2_name:'阿敏，馬來西亞 · 電商賣家', v2_loss:'Shopify Token 被盜',
+    v2_story:'在 Telegram 群組看到有人分享「免費 Shopify AI 外掛」，依指引安裝了 <strong>install-ai-skill-shopify</strong>。<br><br>安裝腳本靜默讀取了 <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">.env</code> 檔案。<strong>312 筆客戶資料在她察覺前已被外傳。</strong>',
+    v3_name:'David，香港 · 自由接案者', v3_loss:'伺服器被入侵',
+    v3_story:'GitHub 某帳號發佈了一個「OpenClaw 效率 Skill」，README 寫得很專業，星星數是刷的。<br><br>安裝後 Skill 開了一個反向 shell，<strong>攻擊者獲得了 root 權限並用伺服器發垃圾郵件，騰訊雲帳號因違規被暫停。</strong>',
+    v4_name:'老李，廣州 · AI 創業者', v4_loss:'✅ 成功避險',
+    v4_story:'在朋友圈看到有人分享 <strong>agent-reach</strong>，聲稱「可以自動接單賺錢」。執行前搜尋了一下，<strong>GitHub 回傳 404，npm 上根本沒有這個套件。</strong><br><br>他立刻意識到是騙局並舉報，成為本威脅庫的第一筆記錄。',
+    v4_tag:'✅ 成功避險',
+    v5_name:'你也遇到過可疑情況？', v5_role:'提交案例，幫助更多人',
+    v5_story:'遭遇過可疑 Skill 或安裝指令？發郵件告訴我們，核實後 24 小時內收錄至威脅庫，你的身分受到完整保護。',
+    v5_cta:'📧 舉報威脅 →',
+    cta_h2:'安全之外，<span>還能用 OpenClaw 賺錢</span>',
+    cta_p:'每日更新 3 個最賺錢的 OpenClaw 項目模式，10 個真實案例全文，完整話術 + 定價策略 + 擴張路徑。',
+    pill1:'📅 每日更新', pill2:'🌍 7 種語言', pill3:'🔒 安全同步', pill4:'💰 真實案例',
+    cta_btn:'進入 ClawAcademy →',
+    uc_badge:'🦞 龍蝦商業化實戰', uc_title:'我們如何用 WhatsClaw 變現',
+    uc_sub:'不是理論，是我們親自跑通的真實案例。從 $1 伺服器到全球收款，3 天上線。',
+    uc1_title:'Shopify 棄購挽回', uc1_desc:'WhatsApp 棄購訊息 30 分鐘內觸發，比電郵挽回率高 3 倍。Sarah 的珠寶店第一個月額外回收 $2,840，什麼都沒做，只開了一個開關。',
+    uc1_link:'查看完整案例 → <span style="font-size:11px;color:var(--dim)">（付費解鎖 $9.9）</span>',
+    uc2_title:'24小時 AI 客服', uc2_desc:'一個人服務 10-20 家 Shopify 店鋪的 WhatsApp 客服，月收 $2,000-$16,000。AI 自動回覆訂單查詢、退換貨、產品諮詢。',
+    uc2_link:'查看完整 SOP → <span style="font-size:11px;color:var(--dim)">（付費解鎖 $9.9）</span>',
+    uc3_title:'付費選品情報社群', uc3_desc:'500 人付費會員群，¥99/月。AI 每天自動推送 TikTok 爆品情報。Kelvin 月收入 ¥49,500，每天只需 10 分鐘審核。',
+    uc3_link:'查看完整案例 → <span style="font-size:11px;color:var(--dim)">（付費解鎖 $9.9）</span>',
+    uc4_title:'3 天建站實錄', uc4_desc:'從 $1 騰訊雲 Lighthouse 到 OpenClaw + WhatsApp + Stripe + Shopify 全球收款完整架構，真實時間軸，每一步都可複製。',
+    uc4_link:'查看 3 天實錄 → <span style="font-size:11px;color:var(--dim)">（付費解鎖 $9.9）</span>',
+    price_badge:'💳 定價', price_title:'簡單透明的定價',
+    price_sub:'Stripe 信用卡 · 微信支付（CNY &amp; HKD）· 14 天免費試用',
+    s1:'1 個 WhatsApp 號碼', s2:'無限 AI 對話', s3:'訂單查詢自動回覆', s4:'棄購挽回',
+    g1:'3 個 WhatsApp 號碼', g2:'自動折扣碼', g3:'CRM 整合', g4:'數據分析面板',
+    e1:'私有化部署', e2:'無限號碼', e3:'自訂 AI 訓練', e4:'專屬支援',
+    wechat_pay:'微信支付', trial:'14 天免費 · 之後 $29/月', trial_g:'14 天免費 · 之後 $79/月', trial_e:'可客製化報價',
+    wc_note:'付款備註：方案名稱 + 電郵<br>24 小時內開通帳戶',
+    threat_last_updated:'最後更新',
+    scan_loading:'🔍 掃描中…',
+    scan_safe:'✅ 未發現已知威脅。該 Skill 不在威脅庫中，仍建議確認來源、維護者身份及必要權限。',
+    scan_danger:'🚨 高危威脅確認！該 Skill 已被標記為惡意或高風險。強烈建議不要安裝，如已安裝請立即移除並檢查系統。',
+    scan_warn:'⚠️ 存在風險提示：該 Skill 符合中危風險規則，請仔細評估來源和程式碼後再決定是否安裝。',
+    scan_at:'已掃描',
+  },
+  'zh-CN': {
+    nav_academy:'🎓 学院', nav_usecase:'🦞 实战案例', nav_pricing:'定价', nav_contact:'联系', nav_scan:'免费检测 →',
+    hero_badge:'🚨 实时威胁监控中 · 最新威胁：agent-reach（2026-03-18）',
+    hero_h1:'安装 Skill 之前<br><em>先检测一下</em>',
+    hero_p:'OpenClaw / AI Agent 生态里存在伪装成有用工具的恶意 Skill。<br>免费检测，每日更新威胁库，保护你的系统和数据。',
+    stat_scans:'实时检测次数', stat_blocked:'已拦截高危 Skill', stat_threats:'本周新增威胁', stat_free:'免费', stat_free_label:'永久免费',
+    scan_badge:'🔍 在线检测', scan_title:'立即检测 Skill 安全性',
+    scan_sub:'输入 npm 包名、GitHub 仓库地址或 Skill ID，系统实时比对已知威胁库、可疑来源及恶意代码特征。',
+    scan_btn:'立即检测 →', scan_placeholder:'npm包名 / github.com/用户名/仓库 / skill-id',
+    scan_hint:'例：agent-reach · github.com/agent-reach-io/install · install-ai-skill-*',
+    threat_badge:'🛡️ 威胁情报库', threat_title:'已知威胁 · 每日零点更新',
+    lv_high1:'🔴 HIGH — 已确认恶意', lv_high2:'🔴 HIGH — 已确认恶意', lv_high3:'🔴 HIGH — 规则匹配', lv_high4:'🔴 HIGH — 已确认恶意',
+    lv_med1:'🟡 MEDIUM — 风险提示', lv_med2:'🟡 MEDIUM — 风险提示',
+    t1_desc:'GitHub 仓库返回 404，npm 包未注册。使用非标准 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">--repository</code> 参数绕过官方 registry。已有多名受害用户。',
+    t1_date:'首次发现：2026-03-18 · 来源：OpenClaw 社区',
+    t2_desc:'agent-reach 的变体，同一攻击者。伪装成合法 AI 工具，安装后读取 workspace 文件和 API Key。',
+    t2_date:'首次发现：2026-03-18 · 关联：agent-reach',
+    t3_desc:'所有以 <code style="background:#0d1117;padding:1px 6px;border-radius:4px;font-size:12px">install-ai-skill-</code> 开头的包均有疑似远程代码执行风险，来源不明，无正规维护者。',
+    t3_date:'规则创建：2026-03-15 · 影响范围：持续监控',
+    t4_desc:'agent-reach 仿冒变体，名称相似度高，利用用户输入错误传播。安装过程要求不必要的系统权限。',
+    t4_date:'首次发现：2026-03-17 · 类型：typosquatting',
+    t5_desc:'非标准 npm 安装参数，可绕过官方 registry 检查。任何使用此参数的安装命令均应高度警惕。',
+    t5_date:'规则创建：2026-03-18 · 适用：所有 npm 安装场景',
+    t6_name:'新发布包（发布 &lt;7天，下载量为0）',
+    t6_desc:'发布时间极短且无人使用的包，可能处于传播前的潜伏期。建议等待社区验证后再安装。',
+    t6_date:'通用规则 · 持续适用',
+    counter_badge:'📊 受害统计',
+    c1:'已知受害用户', c2:'估计数据/资产损失', c3:'活跃攻击变体', c4:'首次发现至今（天）',
+    victim_badge:'😱 真实受害案例', victim_title:'他们都中了同一个招',
+    victim_sub:'以下案例来自社区用户举报，细节经当事人授权后匿名处理。',
+    v1_name:'小王，深圳 · 独立开发者', v1_loss:'API Key 泄露',
+    v1_story:'收到一条消息：<strong>"有个新 Skill 可以自动赚钱，用这个命令安装：<code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">npm install agent-reach --repository https://…</code>"</strong><br><br>安装后，Skill 在后台读取了他的 workspace，包含 OpenAI 及 Stripe 密钥。<strong>发现时密钥已被用于约 $200 的 API 请求。</strong>',
+    v2_name:'阿敏，马来西亚 · 电商卖家', v2_loss:'Shopify Token 被盗',
+    v2_story:'在 Telegram 群里看到有人分享「免费 Shopify AI 插件」，按照指引安装了 <strong>install-ai-skill-shopify</strong>。<br><br>安装脚本静默读取了 <code style="background:#161b22;padding:1px 5px;border-radius:3px;font-size:12px">.env</code> 文件。<strong>312 条客户记录在她察觉前已被外传。</strong>',
+    v3_name:'David，香港 · 自由职业者', v3_loss:'服务器被入侵',
+    v3_story:'GitHub 某账号发布了一个「OpenClaw 效率提升 Skill」，README 写得很专业，Star 数是刷的。<br><br>安装后 Skill 开了一个反向 shell，<strong>攻击者获得了 root 权限并用服务器发垃圾邮件，腾讯云账号因违规被暂停。</strong>',
+    v4_name:'老李，广州 · AI 创业者', v4_loss:'✅ 成功避险',
+    v4_story:'在朋友圈看到有人分享 <strong>agent-reach</strong>，说「可以自动接单赚钱」。执行前搜了一下，<strong>GitHub 返回 404，npm 上根本没有这个包。</strong><br><br>他立刻举报，成为本威胁库的第一条记录。',
+    v4_tag:'✅ 成功避险',
+    v5_name:'你也遇到过可疑情况？', v5_role:'提交案例，帮助更多人',
+    v5_story:'遭遇过可疑 Skill 或安装命令？发邮件告诉我们，核实后 24 小时内收录至威胁库，你的身份受到完整保护。',
+    v5_cta:'📧 举报威胁 →',
+    cta_h2:'安全之外，<span>还能用 OpenClaw 赚钱</span>',
+    cta_p:'每日更新 3 个最赚钱的 OpenClaw 项目模式，10 个真实案例全文，完整话术 + 定价策略 + 扩张路径。',
+    pill1:'📅 每日更新', pill2:'🌍 7 种语言', pill3:'🔒 安全同步', pill4:'💰 真实案例',
+    cta_btn:'进入 ClawAcademy →',
+    uc_badge:'🦞 龙虾商业化实战', uc_title:'我们如何用 WhatsClaw 变现',
+    uc_sub:'不是理论，是我们亲自跑通的真实案例。从 $1 服务器到全球收款，3 天上线。',
+    uc1_title:'Shopify 弃购挽回', uc1_desc:'WhatsApp 弃购消息 30 分钟内触发，比邮件挽回率高 3 倍。Sarah 的珠宝店第一个月额外回收 $2,840，什么都没做，只开了一个开关。',
+    uc1_link:'查看完整案例 → <span style="font-size:11px;color:var(--dim)">（付费解锁 $9.9）</span>',
+    uc2_title:'24小时 AI 客服', uc2_desc:'一个人服务 10-20 家 Shopify 店铺的 WhatsApp 客服，月收 $2,000-$16,000。AI 自动回复订单查询、退换货、产品咨询。',
+    uc2_link:'查看完整 SOP → <span style="font-size:11px;color:var(--dim)">（付费解锁 $9.9）</span>',
+    uc3_title:'付费选品情报社群', uc3_desc:'500 人付费会员群，¥99/月。AI 每天自动推送 TikTok 爆品情报。Kelvin 月收入 ¥49,500，每天只需 10 分钟审核。',
+    uc3_link:'查看完整案例 → <span style="font-size:11px;color:var(--dim)">（付费解锁 $9.9）</span>',
+    uc4_title:'3 天建站实录', uc4_desc:'从 $1 腾讯云 Lighthouse 到 OpenClaw + WhatsApp + Stripe + Shopify 全球收款完整架构，真实时间轴，每一步都可复制。',
+    uc4_link:'查看 3 天实录 → <span style="font-size:11px;color:var(--dim)">（付费解锁 $9.9）</span>',
+    price_badge:'💳 定价', price_title:'简单透明的定价',
+    price_sub:'Stripe 信用卡 · 微信支付（CNY &amp; HKD）· 14 天免费试用',
+    s1:'1 个 WhatsApp 号码', s2:'无限 AI 对话', s3:'订单查询自动回复', s4:'弃购挽回',
+    g1:'3 个 WhatsApp 号码', g2:'自动折扣码', g3:'CRM 集成', g4:'数据分析面板',
+    e1:'私有化部署', e2:'无限号码', e3:'自定义 AI 训练', e4:'专属支持',
+    wechat_pay:'微信支付', trial:'14 天免费 · 之后 $29/月', trial_g:'14 天免费 · 之后 $79/月', trial_e:'可定制报价',
+    wc_note:'付款备注：套餐名称 + 邮箱<br>24 小时内开通账户',
+    threat_last_updated:'最后更新',
+    scan_loading:'🔍 检测中…',
+    scan_safe:'✅ 未发现已知威胁。该 Skill 不在威胁库中，仍建议检查来源、维护者身份及必要权限。',
+    scan_danger:'🚨 高危威胁确认！该 Skill 已被标记为恶意或高风险。强烈建议不要安装，如已安装请立即卸载并检查系统。',
+    scan_warn:'⚠️ 存在风险提示：该 Skill 匹配中危风险规则，请仔细评估来源和代码后再决定是否安装。',
+    scan_at:'已检测',
+  }
+};
+
+var curLang = 'en';
+
+function setLang(lang) {
+  curLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const map = {'en':0,'zh-TW':1,'zh-CN':2};
+  document.querySelectorAll('.lang-btn')[map[lang]].classList.add('active');
+  const t = I18N[lang];
+  // update all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  // placeholders
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const key = el.getAttribute('data-i18n-ph');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  // html lang
+  document.documentElement.lang = lang;
+  // update threat date
+  updateCounters();
+}
+
 // ── THREAT DB ────────────────────────────────────────────────────────
 const THREATS = {
   high: ['agent-reach','agent-reach-io','install-ai-skill','agentic-reach','openclaw-hack'],
   medium: ['install-ai-plugin','unofficial-claw','claw-helper-free'],
   patterns: {
     high: [/agent.?reach/i, /install.*--repository/i, /github\.com\/agent-reach/i],
-    medium: [/^install-ai-/i, /unofficial/i, /\.exe$/, /free.*crack/i]
+    medium: [/^install-ai-/i, /unofficial/i, /free.*crack/i]
   }
 };
 
 function checkThreat(input) {
   const q = input.trim().toLowerCase();
-  for (const name of THREATS.high) { if (q.includes(name)) return 'danger'; }
-  for (const pat of THREATS.patterns.high) { if (pat.test(q)) return 'danger'; }
-  for (const name of THREATS.medium) { if (q.includes(name)) return 'warn'; }
-  for (const pat of THREATS.patterns.medium) { if (pat.test(q)) return 'warn'; }
+  for (const n of THREATS.high) { if (q.includes(n)) return 'danger'; }
+  for (const p of THREATS.patterns.high) { if (p.test(q)) return 'danger'; }
+  for (const n of THREATS.medium) { if (q.includes(n)) return 'warn'; }
+  for (const p of THREATS.patterns.medium) { if (p.test(q)) return 'warn'; }
   return 'safe';
 }
 
 function runScan() {
   const input = document.getElementById('scan-input').value;
-  if (!input.trim()) { alert('请输入要检测的内容'); return; }
+  if (!input.trim()) return;
+  const t = I18N[curLang];
   const result = document.getElementById('scan-result');
   result.className = 'scan-result loading';
   result.style.display = 'block';
-  result.textContent = '🔍 正在检测中...';
+  result.textContent = t.scan_loading;
 
-  // 增加检测计数
   var count = parseInt(localStorage.getItem('wc_scan_count') || '1247') + 1;
   localStorage.setItem('wc_scan_count', count);
   updateLiveStats();
 
   setTimeout(() => {
     const level = checkThreat(input);
-    const msgs = {
-      safe: '✅ 未发现已知威胁。该 Skill 不在威胁库中，但仍建议检查来源、维护者身份及必要权限。',
-      danger: '🚨 高危威胁确认！该 Skill 已被标记为恶意或高风险。强烈建议不要安装，如已安装请立即卸载并检查系统。',
-      warn: '⚠️ 存在风险提示：该 Skill 匹配中危风险规则，请仔细评估来源和代码后再决定是否安装。'
-    };
+    const msgs = { safe: t.scan_safe, danger: t.scan_danger, warn: t.scan_warn };
     result.className = 'scan-result ' + level;
-    result.innerHTML = msgs[level] + '<br><small style="opacity:.6;font-size:11px;display:block;margin-top:6px">🔍 已检测：' + input.replace(/</g,'&lt;') + ' · ' + new Date().toLocaleTimeString('zh-CN') + '</small>';
+    result.innerHTML = msgs[level] + '<br><small style="opacity:.6;font-size:11px;display:block;margin-top:6px">' + t.scan_at + ': ' + input.replace(/</g,'&lt;') + ' · ' + new Date().toLocaleTimeString() + '</small>';
   }, 1200);
 }
 
-document.getElementById('scan-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') runScan();
-});
+document.getElementById('scan-input').addEventListener('keydown', e => { if (e.key === 'Enter') runScan(); });
 
-// ── LIVE STATS ───────────────────────────────────────────────────────
+// ── LIVE STATS ────────────────────────────────────────────────────────
 function updateLiveStats() {
   var base = parseInt(localStorage.getItem('wc_scan_count') || '1247');
-  // 随机小幅波动，模拟实时感
   var live = base + Math.floor(Math.random() * 3);
   var el = document.getElementById('stat-scans');
   if (el) el.textContent = live.toLocaleString();
 }
 
-// 计算首次发现至今天数
 function updateCounters() {
   var first = new Date('2026-03-18');
   var now = new Date();
@@ -603,37 +809,42 @@ function updateCounters() {
   var el = document.getElementById('c-days');
   if (el) el.textContent = days;
 
-  // 更新受害人数（每天+1到+3随机增长模拟）
   var victims = 47 + Math.min(days * 2, 30);
   var ev = document.getElementById('c-victims');
   if (ev) ev.textContent = victims + '+';
 
-  // 更新威胁库日期
   var dt = document.getElementById('threat-date');
-  if (dt) dt.textContent = '最后更新：' + now.toLocaleDateString('zh-CN') + ' 00:00 · 本周新增 ' + Math.min(5 + days, 12) + ' 条';
+  if (dt) {
+    var t = I18N[curLang];
+    var addedCount = Math.min(5 + days, 12);
+    if (curLang === 'en') {
+      dt.textContent = 'Last updated: ' + now.toLocaleDateString('en-US') + ' 00:00 · ' + addedCount + ' new this week';
+    } else if (curLang === 'zh-TW') {
+      dt.textContent = '最後更新：' + now.toLocaleDateString('zh-TW') + ' 00:00 · 本週新增 ' + addedCount + ' 條';
+    } else {
+      dt.textContent = '最后更新：' + now.toLocaleDateString('zh-CN') + ' 00:00 · 本周新增 ' + addedCount + ' 条';
+    }
+  }
 }
 
 updateLiveStats();
 updateCounters();
-// 每30秒刷新一次实时数据
 setInterval(updateLiveStats, 30000);
 
 // ── WECHAT PAY ────────────────────────────────────────────────────────
 var P = {
-  starter:    { cny:'¥211',   hkd:'HK$225',  l:'Starter · 月付 ($29/mo)' },
-  growth:     { cny:'¥575',   hkd:'HK$615',  l:'Growth · 月付 ($79/mo)' },
-  enterprise: { cny:'¥1,449', hkd:'HK$1,545',l:'Enterprise · 月付 ($199/mo)' }
+  starter:    { cny:'¥211',   hkd:'HK$225',  l:'Starter · Monthly ($29/mo)' },
+  growth:     { cny:'¥575',   hkd:'HK$615',  l:'Growth · Monthly ($79/mo)' },
+  enterprise: { cny:'¥1,449', hkd:'HK$1,545',l:'Enterprise · Monthly ($199/mo)' }
 };
 var curPlan = 'growth', curCur = 'cny';
-
 function openWC(p) {
   curPlan = p || 'growth'; curCur = 'cny';
-  document.querySelectorAll('.cur-tab').forEach(function(t,i){ t.classList.toggle('active',i===0); });
-  render();
-  document.getElementById('ov').classList.add('on');
+  document.querySelectorAll('.cur-tab').forEach((t,i) => t.classList.toggle('active',i===0));
+  render(); document.getElementById('ov').classList.add('on');
 }
 function closeWC() { document.getElementById('ov').classList.remove('on'); }
-function setCur(c, el) {
+function setCur(c,el) {
   curCur = c;
   document.querySelectorAll('.cur-tab').forEach(t => t.classList.remove('active'));
   if(el) el.classList.add('active');
@@ -645,6 +856,5 @@ function render() {
   document.getElementById('lbl').textContent = d.l;
 }
 </script>
-
 </body>
 </html>
