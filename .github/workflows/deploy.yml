@@ -1,0 +1,35 @@
+name: Deploy & SSL Setup
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: 43.156.245.94
+          username: root
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e
+            cd /opt/whatsclaw/repo && git pull
+            rsync -av --exclude='.git' --exclude='images' /opt/whatsclaw/repo/ /opt/whatsclaw/landing/
+            if [ ! -f /etc/letsencrypt/live/whatsclaw.xyz/fullchain.pem ]; then
+              echo "Installing certbot and setting up SSL..."
+              yum install -y certbot python3-certbot-nginx 2>/dev/null || apt-get install -y certbot python3-certbot-nginx
+              certbot --nginx -d whatsclaw.xyz -d www.whatsclaw.xyz \
+                --non-interactive --agree-tos -m hello@whatsclaw.xyz
+              systemctl reload nginx
+              echo "SSL setup complete!"
+            else
+              echo "SSL already active, reloading nginx."
+              systemctl reload nginx
+            fi
