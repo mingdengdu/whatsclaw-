@@ -1,0 +1,45 @@
+{
+  "name": "whatsclaw",
+  "version": "1.0.0",
+  "description": "WhatsClaw MCP Server for WhatsApp × Shopify AI Commerce",
+  "homepage": "https://whatsclaw.xyz",
+  "repository": "https://github.com/mingdengdu/whatsclaw-",
+  "license": "MIT",
+  "category": "e-commerce",
+  "tags": ["shopify", "whatsapp", "ecommerce", "orders", "messaging", "cart-recovery", "broadcasts"],
+  "tools": [
+    { "name": "get_products",             "category": "commerce" },
+    { "name": "get_order",                "category": "commerce" },
+    { "name": "send_order_notification",  "category": "commerce" },
+    { "name": "create_cart_recovery",     "category": "commerce" },
+    { "name": "get_store_stats",          "category": "commerce" },
+    { "name": "classify_intent",          "category": "customer_service" },
+    { "name": "generate_reply",           "category": "customer_service" },
+    { "name": "lookup_order_by_phone",    "category": "customer_service" },
+    { "name": "escalate_to_human",        "category": "customer_service" },
+    { "name": "send_broadcast",           "category": "campaigns" },
+    { "name": "get_campaign_stats",       "category": "campaigns" },
+    { "name": "create_message_template",  "category": "campaigns" },
+    { "name": "send_message",             "category": "whatsapp" },
+    { "name": "get_conversation_history", "category": "whatsapp" },
+    { "name": "get_connection_status",    "category": "whatsapp" }
+  ],
+  "env": [
+    { "name": "SHOPIFY_STORE",      "required": true,  "description": "Shopify store domain, e.g. your-store.myshopify.com" },
+    { "name": "SHOPIFY_TOKEN",      "required": true,  "description": "Shopify Admin API access token (shpat_...)" },
+    { "name": "CLAWAPP_URL",        "required": false, "description": "WhatsClaw server URL (default: http://localhost:4000)" },
+    { "name": "WHATSCLAW_API_KEY",  "required": false, "description": "API key for authenticated WhatsClaw endpoints" }
+  ],
+  "install": {
+    "npx": "npx @whatsclaw/mcp-server",
+    "claude_desktop": {
+      "command": "npx",
+      "args": ["-y", "@whatsclaw/mcp-server"]
+    }
+  },
+  "pricing": {
+    "free": "100 API calls/month",
+    "pro":  "$29/month — unlimited",
+    "growth": "$79/month — multi-store + analytics"
+  }
+}
