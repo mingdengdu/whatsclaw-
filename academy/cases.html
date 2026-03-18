@@ -98,9 +98,71 @@ a{color:inherit;text-decoration:none}
 
 footer{text-align:center;padding:32px;color:#6e7681;font-size:13px;border-top:1px solid #21262d}
 footer a{color:#25d366}
+
+/* ── PAYWALL GATE ── */
+#paygate{display:none;position:fixed;inset:0;z-index:9999;background:rgba(13,17,23,.97);align-items:center;justify-content:center;padding:20px}
+#paygate.show{display:flex}
+.pg-box{background:#161b22;border:1px solid rgba(37,211,102,.3);border-radius:24px;padding:48px 40px;text-align:center;max-width:500px;width:100%}
+.pg-icon{font-size:56px;margin-bottom:16px}
+.pg-box h2{font-size:26px;font-weight:900;margin-bottom:10px}
+.pg-box h2 span{color:#25d366}
+.pg-box p{font-size:15px;color:#8b949e;line-height:1.75;max-width:380px;margin:0 auto 20px}
+.pg-items{display:flex;flex-direction:column;gap:8px;margin-bottom:24px;text-align:left}
+.pg-item{display:flex;align-items:center;gap:10px;background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:10px 14px;font-size:13px}
+.pg-item .v{color:#25d366;flex-shrink:0}
+.pg-price{display:inline-flex;align-items:baseline;gap:6px;margin-bottom:20px}
+.pg-val{font-size:44px;font-weight:900;color:#25d366}
+.pg-orig{font-size:14px;color:#6e7681;text-decoration:line-through}
+.pg-once{font-size:13px;color:#8b949e}
+.pg-cta{background:#25d366;color:#000;font-weight:800;font-size:16px;padding:14px 40px;border-radius:12px;text-decoration:none;display:inline-block;margin-bottom:10px}
+.pg-cta:hover{opacity:.9}
+.pg-note{font-size:12px;color:#6e7681}
+.pg-back{display:block;margin-top:14px;color:#6e7681;font-size:13px;text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
+
+<!-- PAYWALL GATE (shown if not unlocked) -->
+<div id="paygate">
+  <div class="pg-box">
+    <div class="pg-icon">🔒</div>
+    <h2>这是<span>付费内容</span></h2>
+    <p>10个真实赚钱案例完整版，包含每种方法的完整话术、定价策略和扩张路径。</p>
+    <div class="pg-items">
+      <div class="pg-item"><span class="v">✓</span>10个案例完整版 + 客户开发脚本</div>
+      <div class="pg-item"><span class="v">✓</span>每种方法定价策略表</div>
+      <div class="pg-item"><span class="v">✓</span>3天实录全文（Lighthouse → 全球收款）</div>
+      <div class="pg-item"><span class="v">✓</span>L1–L4 课程体系 + 5集视频脚本</div>
+      <div class="pg-item"><span class="v">✓</span>每日新增案例（更新至 2026-05-15）</div>
+    </div>
+    <div class="pg-price">
+      <span class="pg-val">$9.9</span>
+      <span class="pg-orig">$29</span>
+      <span class="pg-once">一次性 · 永久访问</span>
+    </div>
+    <br>
+    <a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01?client_reference_id=academy_unlock" class="pg-cta">🔓 立即解锁 — $9.9</a>
+    <div class="pg-note">Stripe 安全支付 · 付款后自动跳回此页 · 无订阅</div>
+    <a class="pg-back" href="/academy/">← 返回 Academy 首页</a>
+  </div>
+</div>
+
+<script>
+// 检查是否已解锁（localStorage 或 URL 参数）
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('unlocked')==='1'){
+    localStorage.setItem('ca_unlocked','1');
+    localStorage.setItem('ca_unlocked_ts', Date.now());
+    // 清理 URL
+    history.replaceState({},'',window.location.pathname);
+  }
+  if(localStorage.getItem('ca_unlocked')!=='1'){
+    document.getElementById('paygate').classList.add('show');
+    document.body.style.overflow='hidden';
+  }
+})();
+</script>
 <nav style="padding:16px 32px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #21262d;background:#0d1117;position:sticky;top:0;z-index:100;"><a href="https://whatsclaw.xyz" style="color:#e6edf3;text-decoration:none;font-size:20px;font-weight:900;">Whats<span style="color:#25d366">Claw</span> <span style="color:#6e7681;font-size:14px;font-weight:400;">/ Academy</span></a><div style="display:flex;gap:20px;align-items:center;"><a href="/academy/" style="color:#8b949e;font-size:14px;text-decoration:none;">← Academy首页</a><a href="https://whatsclaw.xyz#pricing" style="background:#25d366;color:#000;font-weight:700;padding:8px 20px;border-radius:8px;font-size:14px;text-decoration:none;">开始试用</a></div></nav>
 
 <!-- HERO -->

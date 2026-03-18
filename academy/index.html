@@ -131,6 +131,28 @@ footer{text-align:center;padding:40px 24px;color:var(--dim);font-size:13px;borde
 footer a{color:var(--green);text-decoration:none}
 .countdown{font-size:12px;color:var(--dim);margin-top:8px}
 
+/* ── PAYWALL ── */
+.card-path-blur{position:relative;overflow:hidden}
+.card-path-blur ol{filter:blur(4px);user-select:none;pointer-events:none;opacity:.6}
+.card-path-blur .blur-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,rgba(22,27,34,.95) 40%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:12px;gap:8px}
+.unlock-mini{background:var(--green);color:#000;font-weight:700;font-size:12px;padding:6px 16px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap}
+.unlock-mini:hover{opacity:.9}
+.unlock-badge{font-size:11px;color:var(--muted)}
+
+.paywall-banner{background:linear-gradient(135deg,#0d2318,#161b22);border:1px solid var(--green-border);border-radius:20px;padding:40px 32px;text-align:center;margin:40px 0}
+.paywall-banner h3{font-size:26px;font-weight:900;margin-bottom:10px}
+.paywall-banner h3 span{color:var(--green)}
+.paywall-banner p{font-size:15px;color:var(--muted);max-width:480px;margin:0 auto 24px}
+.paywall-price{display:inline-flex;align-items:baseline;gap:6px;margin-bottom:24px}
+.price-val{font-size:48px;font-weight:900;color:var(--green)}
+.price-orig{font-size:16px;color:var(--dim);text-decoration:line-through;margin-left:8px}
+.price-unit{font-size:14px;color:var(--muted)}
+.paywall-cta{background:var(--green);color:#000;font-weight:800;font-size:16px;padding:14px 40px;border-radius:12px;border:none;cursor:pointer;display:inline-block;text-decoration:none;margin-bottom:12px}
+.paywall-cta:hover{opacity:.9}
+.paywall-items{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px}
+.pw-item{background:rgba(37,211,102,.08);border:1px solid var(--green-border);color:var(--green);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600}
+.paywall-note{font-size:12px;color:var(--dim)}
+
 /* ── RESPONSIVE ── */
 @media(max-width:600px){
   .nav{padding:12px 16px}
@@ -206,7 +228,7 @@ footer a{color:var(--green);text-decoration:none}
         <span class="metric" data-i18n="d1.m2">⏱ 启动 3天</span>
         <span class="metric" data-i18n="d1.m3">🌐 全球市场</span>
       </div>
-      <div class="card-path">
+      <div class="card-path card-path-blur" id="path-d1">
         <strong data-i18n="copypath">📋 复制路径</strong>
         <ol>
           <li data-i18n="d1.s1">用 OpenClaw 搭建 WhatsApp AI 客服模板</li>
@@ -214,6 +236,10 @@ footer a{color:var(--green);text-decoration:none}
           <li data-i18n="d1.s3">收 $200 启动费 + $99/月维护费</li>
           <li data-i18n="d1.s4">用 Skill 标准化交付，批量复制</li>
         </ol>
+        <div class="blur-overlay">
+          <button class="unlock-mini" onclick="openPaywall()" data-i18n="unlock.btn">🔓 解锁完整 SOP</button>
+          <span class="unlock-badge" data-i18n="unlock.hint">$9.9 一次性 · 解锁全部10个案例</span>
+        </div>
       </div>
       <div class="card-source" data-i18n="d1.src">来源：Reddit r/entrepreneur + Fiverr 真实案例 · 2026-03-17</div>
     </div>
@@ -228,7 +254,7 @@ footer a{color:var(--green);text-decoration:none}
         <span class="metric" data-i18n="d2.m2">⏱ 启动 1周</span>
         <span class="metric" data-i18n="d2.m3">📦 可叠加</span>
       </div>
-      <div class="card-path">
+      <div class="card-path card-path-blur" id="path-d2">
         <strong data-i18n="copypath">📋 复制路径</strong>
         <ol>
           <li data-i18n="d2.s1">挖掘企业高频痛点（代码审查/文档/TAPD）</li>
@@ -236,6 +262,10 @@ footer a{color:var(--green);text-decoration:none}
           <li data-i18n="d2.s3">发布到 Knot 平台，设置订阅授权</li>
           <li data-i18n="d2.s4">通过 KM/iWiki 内容营销引流</li>
         </ol>
+        <div class="blur-overlay">
+          <button class="unlock-mini" onclick="openPaywall()" data-i18n="unlock.btn">🔓 解锁完整 SOP</button>
+          <span class="unlock-badge" data-i18n="unlock.hint">$9.9 一次性 · 解锁全部10个案例</span>
+        </div>
       </div>
       <div class="card-source" data-i18n="d2.src">来源：KnHub 平台数据 + 工蜂社区 · 2026-03-17</div>
     </div>
@@ -250,7 +280,7 @@ footer a{color:var(--green);text-decoration:none}
         <span class="metric" data-i18n="d3.m2">⏱ 今天就能卖</span>
         <span class="metric" data-i18n="d3.m3">👤 零技术要求</span>
       </div>
-      <div class="card-path">
+      <div class="card-path card-path-blur" id="path-d3">
         <strong data-i18n="copypath">📋 复制路径</strong>
         <ol>
           <li data-i18n="d3.s1">用 Academy 页面内容作为课程素材</li>
@@ -258,9 +288,40 @@ footer a{color:var(--green);text-decoration:none}
           <li data-i18n="d3.s3">卖 1对1 陪跑，限量 5 名控制时间成本</li>
           <li data-i18n="d3.s4">收款后用 OpenClaw 陪跑，沉淀口碑</li>
         </ol>
+        <div class="blur-overlay">
+          <button class="unlock-mini" onclick="openPaywall()" data-i18n="unlock.btn">🔓 解锁完整 SOP</button>
+          <span class="unlock-badge" data-i18n="unlock.hint">$9.9 一次性 · 解锁全部10个案例</span>
+        </div>
       </div>
       <div class="card-source" data-i18n="d3.src">来源：小红书热帖 + Twitter/X 案例研究 · 2026-03-17</div>
     </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+<!-- PAYWALL BANNER -->
+<div class="section" id="paywall-section" style="padding-top:0">
+  <div class="paywall-banner" id="paywall-banner">
+    <div class="section-badge" style="margin-bottom:14px">🔓 解锁完整版</div>
+    <h3 data-i18n="pw.title">看到摘要了？<span>完整版才是关键</span></h3>
+    <p data-i18n="pw.sub">10个真实案例全文 · 每个方法完整话术 · 定价策略 · 扩张路径 · 客户开发脚本</p>
+    <div class="paywall-items">
+      <span class="pw-item" data-i18n="pw.i1">📖 10个完整案例</span>
+      <span class="pw-item" data-i18n="pw.i2">💬 客户话术模板</span>
+      <span class="pw-item" data-i18n="pw.i3">💰 定价策略表</span>
+      <span class="pw-item" data-i18n="pw.i4">🚀 扩张路径图</span>
+      <span class="pw-item" data-i18n="pw.i5">🔄 每日新增内容</span>
+    </div>
+    <div class="paywall-price">
+      <span class="price-val">$9.9</span>
+      <span class="price-orig">$29</span>
+      <span class="price-unit" data-i18n="pw.once">一次性解锁 · 永久访问</span>
+    </div>
+    <br>
+    <a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01?client_reference_id=academy_unlock" class="paywall-cta" data-i18n="pw.cta">🔓 立即解锁 — $9.9</a>
+    <div class="paywall-note" data-i18n="pw.note">Stripe 安全支付 · 付款后自动跳回解锁页 · 无订阅</div>
   </div>
 </div>
 
@@ -482,7 +543,14 @@ const I18N = {
     "scan.danger":"🚨 已知高危威胁！此 Skill 已被标记为恶意或高风险，强烈建议不要安装。",
     "scan.warn":"⚠️ 存在风险提示：该 Skill 匹配中危风险规则，请谨慎评估后再安装。",
     "scan.empty":"请输入要检测的内容",
-    "days.to":"距更新结束还有","days.unit":"天"
+    "days.to":"距更新结束还有","days.unit":"天",
+    "unlock.btn":"🔓 解锁完整 SOP","unlock.hint":"$9.9 一次性 · 解锁全部10个案例",
+    "pw.title":"看到摘要了？<span>完整版才是关键</span>",
+    "pw.sub":"10个真实案例全文 · 每个方法完整话术 · 定价策略 · 扩张路径 · 客户开发脚本 · 3天建站实录",
+    "pw.i1":"📖 10个完整案例","pw.i2":"💬 客户话术模板","pw.i3":"💰 定价策略表","pw.i4":"🚀 扩张路径图","pw.i5":"📓 3天建站实录",
+    "pw.once":"一次性解锁 · 永久访问","pw.cta":"🔓 立即解锁 — $9.9",
+    "pw.note":"Stripe 安全支付 · 付款后自动跳回解锁页 · 无订阅",
+    "pw.unlocked":"✅ 已解锁","pw.go.cases":"查看10个完整案例 →","pw.go.journey":"查看3天建站实录 →"
   },
   en: {
     "nav.back":"← Back to Main","nav.cta":"Start Trial",
@@ -535,7 +603,14 @@ const I18N = {
     "scan.danger":"🚨 Known HIGH RISK threat! This Skill is flagged as malicious. Do NOT install.",
     "scan.warn":"⚠️ Risk detected: This Skill matches medium-risk patterns. Evaluate carefully before installing.",
     "scan.empty":"Please enter something to scan",
-    "days.to":"Updates end in","days.unit":"days"
+    "days.to":"Updates end in","days.unit":"days",
+    "unlock.btn":"🔓 Unlock Full SOP","unlock.hint":"$9.9 one-time · Unlock all 10 cases",
+    "pw.title":"Saw the summary? <span>The full version is what matters</span>",
+    "pw.sub":"10 full case studies · Complete scripts · Pricing strategies · Growth paths · Customer acquisition playbooks · 3-day build log",
+    "pw.i1":"📖 10 Full Cases","pw.i2":"💬 Customer Scripts","pw.i3":"💰 Pricing Tables","pw.i4":"🚀 Growth Paths","pw.i5":"📓 3-Day Build Log",
+    "pw.once":"One-time unlock · Permanent access","pw.cta":"🔓 Unlock Now — $9.9",
+    "pw.note":"Secure Stripe payment · Auto-redirect after purchase · No subscription",
+    "pw.unlocked":"✅ Unlocked","pw.go.cases":"View 10 Full Cases →","pw.go.journey":"View 3-Day Build Log →"
   },
   "zh-TW": {
     "nav.back":"← 返回主站","nav.cta":"開始試用",
@@ -932,6 +1007,41 @@ function updateTimes() {
 applyLang();
 updateTimes();
 setInterval(updateTimes, 60000);
+
+// ── PAYWALL LOGIC ──────────────────────────────────────────────────
+(function(){
+  // URL 参数写入解锁（Stripe success_url 带 ?unlocked=1 跳回）
+  var params = new URLSearchParams(window.location.search);
+  if(params.get('unlocked')==='1'){
+    localStorage.setItem('ca_unlocked','1');
+    localStorage.setItem('ca_unlocked_ts', Date.now());
+    history.replaceState({},'',window.location.pathname);
+  }
+  // 已解锁：移除模糊遮罩，替换 paywall banner 为已解锁状态
+  if(localStorage.getItem('ca_unlocked')==='1'){
+    document.querySelectorAll('.card-path-blur').forEach(function(el){
+      el.classList.remove('card-path-blur');
+      var ov = el.querySelector('.blur-overlay');
+      if(ov) ov.remove();
+    });
+    var pb = document.getElementById('paywall-banner');
+    if(pb){
+      pb.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;gap:14px;padding:8px 0">'
+        + '<div style="font-size:40px">🎉</div>'
+        + '<div style="font-size:20px;font-weight:900;color:#25d366">已解锁完整内容</div>'
+        + '<div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">'
+        + '<a href="/academy/cases.html" style="background:#25d366;color:#000;font-weight:700;padding:10px 24px;border-radius:10px;text-decoration:none;font-size:14px">📖 查看10个完整案例</a>'
+        + '<a href="/academy/journey.html" style="border:1px solid #30363d;color:#e6edf3;font-weight:600;padding:10px 24px;border-radius:10px;text-decoration:none;font-size:14px">📓 3天建站实录</a>'
+        + '</div></div>';
+    }
+  }
+})();
+
+function openPaywall(){
+  // 直接跳到 paywall section
+  var el = document.getElementById('paywall-section');
+  if(el) el.scrollIntoView({behavior:'smooth', block:'center'});
+}
 </script>
 
 </body>

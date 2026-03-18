@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>解锁成功 — ClawAcademy</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0d1117;color:#e6edf3;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Hiragino Sans GB',sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px}
+.box{background:#161b22;border:1px solid rgba(37,211,102,.3);border-radius:24px;padding:48px 40px;text-align:center;max-width:480px;width:100%}
+.icon{font-size:64px;margin-bottom:20px;animation:pop .4s ease both}
+@keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+h1{font-size:28px;font-weight:900;margin-bottom:8px}
+h1 span{color:#25d366}
+p{font-size:15px;color:#8b949e;line-height:1.75;margin-bottom:24px}
+.items{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left}
+.item{display:flex;align-items:center;gap:12px;background:#0d1117;border:1px solid #21262d;border-radius:10px;padding:12px 16px;font-size:14px;color:#e6edf3}
+.item .check{color:#25d366;font-size:18px;flex-shrink:0}
+.btn{background:#25d366;color:#000;font-weight:800;font-size:16px;padding:14px 36px;border-radius:12px;text-decoration:none;display:inline-block;margin-bottom:12px}
+.btn:hover{opacity:.9}
+.btn2{display:inline-block;color:#8b949e;font-size:13px;text-decoration:underline;cursor:pointer}
+.countdown{font-size:13px;color:#6e7681;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="box">
+  <div class="icon">🎉</div>
+  <h1>解锁<span>成功</span>！</h1>
+  <p>感谢支持 ClawAcademy。<br>以下内容已为你永久解锁：</p>
+  <div class="items">
+    <div class="item"><span class="check">✓</span>10个真实赚钱案例（完整版）</div>
+    <div class="item"><span class="check">✓</span>每个案例完整话术 + 定价策略 + 扩张路径</div>
+    <div class="item"><span class="check">✓</span>3天从 $1 服务器到全球收款实录</div>
+    <div class="item"><span class="check">✓</span>L1-L4 课程体系完整预览</div>
+    <div class="item"><span class="check">✓</span>5集视频教程脚本</div>
+  </div>
+  <a href="/academy/cases.html" class="btn" id="go-btn">📖 立即查看10个完整案例 →</a>
+  <br>
+  <a href="/academy/journey.html" class="btn2">或查看3天建站实录 →</a>
+  <div class="countdown" id="countdown">3秒后自动跳转...</div>
+</div>
+<script>
+// 写入解锁状态
+localStorage.setItem('ca_unlocked','1');
+localStorage.setItem('ca_unlocked_ts', Date.now());
+
+// 倒计时跳转
+var n=3;
+var timer=setInterval(function(){
+  n--;
+  var el=document.getElementById('countdown');
+  if(el) el.textContent = n>0 ? n+'秒后自动跳转...' : '跳转中...';
+  if(n<=0){clearInterval(timer);window.location.href='/academy/cases.html';}
+},1000);
+</script>
+</body>
+</html>
