@@ -415,9 +415,9 @@ footer a{color:var(--green)}
       </ul>
       <div class="pay-row">
         <a href="https://buymeacoffee.com/whatsclaw" target="_blank" class="pb s">☕ Buy me a coffee</a>
-        <button class="pb w" onclick="openWC('starter')" data-i18n="wechat_pay">WeChat Pay</button>
+        
       </div>
-      <div class="plan-trial" data-i18n="trial">14-day free · then $29/mo</div>
+      
     </div>
     <div class="plan hot">
       <div class="plan-name">⭐ Growth</div>
@@ -429,10 +429,10 @@ footer a{color:var(--green)}
         <li data-i18n="g4">Analytics dashboard</li>
       </ul>
       <div class="pay-row">
-        <a href="https://buy.stripe.com/6oU9AM5vG6xlcYQ23I3oA01" class="pb g">💳 Card</a>
-        <button class="pb w" onclick="openWC('growth')" data-i18n="wechat_pay">WeChat Pay</button>
+        <a href="https://buymeacoffee.com/whatsclaw" target="_blank" class="pb g">☕ Buy me a coffee</a>
+        
       </div>
-      <div class="plan-trial" data-i18n="trial_g">14-day free · then $79/mo</div>
+      
     </div>
     <div class="plan">
       <div class="plan-name">Enterprise</div>
@@ -444,10 +444,10 @@ footer a{color:var(--green)}
         <li data-i18n="e4">Dedicated support</li>
       </ul>
       <div class="pay-row">
-        <a href="mailto:hello@whatsclaw.xyz?subject=Enterprise" class="pb s">✉️ Contact</a>
-        <button class="pb w" onclick="openWC('enterprise')" data-i18n="wechat_pay">WeChat Pay</button>
+        
+        
       </div>
-      <div class="plan-trial" data-i18n="trial_e">Custom pricing available</div>
+      
     </div>
   </div>
 </div>
@@ -457,7 +457,7 @@ footer a{color:var(--green)}
 </footer>
 
 <!-- WECHAT MODAL -->
-<div id="ov" onclick="if(event.target===this)closeWC()">
+<div id="ov" onclick="if(event.target===this)closeWC()" style="display:none">
   <div id="box">
     <button id="xbtn" onclick="closeWC()">✕</button>
     <div id="hdr">
