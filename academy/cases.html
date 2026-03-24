@@ -100,8 +100,8 @@ footer{text-align:center;padding:32px;color:#6e7681;font-size:13px;border-top:1p
 footer a{color:#25d366}
 
 /* ── PAYWALL GATE ── */
-#paygate{display:none!important;position:fixed;inset:0;z-index:9999;background:rgba(13,17,23,.97);align-items:center;justify-content:center;padding:20px}
-#paygate.show{display:flex}
+
+
 .pg-box{background:#161b22;border:1px solid rgba(37,211,102,.3);border-radius:24px;padding:48px 40px;text-align:center;max-width:500px;width:100%}
 .pg-icon{font-size:56px;margin-bottom:16px}
 .pg-box h2{font-size:26px;font-weight:900;margin-bottom:10px}
@@ -123,9 +123,7 @@ footer a{color:#25d366}
 <body>
 
 <!-- PAYWALL GATE (shown if not unlocked) -->
-<div id="paygate">
-  <div class="pg-box">
-    <div class="pg-icon">🔒</div>
+
     <h2>这是<span>付费内容</span></h2>
     <p>10个真实赚钱案例完整版，包含每种方法的完整话术、定价策略和扩张路径。</p>
     <div class="pg-items">
@@ -158,7 +156,7 @@ footer a{color:#25d366}
     history.replaceState({},'',window.location.pathname);
   }
   if(localStorage.getItem('ca_unlocked')!=='1'){
-    document.getElementById('paygate').classList.add('show');
+    
     document.body.style.overflow='hidden';
   }
 })();
