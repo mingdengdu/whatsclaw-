@@ -40,7 +40,7 @@
         .lang-btn:hover:not(.active) { background:rgba(255,255,255,0.1); color:#e6edf3; }
 
         /* Stats */
-        .stats-section { max-width:1200px; margin:1.5rem auto; padding:0 20px;
+        .stats-section, .stats-grid { max-width:1200px; margin:1.5rem auto; padding:0 20px;
             display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
         .stat-card { background:#161b22; border:1px solid #30363d; border-radius:12px;
             padding:16px 20px; transition:.2s; }
@@ -49,17 +49,17 @@
         .stat-card.alibaba { border-left:3px solid #ED7D31; }
         .stat-card.bytedance { border-left:3px solid #70AD47; }
         .stat-card.global { border-left:3px solid #8E8E93; }
-        .stat-label { font-size:11px; color:#6e7681; margin-bottom:4px; }
-        .stat-num { font-size:2rem; font-weight:900; color:#25d366; }
-        .stat-sub { font-size:11px; color:#6e7681; margin-top:2px; }
+        .stat-label, .stat-title { font-size:11px; color:#6e7681; margin-bottom:4px; }
+        .stat-num, .stat-value { font-size:2rem; font-weight:900; color:#25d366; }
+        .stat-sub, .stat-desc { font-size:11px; color:#6e7681; margin-top:2px; }
 
         /* Filter */
-        .filter-section { max-width:1200px; margin:0 auto; padding:0 20px 1rem; }
+        .filter-section, .filter-tabs { max-width:1200px; margin:0 auto; padding:0 20px 1rem; }
         .filter-row { display:flex; gap:8px; flex-wrap:wrap; }
-        .filter-btn { border:1px solid #30363d; background:transparent; color:#8b949e;
+        .filter-btn, .filter-tab { border:1px solid #30363d; background:transparent; color:#8b949e;
             padding:6px 14px; border-radius:20px; cursor:pointer; font-size:12px; transition:.2s; }
-        .filter-btn.active { background:#25d366; color:#000; border-color:#25d366; font-weight:700; }
-        .filter-btn:hover:not(.active) { border-color:#25d366; color:#e6edf3; }
+        .filter-btn.active, .filter-tab.active { background:#25d366; color:#000; border-color:#25d366; font-weight:700; }
+        .filter-btn:hover:not(.active), .filter-tab:hover:not(.active) { border-color:#25d366; color:#e6edf3; }
 
         /* Cards grid */
         .products-grid { max-width:1200px; margin:0 auto; padding:0 20px 2rem;
@@ -101,6 +101,9 @@
         footer { background:#161b22; border-top:1px solid #30363d;
             padding:1.5rem 20px; text-align:center; color:#6e7681; font-size:12px; }
 
+
+        .footer-content { max-width:1200px; margin:0 auto; }
+        .footer-text { color:#6e7681; font-size:12px; }
         /* Hide */
         .hidden { display:none !important; }
 </style>
@@ -119,8 +122,8 @@
                 <span>OpenClaw Tracker</span>
             </div>
             <div class="lang-switch">
-                <button class="lang-btn active" data-lang="zh">中文</button>
-                <button class="lang-btn" data-lang="en">English</button>
+                <button class="lang-btn" data-lang="zh">中文</button>
+                <button class="lang-btn active" data-lang="en">English</button>
                 <button class="lang-btn" data-lang="ja">日本語</button>
             </div>
         </div>
@@ -166,7 +169,7 @@
     <footer>
         <div class="footer-content">
             <p class="footer-text" data-i18n="footer.text">OpenClaw 全球产品动态追踪 | 每日更新</p>
-            <p class="footer-text" style="margin-top: 0.5rem; opacity: 0.6;">Data updated: 2026-03-13</p>
+            <p class="footer-text" style="margin-top: 0.5rem; opacity: 0.6;">Data updated: 2026-03-25</p>
         </div>
     </footer>
 
@@ -372,7 +375,7 @@
             }
         ];
         
-        let currentLang = 'zh';
+        let currentLang = 'en';
         let currentFilter = 'all';
         
         // Language switcher
@@ -468,16 +471,5 @@
   </a>
 </div>
 
-<script>
-// Default language = EN
-document.addEventListener('DOMContentLoaded', function() {
-    var btns = document.querySelectorAll('.lang-btn');
-    btns.forEach(function(b) {
-        if (b.dataset.lang === 'en' || b.textContent.trim() === 'EN') {
-            b.click();
-        }
-    });
-});
-</script>
 </body>
 </html>
