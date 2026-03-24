@@ -190,7 +190,7 @@ footer a{color:var(--green)}
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-badge" data-i18n="hero_badge">🚨 Live Threat Monitor · Latest: agent-reach (2026-03-18)</div>
+  <div class="hero-badge" id="hero-badge">🚨 Live Threat Monitor · Latest: agent-reach (2026-03-18)</div>
   <h1 data-i18n="hero_h1">Before Installing Any Skill<br><em>Scan It First</em></h1>
   <p data-i18n="hero_p">Malicious Skills disguised as useful tools exist in the OpenClaw / AI Agent ecosystem.<br>Free scanner, daily-updated threat database, protect your system and data.</p>
 
@@ -781,6 +781,25 @@ function updateCounters() {
       dt.textContent = '最後更新：' + now.toLocaleDateString('zh-TW') + ' 00:00 · 本週新增 ' + addedCount + ' 條';
     } else {
       dt.textContent = '最后更新：' + now.toLocaleDateString('zh-CN') + ' 00:00 · 本周新增 ' + addedCount + ' 条';
+    }
+  }
+
+  // ── AUTO HERO BADGE ──
+  var badge = document.getElementById('hero-badge');
+  if (badge) {
+    var firstName = document.querySelector('.threat-name');
+    var latestName = firstName ? firstName.textContent.replace(' (wildcard)','').trim() : 'agent-reach';
+    var dates = [];
+    document.querySelectorAll('.threat-date').forEach(function(el) {
+      var m = el.textContent.match(/(\d{4}-\d{2}-\d{2})/);
+      if (m) dates.push(m[1]);
+    });
+    dates.sort().reverse();
+    var latestDate = dates.length ? dates[0] : now.toISOString().slice(0,10);
+    if (curLang === 'zh-CN' || curLang === 'zh-TW') {
+      badge.textContent = '\ud83d\udea8 实时威胁监控中 · 最新威胁：' + latestName + '（' + latestDate + '）';
+    } else {
+      badge.textContent = '\ud83d\udea8 Live Threat Monitor · Latest: ' + latestName + ' (' + latestDate + ')';
     }
   }
 }
