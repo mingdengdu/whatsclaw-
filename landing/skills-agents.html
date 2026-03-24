@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🕵️ Skills 特工 · WhatsClaw</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;
+  --border:#30363d;--text:#e6edf3;--muted:#8b949e;--dim:#6e7681;
+  --green:#25d366;--green-bg:rgba(37,211,102,.08);--green-border:rgba(37,211,102,.25);
+  --yellow:#f0c940;--yellow-bg:rgba(240,201,64,.08);--yellow-border:rgba(240,201,64,.25);
+  --red:#f85149;--red-bg:rgba(248,81,73,.08);--red-border:rgba(248,81,73,.25);
+  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.08);--blue-border:rgba(88,166,255,.25);
+  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.08);--purple-border:rgba(188,140,255,.25);
+  --orange:#ffa657;--orange-bg:rgba(255,166,87,.08);--orange-border:rgba(255,166,87,.25);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:17px;font-weight:900;color:var(--text)}
+.nav-logo span{color:var(--green)}
+.nav-sep{color:var(--border)}
+.nav-title{font-size:14px;font-weight:700;color:var(--text)}
+.nav-back{margin-left:auto;font-size:13px;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:6px}
+.nav-back:hover{color:var(--text);border-color:var(--green);text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);border-bottom:1px solid var(--border);padding:56px 24px 40px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'🕵️';position:absolute;font-size:240px;opacity:.04;top:-30px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:20px}
+.hero h1{font-size:clamp(26px,4vw,46px);font-weight:900;line-height:1.2;margin-bottom:12px}
+.hero h1 span{color:var(--green)}
+.hero-sub{font-size:15px;color:var(--muted);max-width:560px;margin:0 auto 28px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.hero-stat-num{font-size:26px;font-weight:900;color:var(--green)}
+.hero-stat-label{font-size:12px;color:var(--dim);margin-top:2px}
+
+/* SEARCH & FILTER */
+.toolbar{max-width:1100px;margin:28px auto 0;padding:0 24px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.search-box{flex:1;min-width:200px;background:var(--bg2);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-size:14px;color:var(--text);outline:none}
+.search-box:focus{border-color:var(--green)}
+.search-box::placeholder{color:var(--dim)}
+.filter-group{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{background:transparent;border:1px solid var(--border);color:var(--muted);padding:7px 14px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:600;transition:.15s}
+.filter-btn.active{background:var(--green);color:#000;border-color:var(--green)}
+.filter-btn:hover:not(.active){border-color:var(--green);color:var(--text)}
+
+/* GRID */
+.grid{max-width:1100px;margin:20px auto;padding:0 24px 64px;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+
+/* SKILL CARD */
+.skill-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;transition:.2s;position:relative;display:flex;flex-direction:column;gap:0}
+.skill-card:hover{border-color:var(--green);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.skill-card.featured{border-color:var(--green-border);background:linear-gradient(135deg,var(--bg2),rgba(37,211,102,.04))}
+
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.card-icon{font-size:28px;line-height:1}
+.card-badges{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.badge{font-size:10px;padding:2px 8px;border-radius:100px;font-weight:700}
+.badge-hot{background:var(--red-bg);border:1px solid var(--red-border);color:var(--red)}
+.badge-new{background:var(--blue-bg);border:1px solid var(--blue-border);color:var(--blue)}
+.badge-free{background:var(--green-bg);border:1px solid var(--green-border);color:var(--green)}
+.badge-pro{background:var(--purple-bg);border:1px solid var(--purple-border);color:var(--purple)}
+.badge-official{background:var(--orange-bg);border:1px solid var(--orange-border);color:var(--orange)}
+
+.card-name{font-size:16px;font-weight:800;margin-bottom:5px}
+.card-desc{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:12px;flex:1}
+.card-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.card-category{font-size:11px;color:var(--dim);background:var(--bg3);padding:3px 9px;border-radius:6px}
+.card-stars{font-size:12px;color:var(--yellow)}
+.card-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:12px;border-top:1px solid var(--border)}
+.card-install{font-family:monospace;font-size:11px;color:var(--green);background:var(--bg3);padding:5px 10px;border-radius:6px;flex:1;margin-right:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.card-copy{background:transparent;border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:6px;cursor:pointer;font-size:11px;transition:.15s;flex-shrink:0}
+.card-copy:hover{border-color:var(--green);color:var(--green)}
+.card-copy.copied{border-color:var(--green);color:var(--green);background:var(--green-bg)}
+
+/* SECTION LABEL */
+.section-label{max-width:1100px;margin:28px auto 0;padding:0 24px}
+.section-label h2{font-size:14px;font-weight:700;color:var(--muted);letter-spacing:.5px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.section-label h2 span{color:var(--green)}
+
+/* COUNT */
+.result-count{max-width:1100px;margin:16px auto 0;padding:0 24px;font-size:13px;color:var(--dim)}
+
+/* COFFEE */
+.coffee{max-width:560px;margin:0 auto 48px;padding:28px;background:var(--bg2);border:1px solid var(--border);border-radius:14px;text-align:center}
+.coffee-btn{display:inline-block;background:#FFDD00;color:#000;font-weight:700;padding:10px 24px;border-radius:8px;font-size:14px;margin-top:14px}
+.coffee-btn:hover{background:#ffe833;text-decoration:none}
+
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px;text-align:center;color:var(--dim);font-size:12px}
+
+@media(max-width:600px){
+  .hero{padding:36px 16px 28px}
+  .hero-stats{gap:24px}
+  .toolbar{flex-direction:column}
+  .search-box{width:100%}
+  .grid{grid-template-columns:1fr;padding:0 16px 40px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">Whats<span>Claw</span></a>
+  <span class="nav-sep">|</span>
+  <span class="nav-title">🕵️ Skills 特工</span>
+  <a href="/" class="nav-back">← 返回主站</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🕵️ Skills 特工队 · 全球大全</div>
+  <h1>OpenClaw <span>Skills 大全</span></h1>
+  <p class="hero-sub">精选全球最强 OpenClaw Skills，按类别整理，带评分和安装命令。找到你需要的能力，一键装上。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num" id="total-count">40+</div><div class="hero-stat-label">Skills 收录</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">分类</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">每日</div><div class="hero-stat-label">持续更新</div></div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <input class="search-box" type="text" id="search" placeholder="🔍 搜索 Skill 名称或功能...">
+  <div class="filter-group" id="filter-group">
+    <button class="filter-btn active" data-cat="all">全部</button>
+    <button class="filter-btn" data-cat="search">🔍 搜索</button>
+    <button class="filter-btn" data-cat="browser">🌐 浏览器</button>
+    <button class="filter-btn" data-cat="image">🎨 图像</button>
+    <button class="filter-btn" data-cat="data">📊 数据</button>
+    <button class="filter-btn" data-cat="code">💻 代码</button>
+    <button class="filter-btn" data-cat="content">📝 内容</button>
+    <button class="filter-btn" data-cat="tencent">🐧 腾讯内网</button>
+    <button class="filter-btn" data-cat="tool">🔧 工具</button>
+  </div>
+</div>
+
+<div class="result-count" id="result-count">显示全部 Skills</div>
+
+<div class="grid" id="skills-grid"></div>
+
+<div style="max-width:560px;margin:0 auto 48px;padding:0 24px">
+  <div class="coffee">
+    <div style="font-size:32px;margin-bottom:10px">☕</div>
+    <div style="font-size:15px;font-weight:700;margin-bottom:8px">帮你发现了好 Skill？</div>
+    <div style="font-size:13px;color:var(--muted);line-height:1.6">这个列表免费维护，持续更新。<br>觉得有用的话，请我喝杯咖啡 ☕</div>
+    <a href="https://buymeacoffee.com/whatsclaw" target="_blank" rel="noopener" class="coffee-btn">☕ Buy me a coffee</a>
+  </div>
+</div>
+
+<footer>🕵️ WhatsClaw · Skills 特工 · 持续更新 · <a href="/">返回主站</a></footer>
+
+<script>
+const skills = [
+  // 🔍 搜索类
+  {name:'搜狗搜索',icon:'🔍',cat:'search',stars:5,badges:['hot','free'],
+   desc:'外网实时搜索，国内可用，无需 API Key。比 GPT 知识库新得多，日常使用首选。',
+   install:'knot install sogo',tags:['国内可用','无需Key']},
+  {name:'Edge Browser',icon:'🌐',cat:'search',stars:5,badges:['hot','free'],
+   desc:'微软 Edge 驱动的搜索，支持 Bing，适合中英文混合搜索场景。',
+   install:'knot install edgebrowser',tags:['Bing搜索']},
+  {name:'Tavily Search',icon:'🔎',cat:'search',stars:4,badges:['pro'],
+   desc:'AI 专用搜索 API，返回结构化结果，适合需要高质量搜索结果的场景。需要 API Key。',
+   install:'knot install tavily-search',tags:['需要Key','结构化']},
+  {name:'ApeWisdom',icon:'🦍',cat:'search',stars:3,badges:['free'],
+   desc:'扫描 Reddit 热门股票情绪，r/wallstreetbets 散户动向实时追踪。',
+   install:'knot install apewisdom',tags:['股票','Reddit']},
+  {name:'Hacker News',icon:'🟠',cat:'search',stars:4,badges:['free'],
+   desc:'浏览 HN 热门、最新、Show HN、Ask HN，获取技术社区第一手资讯。',
+   install:'knot install hackernews',tags:['技术资讯']},
+
+  // 🌐 浏览器类
+  {name:'浏览器操作',icon:'🖥️',cat:'browser',stars:5,badges:['hot','free'],
+   desc:'Playwright MCP 驱动，AI 控制真实 Chrome 浏览器，自动填表、截图、抓数据，无所不能。',
+   install:'knot install browser-operation',tags:['Playwright','自动化']},
+  {name:'iSearch',icon:'🔏',cat:'browser',stars:4,badges:['tencent','official'],
+   desc:'腾讯内网检索：KM、iWiki、乐享、腾讯学院、HR、太极等内部平台一站搜索。',
+   install:'内置 Skill',tags:['腾讯内网','内部搜索']},
+
+  // 🎨 图像类
+  {name:'混元生图',icon:'🎨',cat:'image',stars:5,badges:['hot','official'],
+   desc:'腾讯混元 3.0 文生图 / 图生图，国产最强图像生成，中文提示词友好，无需翻墙。',
+   install:'knot install hy-image-generation',tags:['文生图','图生图']},
+  {name:'图片视频分析',icon:'👁️',cat:'image',stars:5,badges:['free'],
+   desc:'分析图片或视频内容，支持 JPEG/PNG/GIF/WebP 图片和 MP4/MOV 视频，发 URL 即可分析。',
+   install:'内置 Skill',tags:['视觉理解','视频分析']},
+  {name:'PDF 工具',icon:'📄',cat:'image',stars:4,badges:['free'],
+   desc:'读取、提取、合并、分割、加水印、OCR 扫描件——PDF 相关一切操作全覆盖。',
+   install:'内置 Skill',tags:['PDF','OCR']},
+
+  // 📊 数据类
+  {name:'ArXiv 论文',icon:'📚',cat:'data',stars:5,badges:['free'],
+   desc:'搜索并摘要 ArXiv 最新论文，AI / ML / CS 方向每日追踪，一句话摘要省时神器。',
+   install:'knot install arxiv-watcher',tags:['AI论文','每日更新']},
+  {name:'天气',icon:'🌤️',cat:'data',stars:3,badges:['free'],
+   desc:'全球天气和预报，通过 wttr.in 或 Open-Meteo 获取，无需 API Key。',
+   install:'内置 Skill',tags:['天气预报','无需Key']},
+  {name:'新闻摘要',icon:'📰',cat:'data',stars:4,badges:['free'],
+   desc:'从可信国际 RSS 源抓取新闻，支持生成语音摘要，每天早报不用刷手机。',
+   install:'knot install news-summary',tags:['RSS','语音摘要']},
+  {name:'CCTV新闻',icon:'📺',cat:'data',stars:3,badges:['free'],
+   desc:'获取央视新闻联播要点，按日期查询，不用看30分钟电视。',
+   install:'knot install cctv-news',tags:['新闻联播']},
+  {name:'蓝鲸大数据',icon:'📊',cat:'data',stars:4,badges:['tencent','official'],
+   desc:'通过 MCP 直接拉取蓝鲸监控数据：日志、链路、指标、告警，不经过 AI 不消耗 Token。',
+   install:'内置 Skill',tags:['腾讯内网','大数据']},
+  {name:'DataTalk',icon:'🗃️',cat:'data',stars:4,badges:['tencent','official'],
+   desc:'查询灯塔仪表盘图卡数据，分析大数据平台的仪表盘指标，支持变量传参。',
+   install:'内置 Skill',tags:['腾讯内网','仪表盘']},
+
+  // 💻 代码类
+  {name:'Claude Code 内网版',icon:'🤖',cat:'code',stars:5,badges:['hot','official'],
+   desc:'腾讯内网版 Claude Code，代码编写/审查/修复/重构的首选，有代码任务优先用它。',
+   install:'内置 Skill',tags:['代码生成','腾讯内网']},
+  {name:'工蜂 Git',icon:'🐝',cat:'code',stars:5,badges:['tencent','official'],
+   desc:'腾讯工蜂 MCP 服务：代码仓库、分支、合并请求、议题、代码审查，29个工具全覆盖。',
+   install:'内置 Skill',tags:['腾讯内网','Git','MR']},
+  {name:'MCPorter',icon:'🔌',cat:'code',stars:4,badges:['free'],
+   desc:'列出、配置、鉴权、调用 MCP Server，HTTP 或 stdio 均支持，MCP 开发必备。',
+   install:'内置 Skill',tags:['MCP','开发工具']},
+  {name:'CloudBase',icon:'☁️',cat:'code',stars:4,badges:['official'],
+   desc:'腾讯云 CloudBase AI 开发工具包，Web/小程序/原生 App 全栈开发，含数据库、云函数。',
+   install:'内置 Skill',tags:['CloudBase','全栈']},
+
+  // 📝 内容类
+  {name:'研究论文写作',icon:'🎓',cat:'content',stars:4,badges:['free'],
+   desc:'按 IEEE/ACM 格式生成正式学术论文，有引用格式、标准结构，交作业/写论文用。',
+   install:'内置 Skill',tags:['学术写作','IEEE']},
+  {name:'Skill 创作器',icon:'✨',cat:'content',stars:4,badges:['free'],
+   desc:'创建、编辑、改进、审计 AgentSkills。写新 Skill 或优化现有 SKILL.md 的专用工具。',
+   install:'内置 Skill',tags:['Skill开发','工具链']},
+  {name:'Self-Improving',icon:'🧠',cat:'content',stars:5,badges:['hot','free'],
+   desc:'跨会话学习记忆，AI 纠错后自动记录，越用越聪明。用户纠正即触发，无需手动操作。',
+   install:'内置 Skill',tags:['长期记忆','自我改进']},
+  {name:'AnswerOverflow',icon:'💬',cat:'content',stars:3,badges:['free'],
+   desc:'搜索 Discord 社区讨论的索引，找只存在于 Discord 对话里的问题答案。',
+   install:'knot install answeroverflow',tags:['Discord','社区问答']},
+
+  // 🐧 腾讯内网
+  {name:'iWiki',icon:'📖',cat:'tencent',stars:5,badges:['tencent','official'],
+   desc:'腾讯 iWiki 读写全功能：获取文档全文、搜索、目录树、创建/编辑/移动文档、管理标签评论。',
+   install:'内置 Skill',tags:['腾讯内网','知识库']},
+  {name:'KM 平台',icon:'🏆',cat:'tencent',stars:4,badges:['tencent','official'],
+   desc:'KM/乐问内容检索：找文章、看热榜、查活动，腾讯内部知识社区一站搞定。',
+   install:'内置 Skill',tags:['腾讯内网','KM']},
+  {name:'TAPD',icon:'📋',cat:'tencent',stars:5,badges:['tencent','official'],
+   desc:'TAPD 需求/缺陷/任务/迭代/Wiki 全功能操作，tapd.woa.com 链接直接解析。',
+   install:'内置 Skill',tags:['腾讯内网','项目管理']},
+  {name:'乐享知识库',icon:'📂',cat:'tencent',stars:4,badges:['tencent','official'],
+   desc:'乐享/云知知识库平台，支持文档读写、搜索、目录管理、公众号文章导入收藏。',
+   install:'内置 Skill',tags:['腾讯内网','乐享']},
+  {name:'七彩石 Rainbow',icon:'🌈',cat:'tencent',stars:4,badges:['tencent','official'],
+   desc:'七彩石配置中心 MCP 服务，查询和管理腾讯内部 Rainbow 配置。',
+   install:'内置 Skill',tags:['腾讯内网','配置中心']},
+  {name:'蓝鲸 RPC 巡检',icon:'🔵',cat:'tencent',stars:4,badges:['tencent','official'],
+   desc:'蓝鲸监控 APM 调用分析，排查 RPC 服务成功率下降、P99 耗时增加等异常。',
+   install:'内置 Skill',tags:['腾讯内网','APM']},
+
+  // 🔧 工具类
+  {name:'节点连接诊断',icon:'📡',cat:'tool',stars:4,badges:['free'],
+   desc:'诊断 OpenClaw Node 连接和配对失败，Android/iOS/macOS 伴侣 App 故障排查专用。',
+   install:'内置 Skill',tags:['诊断','Node']},
+  {name:'健康检查',icon:'🛡️',cat:'tool',stars:4,badges:['free'],
+   desc:'主机安全加固和风险评估：防火墙/SSH/系统更新检查，生成加固报告，支持定时巡检。',
+   install:'内置 Skill',tags:['安全','服务器']},
+  {name:'Knot Skills 安装',icon:'🧩',cat:'tool',stars:5,badges:['free'],
+   desc:'通过对话发现、安装、更新、卸载 Knot 平台上的 Skills，不用记命令。',
+   install:'内置 Skill',tags:['Skill管理']},
+  {name:'企业微信文档',icon:'📝',cat:'tool',stars:4,badges:['tencent','official'],
+   desc:'操作企业微信文档和智能表格：创建、编辑、新建子表、写入记录，腾讯内部文档利器。',
+   install:'内置 Skill',tags:['腾讯内网','文档']},
+  {name:'Multi-Search',icon:'🔀',cat:'tool',stars:4,badges:['free'],
+   desc:'多路搜索引擎并行查询，同时搜索多个来源，综合结果更全面。',
+   install:'knot install multi-search',tags:['并行搜索']},
+];
+
+let currentCat = 'all';
+let searchQuery = '';
+
+function renderSkills() {
+  const grid = document.getElementById('skills-grid');
+  const countEl = document.getElementById('result-count');
+  
+  let filtered = skills.filter(s => {
+    const matchCat = currentCat === 'all' || s.cat === currentCat;
+    const q = searchQuery.toLowerCase();
+    const matchSearch = !q || s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q) || (s.tags||[]).some(t=>t.toLowerCase().includes(q));
+    return matchCat && matchSearch;
+  });
+  
+  countEl.textContent = filtered.length === skills.length ? 
+    `显示全部 ${skills.length} 个 Skills` : 
+    `找到 ${filtered.length} 个 Skills`;
+  
+  grid.innerHTML = filtered.map(s => {
+    const stars = '★'.repeat(s.stars) + '☆'.repeat(5-s.stars);
+    const badgeHtml = (s.badges||[]).map(b => {
+      const map = {hot:'badge-hot',new:'badge-new',free:'badge-free',pro:'badge-pro',official:'badge-official',tencent:'badge-official'};
+      const labels = {hot:'🔥 热门',new:'✨ 新上',free:'🆓 免费',pro:'⚡ Pro',official:'🏢 官方',tencent:'🐧 内网'};
+      return `<span class="badge ${map[b]||''}">${labels[b]||b}</span>`;
+    }).join('');
+    const featured = s.badges&&(s.badges.includes('hot')||s.stars===5) ? ' featured' : '';
+    const tagHtml = (s.tags||[]).map(t=>`<span style="font-size:10px;color:var(--dim);background:var(--bg3);padding:2px 7px;border-radius:4px;margin-right:4px">${t}</span>`).join('');
+    return `
+    <div class="skill-card${featured}">
+      <div class="card-top">
+        <div class="card-icon">${s.icon}</div>
+        <div class="card-badges">${badgeHtml}</div>
+      </div>
+      <div class="card-name">${s.name}</div>
+      <div class="card-meta">
+        <div class="card-stars">${stars}</div>
+        <div>${tagHtml}</div>
+      </div>
+      <div class="card-desc">${s.desc}</div>
+      <div class="card-footer">
+        <div class="card-install">${s.install}</div>
+        <button class="card-copy" onclick="copyInstall(this,'${s.install.replace(/'/g,"\\'")}')">复制</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function copyInstall(btn, cmd) {
+  if(cmd === '内置 Skill'){
+    btn.textContent = '内置';
+    setTimeout(()=>btn.textContent='复制',1500);
+    return;
+  }
+  navigator.clipboard.writeText(cmd).then(()=>{
+    btn.textContent='✓ 已复制';
+    btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent='复制';btn.classList.remove('copied')},1500);
+  });
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCat = btn.dataset.cat;
+    renderSkills();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e=>{
+  searchQuery = e.target.value;
+  renderSkills();
+});
+
+renderSkills();
+</script>
+</body>
+</html>
