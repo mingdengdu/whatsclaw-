@@ -1,340 +1,116 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global AI Products · WhatsClaw</title>
     <style>
-        :root {
-            --primary: #25d366;
-            --secondary: #1a8a42;
-            --accent: #25d366;
-            --light: #161b22;
-            --white: #e6edf3;
-            --text: #e6edf3;
-            --bg-light: #0d1117;
-            --surface: #161b22;
-            --border: #30363d;
-            --dim: #6e7681;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        /* ── WhatsClaw Dark Theme ── */
+        * { margin:0; padding:0; box-sizing:border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-            background: var(--bg-light); min-height: 100vh;
-            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            background: #0d1117;
+            color: #e6edf3;
             line-height: 1.6;
+            min-height: 100vh;
         }
-        
+        a { color: #25d366; }
+
+        /* Nav bar (injected) */
+        .wc-nav { background:#161b22; border-bottom:1px solid #30363d; padding:12px 20px;
+            display:flex; align-items:center; gap:16px; position:sticky; top:0; z-index:100; }
+        .wc-nav a { color:#25d366; text-decoration:none; font-size:13px; font-weight:600; }
+        .wc-nav .sep { color:#30363d; }
+        .wc-nav .title { color:#e6edf3; font-size:13px; font-weight:700; }
+        .wc-nav .updated { margin-left:auto; color:#6e7681; font-size:11px; }
+
         /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            color: var(--white);
-            padding: 2rem 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--white);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        
-        /* Language Switcher */
-        .lang-switch {
-            display: flex;
-            gap: 8px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px;
-            border-radius: 25px;
-        }
-        
-        .lang-btn {
-            padding: 8px 16px;
-            border: none;
-            background: transparent;
-            color: var(--white);
-            cursor: pointer;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-        }
-        
-        .lang-btn.active {
-            background: var(--white);
-            color: var(--primary);
-        }
-        
-        .lang-btn:hover:not(.active) {
-            background: rgba(255,255,255,0.2);
-        }
-        
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 20px;
-        }
-        
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        
-        .stat-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-card.tencent { border-left: 4px solid #4472C4; }
-        .stat-card.alibaba { border-left: 4px solid #ED7D31; }
-        .stat-card.bytedance { border-left: 4px solid #70AD47; }
-        .stat-card.global { border-left: 4px solid #636366; }
-        
-        .stat-title {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--primary);
-        }
-        
-        .stat-desc {
-            font-size: 0.85rem;
-            color: #888;
-            margin-top: 0.5rem;
-        }
-        
-        /* Filter Tabs */
-        .filter-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .filter-tab {
-            padding: 10px 20px;
-            border: none;
-            background: var(--white);
-            color: var(--text);
-            cursor: pointer;
-            border-radius: 25px;
-            font-size: 0.9rem;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        
-        .filter-tab.active {
-            background: var(--primary);
-            color: var(--white);
-        }
-        
-        .filter-tab:hover:not(.active) {
-            background: var(--light);
-        }
-        
-        /* Product Cards */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .product-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-        }
-        
-        .product-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
-        }
-        
-        .card-header {
-            padding: 1.2rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--white);
-        }
-        
-        .card-header.alibaba { background: linear-gradient(135deg, #ED7D31 0%, #F5A623 100%); }
-        .card-header.bytedance { background: linear-gradient(135deg, #70AD47 0%, #9DC668 100%); }
-        .card-header.global { background: linear-gradient(135deg, #636366 0%, #8E8E93 100%); }
-        
-        .card-date {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            margin-bottom: 0.3rem;
-        }
-        
-        .card-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-        
-        .card-type {
-            display: inline-block;
-            padding: 3px 10px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 15px;
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
-        }
-        
-        .card-body {
-            padding: 1.2rem;
-        }
-        
-        .card-desc {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.7;
-        }
-        
-        .card-footer {
-            padding: 1rem 1.2rem;
-            border-top: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .company-tag {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.85rem;
-            color: #666;
-        }
-        
-        .company-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-        
-        .tencent .company-dot { background: #4472C4; }
-        .alibaba .company-dot { background: #ED7D31; }
-        .bytedance .company-dot { background: #70AD47; }
-        .global .company-dot { background: #636366; }
-        
-        .card-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        .card-link:hover {
-            text-decoration: underline;
-        }
-        
+        header { background:#161b22; border-bottom:1px solid #30363d; padding:2rem 0; }
+        .header-content { max-width:1200px; margin:0 auto; padding:0 20px;
+            display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; }
+        .header-text h1 { font-size:1.8rem; font-weight:800; color:#e6edf3; }
+        .header-text p { font-size:0.9rem; color:#6e7681; margin-top:0.3rem; }
+
+        /* Lang switch */
+        .lang-switch { display:flex; gap:6px; background:rgba(255,255,255,0.05);
+            border-radius:8px; padding:4px; }
+        .lang-btn { border:none; cursor:pointer; padding:6px 14px; border-radius:6px;
+            background:transparent; color:#8b949e; font-size:12px; font-weight:600; transition:.2s; }
+        .lang-btn.active { background:#25d366; color:#000; }
+        .lang-btn:hover:not(.active) { background:rgba(255,255,255,0.1); color:#e6edf3; }
+
+        /* Stats */
+        .stats-section { max-width:1200px; margin:1.5rem auto; padding:0 20px;
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; }
+        .stat-card { background:#161b22; border:1px solid #30363d; border-radius:12px;
+            padding:16px 20px; transition:.2s; }
+        .stat-card:hover { border-color:#25d366; }
+        .stat-card.tencent { border-left:3px solid #4472C4; }
+        .stat-card.alibaba { border-left:3px solid #ED7D31; }
+        .stat-card.bytedance { border-left:3px solid #70AD47; }
+        .stat-card.global { border-left:3px solid #8E8E93; }
+        .stat-label { font-size:11px; color:#6e7681; margin-bottom:4px; }
+        .stat-num { font-size:2rem; font-weight:900; color:#25d366; }
+        .stat-sub { font-size:11px; color:#6e7681; margin-top:2px; }
+
+        /* Filter */
+        .filter-section { max-width:1200px; margin:0 auto; padding:0 20px 1rem; }
+        .filter-row { display:flex; gap:8px; flex-wrap:wrap; }
+        .filter-btn { border:1px solid #30363d; background:transparent; color:#8b949e;
+            padding:6px 14px; border-radius:20px; cursor:pointer; font-size:12px; transition:.2s; }
+        .filter-btn.active { background:#25d366; color:#000; border-color:#25d366; font-weight:700; }
+        .filter-btn:hover:not(.active) { border-color:#25d366; color:#e6edf3; }
+
+        /* Cards grid */
+        .products-grid { max-width:1200px; margin:0 auto; padding:0 20px 2rem;
+            display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:16px; }
+        .product-card { background:#161b22; border:1px solid #30363d; border-radius:14px;
+            overflow:hidden; transition:.2s; }
+        .product-card:hover { border-color:#25d366; transform:translateY(-2px); }
+
+        /* Card header */
+        .card-header { padding:16px 18px 12px; }
+        .card-header.tencent { background:linear-gradient(135deg,#1a2a4a,#1e3a5f); border-bottom:1px solid #30363d; }
+        .card-header.alibaba { background:linear-gradient(135deg,#3d2010,#5a3015); border-bottom:1px solid #30363d; }
+        .card-header.bytedance { background:linear-gradient(135deg,#1a3020,#1e4025); border-bottom:1px solid #30363d; }
+        .card-header.global  { background:linear-gradient(135deg,#1e1e2e,#252535); border-bottom:1px solid #30363d; }
+        .card-date { font-size:11px; color:#8b949e; margin-bottom:4px; }
+        .card-title { font-size:15px; font-weight:700; color:#e6edf3; line-height:1.3; }
+        .card-type { display:inline-block; margin-top:6px; font-size:10px; padding:2px 8px;
+            border-radius:10px; background:rgba(255,255,255,0.1); color:#8b949e; }
+
+        /* Card body */
+        .card-body { padding:14px 18px; }
+        .card-desc { font-size:13px; color:#8b949e; line-height:1.5; margin-bottom:10px; }
+        .card-footer { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px; }
+        .company-tag { display:flex; align-items:center; gap:5px; font-size:11px; color:#6e7681; }
+        .company-dot { width:7px; height:7px; border-radius:50%; }
+        .tencent .company-dot { background:#4472C4; }
+        .alibaba .company-dot { background:#ED7D31; }
+        .bytedance .company-dot { background:#70AD47; }
+        .global .company-dot { background:#8E8E93; }
+        .card-link { font-size:12px; color:#25d366; text-decoration:none; font-weight:600; }
+        .card-link:hover { text-decoration:underline; }
+
+        /* Section title */
+        .section-header { max-width:1200px; margin:1.5rem auto 0.5rem; padding:0 20px; }
+        .section-header h2 { font-size:1rem; font-weight:700; color:#e6edf3;
+            border-left:3px solid #25d366; padding-left:10px; }
+
         /* Footer */
-        footer {
-            background: var(--accent);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
-        }
-        
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .footer-text {
-            opacity: 0.8;
-            font-size: 0.9rem;
-        }
-        
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: #666;
-        }
-        
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--light);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .products-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+        footer { background:#161b22; border-top:1px solid #30363d;
+            padding:1.5rem 20px; text-align:center; color:#6e7681; font-size:12px; }
+
+        /* Hide */
+        .hidden { display:none !important; }
+</style>
 </head>
-<body><div style="background:#161b22;border-bottom:1px solid #30363d;padding:12px 20px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100">
-  <a href="/" style="color:#25d366;text-decoration:none;font-size:13px;font-weight:600">← WhatsClaw</a>
-  <span style="color:#30363d">|</span>
-  <span style="color:#e6edf3;font-size:13px;font-weight:700">🌍 Global AI Products</span>
-  <span style="margin-left:auto;color:#6e7681;font-size:11px" id="tracker-updated">Updated: 2026-03-25</span>
-</div>
+<body><nav class="wc-nav">
+  <a href="/">← WhatsClaw</a>
+  <span class="sep">|</span>
+  <span class="title">🌍 Global AI Products</span>
+  <span class="updated" id="tracker-updated">Updated: 2026-03-25</span>
+</nav>
 
     <header>
         <div class="header-content">
@@ -691,5 +467,17 @@
     ☕ Buy me a coffee
   </a>
 </div>
+
+<script>
+// Default language = EN
+document.addEventListener('DOMContentLoaded', function() {
+    var btns = document.querySelectorAll('.lang-btn');
+    btns.forEach(function(b) {
+        if (b.dataset.lang === 'en' || b.textContent.trim() === 'EN') {
+            b.click();
+        }
+    });
+});
+</script>
 </body>
 </html>
