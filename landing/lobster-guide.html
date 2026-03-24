@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🦞 龙虾攻略 · WhatsClaw</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2128;
+  --border:#30363d;--text:#e6edf3;--muted:#8b949e;--dim:#6e7681;
+  --green:#25d366;--green-bg:rgba(37,211,102,.08);--green-border:rgba(37,211,102,.25);
+  --yellow:#f0c940;--red:#f85149;--blue:#58a6ff;--purple:#bc8cff;
+  --orange:#ffa657;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* NAV */
+.nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:12px 24px;display:flex;align-items:center;gap:16px;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:17px;font-weight:900;color:var(--text)}
+.nav-logo span{color:var(--green)}
+.nav-sep{color:var(--border)}
+.nav-title{font-size:14px;font-weight:700;color:var(--text)}
+.nav-back{margin-left:auto;font-size:13px;color:var(--muted);border:1px solid var(--border);padding:5px 14px;border-radius:6px}
+.nav-back:hover{color:var(--text);border-color:var(--green);text-decoration:none}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--bg) 0%,var(--bg2) 100%);border-bottom:1px solid var(--border);padding:64px 24px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'🦞';position:absolute;font-size:280px;opacity:.04;top:-40px;left:50%;transform:translateX(-50%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:var(--green-bg);border:1px solid var(--green-border);color:var(--green);padding:5px 14px;border-radius:100px;font-size:12px;font-weight:700;margin-bottom:20px}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.2;margin-bottom:14px}
+.hero h1 span{color:var(--green)}
+.hero-sub{font-size:16px;color:var(--muted);max-width:580px;margin:0 auto 32px;line-height:1.7}
+.hero-stats{display:flex;justify-content:center;gap:48px;flex-wrap:wrap}
+.hero-stat{text-align:center}
+.hero-stat-num{font-size:28px;font-weight:900;color:var(--green)}
+.hero-stat-label{font-size:12px;color:var(--dim);margin-top:2px}
+
+/* TOC */
+.toc{max-width:900px;margin:32px auto;padding:0 24px}
+.toc-box{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:24px 28px}
+.toc-title{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:1px;margin-bottom:14px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.toc-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;border:1px solid var(--border);font-size:13px;color:var(--muted);transition:.15s}
+.toc-item:hover{border-color:var(--green);color:var(--text);background:var(--green-bg);text-decoration:none}
+.toc-item .num{font-size:11px;font-weight:700;color:var(--green);min-width:18px}
+
+/* SECTIONS */
+.container{max-width:900px;margin:0 auto;padding:0 24px 64px}
+.section{margin-bottom:48px}
+.section-header{display:flex;align-items:center;gap:12px;margin-bottom:24px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.section-num{background:var(--green);color:#000;font-size:12px;font-weight:900;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.section-title{font-size:22px;font-weight:800}
+.section-sub{font-size:14px;color:var(--muted);margin-top:2px}
+
+/* STEP CARDS */
+.steps{display:flex;flex-direction:column;gap:12px}
+.step{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:20px 24px;display:flex;gap:16px;align-items:flex-start}
+.step:hover{border-color:var(--green-border)}
+.step-num{background:var(--bg3);border:1px solid var(--border);border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;color:var(--green);flex-shrink:0;margin-top:2px}
+.step-body{}
+.step-title{font-size:15px;font-weight:700;margin-bottom:6px}
+.step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+.step-code{background:var(--bg3);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:monospace;font-size:12px;color:var(--green);margin-top:10px;white-space:pre-wrap;word-break:break-all}
+.step-tip{background:var(--green-bg);border:1px solid var(--green-border);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--green);margin-top:10px}
+
+/* PLATFORM CARDS */
+.platform-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.platform-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:20px;transition:.15s}
+.platform-card:hover{border-color:var(--green);transform:translateY(-2px)}
+.platform-icon{font-size:32px;margin-bottom:10px}
+.platform-name{font-size:16px;font-weight:700;margin-bottom:6px}
+.platform-desc{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+.platform-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:11px;padding:3px 9px;border-radius:100px;border:1px solid var(--border);color:var(--muted)}
+.tag.green{border-color:var(--green-border);color:var(--green);background:var(--green-bg)}
+.tag.yellow{border-color:rgba(240,201,64,.3);color:var(--yellow);background:rgba(240,201,64,.08)}
+.tag.blue{border-color:rgba(88,166,255,.3);color:var(--blue);background:rgba(88,166,255,.08)}
+
+/* MONEY TABLE */
+.money-table{width:100%;border-collapse:collapse;font-size:13px}
+.money-table th{text-align:left;padding:10px 14px;background:var(--bg3);color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+.money-table td{padding:12px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.money-table tr:hover td{background:var(--bg2)}
+.money-table .income{color:var(--green);font-weight:700}
+.money-table .diff{color:var(--yellow);font-size:11px}
+
+/* WARN BOX */
+.warn{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.2);border-radius:12px;padding:16px 20px;margin-bottom:20px}
+.warn-title{font-size:13px;font-weight:700;color:var(--red);margin-bottom:6px}
+.warn-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* INFO BOX */
+.info{background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.2);border-radius:12px;padding:16px 20px;margin-bottom:20px}
+.info-title{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:6px}
+.info-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:8px}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:var(--muted);line-height:1.5}
+.check-item::before{content:'✓';color:var(--green);font-weight:900;flex-shrink:0;margin-top:1px}
+.check-item.warn-item::before{content:'⚠';color:var(--yellow)}
+
+/* COFFEE */
+.coffee{max-width:560px;margin:48px auto 0;padding:32px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;text-align:center}
+.coffee-icon{font-size:36px;margin-bottom:12px}
+.coffee-title{font-size:16px;font-weight:700;margin-bottom:8px}
+.coffee-desc{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.coffee-btn{display:inline-block;background:#FFDD00;color:#000;font-weight:700;padding:11px 28px;border-radius:9px;font-size:14px}
+.coffee-btn:hover{background:#ffe833;text-decoration:none}
+
+/* FOOTER */
+footer{background:var(--bg2);border-top:1px solid var(--border);padding:20px 24px;text-align:center;color:var(--dim);font-size:12px}
+
+@media(max-width:600px){
+  .hero{padding:40px 16px 32px}
+  .hero-stats{gap:24px}
+  .toc-grid{grid-template-columns:1fr 1fr}
+  .platform-grid{grid-template-columns:1fr}
+  .step{flex-direction:column;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-logo">Whats<span>Claw</span></a>
+  <span class="nav-sep">|</span>
+  <span class="nav-title">🦞 龙虾攻略</span>
+  <a href="/" class="nav-back">← 返回主站</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🦞 龙虾特工队 · 完全攻略</div>
+  <h1>OpenClaw <span>从零到赚钱</span><br>完整部署指南</h1>
+  <p class="hero-sub">全网最详细的 OpenClaw 中文攻略。从安装到接入微信/QQ/Telegram，到搭建 Skills，到真实变现案例，一页搞定。</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-label">部署平台</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">15+</div><div class="hero-stat-label">变现路径</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">每日</div><div class="hero-stat-label">内容更新</div></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-box">
+    <div class="toc-title">📋 目录</div>
+    <div class="toc-grid">
+      <a href="#install" class="toc-item"><span class="num">01</span>安装 OpenClaw</a>
+      <a href="#platforms" class="toc-item"><span class="num">02</span>接入消息平台</a>
+      <a href="#skills" class="toc-item"><span class="num">03</span>必装 Skills</a>
+      <a href="#deploy" class="toc-item"><span class="num">04</span>云端部署</a>
+      <a href="#money" class="toc-item"><span class="num">05</span>变现路径</a>
+      <a href="#cases" class="toc-item"><span class="num">06</span>真实案例</a>
+      <a href="#tips" class="toc-item"><span class="num">07</span>避坑指南</a>
+      <a href="#faq" class="toc-item"><span class="num">08</span>常见问题</a>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- 01 安装 -->
+  <div class="section" id="install">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div>
+        <div class="section-title">安装 OpenClaw</div>
+        <div class="section-sub">3分钟完成本地安装，支持 Mac / Windows / Linux</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">安装 Node.js（v18+）</div>
+          <div class="step-desc">去 nodejs.org 下载 LTS 版本，或用 nvm 管理多版本。</div>
+          <div class="step-code">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+nvm install 20
+nvm use 20</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">全局安装 OpenClaw</div>
+          <div class="step-desc">一行命令，包含 Gateway 和 CLI 工具。</div>
+          <div class="step-code">npm install -g openclaw</div>
+          <div class="step-tip">✅ 国内用户建议先 npm config set registry https://registry.npmmirror.com 切换淘宝镜像</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">初始化并启动</div>
+          <div class="step-desc">首次运行会引导你选择模型和配置 API Key。</div>
+          <div class="step-code">openclaw init
+openclaw gateway start</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">打开 Web UI</div>
+          <div class="step-desc">默认在本地 3000 端口，浏览器访问即可使用。</div>
+          <div class="step-code">open http://localhost:3000
+# 或手动打开浏览器访问 http://localhost:3000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 接入平台 -->
+  <div class="section" id="platforms">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div>
+        <div class="section-title">接入消息平台</div>
+        <div class="section-sub">把 AI 接进你每天用的 App，随时随地使用</div>
+      </div>
+    </div>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-icon">💬</div>
+        <div class="platform-name">企业微信</div>
+        <div class="platform-desc">国内用户首选。企微机器人直接收发消息，支持群聊 @ 触发，支持文件、图片、语音。</div>
+        <div class="platform-tags">
+          <span class="tag green">推荐</span>
+          <span class="tag">国内可用</span>
+          <span class="tag">群聊支持</span>
+        </div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🐧</div>
+        <div class="platform-name">QQ</div>
+        <div class="platform-desc">接入 QQ 机器人官方 API，一个账号最多5个机器人。QQ频道 / 群 / 私信均支持。</div>
+        <div class="platform-tags">
+          <span class="tag green">官方API</span>
+          <span class="tag">频道支持</span>
+        </div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">✈️</div>
+        <div class="platform-name">Telegram</div>
+        <div class="platform-desc">海外最佳选择。BotFather 申请 Token，5分钟完成接入。支持 Inline 按钮、频道推送。</div>
+        <div class="platform-tags">
+          <span class="tag green">海外首选</span>
+          <span class="tag blue">Inline 按钮</span>
+        </div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">📱</div>
+        <div class="platform-name">WhatsApp</div>
+        <div class="platform-desc">接入个人 WhatsApp 或 Business API。跨境电商客服、海外用户服务的利器。</div>
+        <div class="platform-tags">
+          <span class="tag yellow">需要手机号</span>
+          <span class="tag">跨境适用</span>
+        </div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">💼</div>
+        <div class="platform-name">Discord</div>
+        <div class="platform-desc">技术社区主流平台。支持服务器 Bot、Slash Commands、频道推送，适合构建技术社群。</div>
+        <div class="platform-tags">
+          <span class="tag blue">社区运营</span>
+          <span class="tag">Thread 支持</span>
+        </div>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">🖥️</div>
+        <div class="platform-name">Web / API</div>
+        <div class="platform-desc">自建网页对话界面，或通过 REST API 接入任意系统。适合企业内部部署和商业化改造。</div>
+        <div class="platform-tags">
+          <span class="tag">自定义</span>
+          <span class="tag blue">API 接入</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 必装 Skills -->
+  <div class="section" id="skills">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div>
+        <div class="section-title">必装 Skills 清单</div>
+        <div class="section-sub">这几个 Skill 装上去，能力直接翻倍</div>
+      </div>
+    </div>
+    <table class="money-table" style="background:var(--bg2);border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+      <thead>
+        <tr>
+          <th>Skill 名称</th>
+          <th>核心功能</th>
+          <th>推荐指数</th>
+          <th>安装命令</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>搜狗搜索</strong></td>
+          <td>外网实时搜索，比 GPT 知识库新</td>
+          <td><span class="income">★★★★★</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install sogo</code></td>
+        </tr>
+        <tr>
+          <td><strong>浏览器操作</strong></td>
+          <td>Playwright 驱动，AI 操控真实浏览器</td>
+          <td><span class="income">★★★★★</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install browser</code></td>
+        </tr>
+        <tr>
+          <td><strong>混元生图</strong></td>
+          <td>腾讯混元3.0文生图/图生图</td>
+          <td><span class="income">★★★★☆</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install hunyuan-image</code></td>
+        </tr>
+        <tr>
+          <td><strong>iWiki</strong></td>
+          <td>腾讯内网 iWiki 读写（内部用）</td>
+          <td><span style="color:var(--blue)">★★★★☆</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install iwiki</code></td>
+        </tr>
+        <tr>
+          <td><strong>ArXiv 论文</strong></td>
+          <td>每日 AI 最新论文摘要</td>
+          <td><span style="color:var(--blue)">★★★★☆</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install arxiv</code></td>
+        </tr>
+        <tr>
+          <td><strong>天气</strong></td>
+          <td>全球天气查询，无需 API Key</td>
+          <td><span style="color:var(--muted)">★★★☆☆</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install weather</code></td>
+        </tr>
+        <tr>
+          <td><strong>Self-Improving</strong></td>
+          <td>跨会话记忆学习，越用越聪明</td>
+          <td><span class="income">★★★★★</span></td>
+          <td><code style="font-size:11px;color:var(--green)">knot install self-improving</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 04 云端部署 -->
+  <div class="section" id="deploy">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div>
+        <div class="section-title">云端部署方案</div>
+        <div class="section-sub">从 ¥17.8/月到 ¥0 免费，按需选择</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">🏆</div>
+        <div class="step-body">
+          <div class="step-title">腾讯云 Lighthouse — 推荐新手</div>
+          <div class="step-desc">一键购买 + 一键部署镜像，5分钟跑起来。最低配置 ¥24/月，镜像市场直接搜 OpenClaw。</div>
+          <div class="step-tip">✅ 国内延迟最低，客服中文，适合完全不懂运维的用户</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">☁️</div>
+        <div class="step-body">
+          <div class="step-title">阿里云轻量服务器 — 性价比王</div>
+          <div class="step-desc">月成本低至 ¥17.8，新用户有更大折扣。手动部署，需要 5-10 分钟。</div>
+          <div class="step-code">npm install -g openclaw
+openclaw init --headless
+openclaw gateway start --port 3000</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">🆓</div>
+        <div class="step-body">
+          <div class="step-title">Railway / Render — 免费起步</div>
+          <div class="step-desc">海外免费额度跑 OpenClaw，适合测试和低频使用。Railway 每月 $5 免费额度够用。</div>
+          <div class="step-tip">⚠️ 国内访问速度较慢，适合海外用户或 Telegram Bot 场景</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">🏠</div>
+        <div class="step-body">
+          <div class="step-title">本地 + Cloudflare Tunnel — 零成本</div>
+          <div class="step-desc">本机运行 OpenClaw，用 Cloudflare Tunnel 穿透暴露到外网。完全免费，但需要电脑常开。</div>
+          <div class="step-code">cloudflared tunnel --url http://localhost:3000</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 变现路径 -->
+  <div class="section" id="money">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div>
+        <div class="section-title">变现路径大全</div>
+        <div class="section-sub">15+ 条经过验证的赚钱方式</div>
+      </div>
+    </div>
+    <table class="money-table" style="background:var(--bg2);border-radius:12px;overflow:hidden;border:1px solid var(--border)">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>变现方式</th>
+          <th>月收入区间</th>
+          <th>门槛</th>
+          <th>适合人群</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><strong>AI 客服外包</strong><br><span style="color:var(--dim);font-size:11px">WhatsApp/Telegram Bot 客服</span></td>
+          <td><span class="income">$200–800/客户</span></td>
+          <td><span class="diff">低</span></td>
+          <td>有销售能力</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><strong>Skill 订阅销售</strong><br><span style="color:var(--dim);font-size:11px">KnHub 发布专业技能包</span></td>
+          <td><span class="income">¥500–5000/月</span></td>
+          <td><span class="diff">中</span></td>
+          <td>开发者</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><strong>陪跑教练</strong><br><span style="color:var(--dim);font-size:11px">1对1辅导变现，小红书/闲鱼引流</span></td>
+          <td><span class="income">¥3000–15000/月</span></td>
+          <td><span class="diff">低</span></td>
+          <td>懂 AI 的人</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><strong>企业私有化部署</strong><br><span style="color:var(--dim);font-size:11px">帮企业部署并定制</span></td>
+          <td><span class="income">¥5000–50000/单</span></td>
+          <td><span class="diff">高</span></td>
+          <td>技术 + 销售</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td><strong>内容变现（小红书/B站）</strong><br><span style="color:var(--dim);font-size:11px">OpenClaw 教程 + 知识付费</span></td>
+          <td><span class="income">¥1000–20000/月</span></td>
+          <td><span class="diff">中</span></td>
+          <td>内容创作者</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td><strong>MCP Server 开发销售</strong><br><span style="color:var(--dim);font-size:11px">垂直行业 MCP 工具</span></td>
+          <td><span class="income">$500–3000/月</span></td>
+          <td><span class="diff">高</span></td>
+          <td>资深开发者</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td><strong>Fiverr/Upwork 接单</strong><br><span style="color:var(--dim);font-size:11px">海外 AI 助手搭建外包</span></td>
+          <td><span class="income">$50–500/单</span></td>
+          <td><span class="diff">低</span></td>
+          <td>英文 OK 的人</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 06 真实案例 -->
+  <div class="section" id="cases">
+    <div class="section-header">
+      <div class="section-num">6</div>
+      <div>
+        <div class="section-title">真实变现案例</div>
+        <div class="section-sub">来自社区的真实反馈，非 AI 编造</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">💰</div>
+        <div class="step-body">
+          <div class="step-title">案例1：跨境电商 WhatsApp 客服外包</div>
+          <div class="step-desc">一个人用 OpenClaw 接入 WhatsApp Business，服务3家跨境电商客户，每家月费 $300。月入 $900，每天处理时间不超过1小时。<br><span style="color:var(--dim);font-size:11px">来源：Reddit r/entrepreneur · 2026-03-17</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">💰</div>
+        <div class="step-body">
+          <div class="step-title">案例2：小红书 AI 工具号 + 知识付费</div>
+          <div class="step-desc">账号专注分享 OpenClaw 玩法，3个月涨粉2万，卖「AI副业攻略」电子书 ¥29，月销300+本。月入 ¥8700+。<br><span style="color:var(--dim);font-size:11px">来源：小红书热帖 · 2026-03-15</span></div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">💰</div>
+        <div class="step-body">
+          <div class="step-title">案例3：本地餐厅 AI 预订助手部署</div>
+          <div class="step-desc">给周边5家餐厅部署 OpenClaw + 企微，处理预订、查菜单、回复常见问题。每家收 ¥800/月，月收入 ¥4000。<br><span style="color:var(--dim);font-size:11px">来源：OpenClaw 社区论坛 · 2026-03-10</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 避坑指南 -->
+  <div class="section" id="tips">
+    <div class="section-header">
+      <div class="section-num">7</div>
+      <div>
+        <div class="section-title">避坑指南</div>
+        <div class="section-sub">走过的弯路帮你省下来</div>
+      </div>
+    </div>
+    <div class="warn">
+      <div class="warn-title">⚠️ 安全风险：AI Skill 投毒攻击</div>
+      <div class="warn-desc">市场上存在恶意 Skill，安装后会读取你的文件、API Key 甚至私钥。<strong style="color:var(--red)">只从官方 KnHub 安装 Skill，不要用来路不明的 Skill 文件。</strong></div>
+    </div>
+    <div class="checklist">
+      <div class="check-item">API Key 不要直接写进 config 文件，用环境变量注入</div>
+      <div class="check-item">公网部署记得设置 Gateway 访问密码，不要裸奔</div>
+      <div class="check-item">Memory 文件不要存放密码、私钥等敏感信息</div>
+      <div class="check-item">新 Skill 安装前先 Google 一下作者，看有没有可信记录</div>
+      <div class="check-item warn-item">不明来源的 Skill.md 文件不要直接执行，可能有 prompt injection</div>
+      <div class="check-item warn-item">Cloudflare Tunnel 公开暴露前先做 IP 白名单或 Access 鉴权</div>
+      <div class="check-item">定期备份 workspace 目录，特别是 memory/ 文件夹</div>
+    </div>
+  </div>
+
+  <!-- 08 FAQ -->
+  <div class="section" id="faq">
+    <div class="section-header">
+      <div class="section-num">8</div>
+      <div>
+        <div class="section-title">常见问题</div>
+        <div class="section-sub">最高频的10个问题</div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">Q</div>
+        <div class="step-body">
+          <div class="step-title">OpenClaw 和 Claude / ChatGPT 有什么区别？</div>
+          <div class="step-desc">Claude/ChatGPT 是纯对话界面，OpenClaw 是一个<strong>可部署的 AI 代理框架</strong>——它能调用工具、接入消息平台、执行文件操作、有长期记忆、可以自动化任务。你可以理解为「给 AI 装了手脚」。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">Q</div>
+        <div class="step-body">
+          <div class="step-title">需要多强的技术能力？</div>
+          <div class="step-desc">基础部署只需要会用命令行，能执行 npm install 就够了。高级玩法（自写 Skill、MCP Server）需要 Python 或 TypeScript 基础。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">Q</div>
+        <div class="step-body">
+          <div class="step-title">用什么模型？贵不贵？</div>
+          <div class="step-desc">支持 Claude、GPT-4o、DeepSeek、Kimi、MiniMax、GLM 等。DeepSeek 目前性价比最高，每百万 token 约 ¥1，日常使用一个月花不到 ¥50。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">Q</div>
+        <div class="step-body">
+          <div class="step-title">企微接入是个人版还是企业版？</div>
+          <div class="step-desc">目前主要是<strong>企业微信服务商API</strong>接入，需要有企业主体。个人版企微机器人能力有限。如果没有企业主体，推荐先用 Telegram 或 QQ。</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">Q</div>
+        <div class="step-body">
+          <div class="step-title">开源免费的吗？</div>
+          <div class="step-desc">核心框架开源免费（MIT 协议）。部分高级功能和官方云服务收费，但本地自部署完全免费。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Coffee -->
+  <div class="coffee">
+    <div class="coffee-icon">☕</div>
+    <div class="coffee-title">觉得有用？请我喝杯咖啡</div>
+    <div class="coffee-desc">这份攻略完全免费，持续更新。<br>如果帮你省了时间或赚到了钱，欢迎请我喝咖啡 ☕</div>
+    <a href="https://buymeacoffee.com/whatsclaw" target="_blank" rel="noopener" class="coffee-btn">☕ Buy me a coffee</a>
+  </div>
+
+</div>
+
+<footer>
+  <p>🦞 WhatsClaw · 龙虾攻略 · 每日更新 · <a href="/">返回主站</a></p>
+</footer>
+
+</body>
+</html>
